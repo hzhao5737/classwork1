@@ -12,6 +12,7 @@ public class Button extends Component implements ButtonInterfaceHunter {
 
 	private Action action;
 	private Color c;
+	private Color displayColor;
 	private boolean isHighlighted;
 	private String name;
 	private int x;
@@ -35,8 +36,8 @@ public class Button extends Component implements ButtonInterfaceHunter {
 	@Override
 	public void update(Graphics2D g) {
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		if(c != null) {
-			g.setColor(c);
+		if(displayColor != null){
+			g.setColor(displayColor);
 		}
 		else g.setColor(Color.gray);
 		g.fillOval(0, 0, 50, 50);
@@ -59,21 +60,23 @@ public class Button extends Component implements ButtonInterfaceHunter {
 
 	@Override
 	public void setColor(Color color) {
-		c = color;
+		this.c = color;
+		displayColor = c;
 		update();
 	}
 
 	@Override
 	public void highlight() {
 		if(c != null){
-			isHighlighted = true;
-			update();
+			displayColor = c;
 		}
+		isHighlighted = true;
+		update();
 	}
 
 	@Override
 	public void dim() {
-		c = Color.gray;
+		displayColor = Color.gray;
 		isHighlighted = false;
 		update();
 	}
