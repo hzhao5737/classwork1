@@ -8,6 +8,7 @@ import gui.components.Action;
 import gui.components.TextLabel;
 import gui.components.Visible;
 import gui.screens.ClickableScreen;
+import gui.screens.Progress;
 
 public class SimonScreenHunter extends ClickableScreen implements Runnable {
 
@@ -50,21 +51,19 @@ public class SimonScreenHunter extends ClickableScreen implements Runnable {
 	private void playSequence() {
 		ButtonInterfaceHunter b = null;
 		for(MoveInterfaceHunter m: moves){
-			if(b!=null){
-				b.dim();
-			}
+			if(b!=null)b.dim();
 			b = m.getButton();
 			b.highlight();
-			int sleepTime = (int)(2000*(2.0/(roundNumber+2)));
 			try {
-				Thread.sleep((long)sleepTime);
+				Thread.sleep((long)(2000*(2.0/(roundNumber+2))));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
 		b.dim();
 	}
-
+	}
+	
 	@Override
 	public void initAllObjects(List<Visible> viewObjects) {
 		Color[] colors = {Color.red, Color.blue, new Color(240,160,70), new Color(20,255,140), Color.yellow, new Color(180,90,210)};
@@ -81,21 +80,26 @@ public class SimonScreenHunter extends ClickableScreen implements Runnable {
 			System.out.println(b+" has x = "+b.getX()+", y ="+b.getY());
 			b.dim();
 			button[i].setAction(new Action() {
+
 				public void act() {
-					if(isUserTurn){
-						Thread blink = new Thread(new Runnable() {
+
+						Thread buttonPress = new Thread(new Runnable() {
+							
 							public void run() {
 								b.highlight();
 								try {
-									Thread.sleep(800);
+									Thread.sleep(500);
 								} catch (InterruptedException e) {
 									e.printStackTrace();
 								}
 								b.dim();
+								
 							}
 						});
-						blink.start();
-						if(moves.get(sequenceIndex).getButton() == b){
+						buttonPress.start();
+						
+
+						if(isUserTurn && moves.get(sequenceIndex).getButton() == b){
 							sequenceIndex++;
 						}else if(isUserTurn){
 							gameOver();
@@ -106,7 +110,6 @@ public class SimonScreenHunter extends ClickableScreen implements Runnable {
 							nextRound.start();
 						}
 					}
-				}
 
 			});
 			viewObjects.add(button[i]);
@@ -119,6 +122,7 @@ public class SimonScreenHunter extends ClickableScreen implements Runnable {
 		moves.add(randomMove());
 		moves.add(randomMove());
 		roundNumber = 0;
+
 		viewObjects.add(progress);
 		viewObjects.add(label);
 	}
@@ -133,10 +137,7 @@ public class SimonScreenHunter extends ClickableScreen implements Runnable {
 	}
 
 	private ProgressInterfaceHunter getProgress() {
-		/**
-		Placeholder until partner finishes implementation of ProgressInterface
-		 */
-		return null;
+		return new Progress();
 	}
 	
 	private void gameOver() {

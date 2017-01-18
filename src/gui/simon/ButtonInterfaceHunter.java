@@ -16,9 +16,4 @@ public interface ButtonInterfaceHunter extends Clickable {
 	void setAction(Action action);
 
 	void highlight();
-
-	void setX(int i);
-
-	void setY(int i);
-
 }
