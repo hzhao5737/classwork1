@@ -4,3 +4,7 @@ Hunter Zhao
 Goal: Create a game that has a RPG battle system. Created the basic screen for the title
 screen of the game. Plan to finish making the title screen and can change the screen
 to the world of the game.
+
+5-5-17
+Colored the title screen and added text. Need to be able to change text color and text
+in the future. Needs to create a new class to add new functions for the text.

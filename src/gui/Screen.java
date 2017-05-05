@@ -41,6 +41,11 @@ public abstract class Screen {
 	public int getHeight(){
 		return image.getHeight();
 	}
+	
+	public void drawBackground(Graphics2D g){
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 0, image.getWidth(), image.getHeight());
+	}
 
 	public void update() {
 		Graphics2D g = image.createGraphics();
@@ -48,8 +53,7 @@ public abstract class Screen {
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
 
-		g.setColor(Color.white);
-		g.fillRect(0, 0, image.getWidth(), image.getHeight());
+		drawBackground(g);
 		g.setColor(Color.black);
 //		for(int i = 0; i < viewObjects.size(); i++){
 //			

@@ -15,7 +15,7 @@ public class Symposium extends GUIApplication {
 	}
 
 	public static void main(String[] args) {
-		game = new Symposium(500,500);
+		game = new Symposium(640,480);
 		Thread on = new Thread(game);
 		on.start();
 	}
