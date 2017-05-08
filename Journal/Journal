@@ -1,4 +1,4 @@
-Hunter Zhao
+Hunter Zhao Period 6
 
 5-4-17
 Goal: Create a game that has a RPG battle system. Created the basic screen for the title
@@ -8,3 +8,8 @@ to the world of the game.
 5-5-17
 Colored the title screen and added text. Need to be able to change text color and text
 in the future. Needs to create a new class to add new functions for the text.
+
+5-8-17
+Created a class to be able to change the color of the text. Also researched how to use
+Keylisteners and tried to add it to the title screen. Will try change the screen after a
+key press tomorrow. 
