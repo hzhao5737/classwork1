@@ -10,13 +10,14 @@ import gui.Screen;
 import gui.components.TextLabel;
 import gui.components.Visible;
 
-public class Main extends Screen implements Runnable{
+public class Main extends Screen implements Runnable, KeyListener{
 
 	private TextLabel intro;
-	private KeyListener listener;
 
 	public Main(int width, int height) {
 		super(width, height);
+		Thread start = new Thread(this);
+		start.start();
 	}
 
 	@Override
@@ -32,22 +33,30 @@ public class Main extends Screen implements Runnable{
 
 	@Override
 	public void run() {
-		while(true){
-			listener = new KeyListener() {
-				@Override
-				public void keyTyped(KeyEvent e) {
-				}
+		
+	}
 
-				@Override
-				public void keyPressed(KeyEvent e) {
-					System.out.println("Key pressed code=" + e.getKeyCode() + ", char=" + e.getKeyChar());
-					//Symposium.game.setScreen(Symposium.worldScreen);
-				}
+	public KeyListener getKeyListener() {
+		return this;
+	}
 
-				@Override
-				public void keyReleased(KeyEvent e) {
-				}
-			};
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_SPACE){
+			System.out.println("Key pressed code=" + e.getKeyCode() + ", char=" + e.getKeyChar());
+			Symposium.game.setScreen(Symposium.worldScreen);
 		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+
 	}
 }
