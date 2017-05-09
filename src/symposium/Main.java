@@ -16,8 +16,8 @@ public class Main extends Screen implements Runnable, KeyListener{
 
 	public Main(int width, int height) {
 		super(width, height);
-		Thread start = new Thread(this);
-		start.start();
+		Thread play = new Thread(this);
+		play.start();
 	}
 
 	@Override
@@ -33,7 +33,14 @@ public class Main extends Screen implements Runnable, KeyListener{
 
 	@Override
 	public void run() {
-		
+		while(true){
+			update();
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public KeyListener getKeyListener() {
@@ -51,12 +58,12 @@ public class Main extends Screen implements Runnable, KeyListener{
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 }

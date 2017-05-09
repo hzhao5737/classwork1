@@ -11,5 +11,9 @@ in the future. Needs to create a new class to add new functions for the text.
 
 5-8-17
 Created a class to be able to change the color of the text. Also researched how to use
-Keylisteners and tried to add it to the title screen. Will try change the screen after a
-key press tomorrow. 
+KeyListeners and tried to add it to the title screen. Will try change the screen after a
+key press tomorrow.
+
+5-9-17
+Researched about KeyListeners but wasn't able change to the screen. Will try to be able
+to change screens with key presses tomorrow as well.
