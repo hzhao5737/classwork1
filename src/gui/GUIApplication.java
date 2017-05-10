@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Graphics;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
@@ -44,12 +45,17 @@ public abstract class GUIApplication extends JFrame implements Runnable {
 			if(mml != null){
 				removeMouseMotionListener(mml);
 			}
+			KeyListener kl = currentScreen.getKeyListener();
+			if(kl != null){
+				removeKeyListener(kl);
+			}
 		}
 		currentScreen = s;
 		//start listening to new screen
 		if(currentScreen != null){
 			addMouseListener(currentScreen.getMouseListener());
 			addMouseMotionListener(currentScreen.getMouseMotionListener());
+			addKeyListener(currentScreen.getKeyListener());
 		}
 	}
 	

@@ -3,6 +3,7 @@ package gui;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
@@ -72,6 +73,10 @@ public abstract class Screen {
 	}
 	
 	public MouseListener getMouseListener(){
+		return null;
+	}
+	
+	public KeyListener getKeyListener() {
 		return null;
 	}
 

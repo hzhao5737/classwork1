@@ -34,12 +34,12 @@ public class Main extends Screen implements Runnable, KeyListener{
 	@Override
 	public void run() {
 		while(true){
-			update();
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			update();
 		}
 	}
 
@@ -49,21 +49,18 @@ public class Main extends Screen implements Runnable, KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_SPACE){
-			System.out.println("Key pressed code=" + e.getKeyCode() + ", char=" + e.getKeyChar());
-			Symposium.game.setScreen(Symposium.worldScreen);
-		}
+		Symposium.game.setScreen(Symposium.worldScreen);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
