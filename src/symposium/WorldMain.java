@@ -8,7 +8,7 @@ import gui.components.Visible;
 public class WorldMain extends Screen {
 
 	public WorldMain(int width, int height) {
-		super(640, 480);
+		super(width, height);
 	}
 
 	@Override

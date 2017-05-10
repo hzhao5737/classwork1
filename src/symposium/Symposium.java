@@ -22,7 +22,7 @@ public class Symposium extends GUIApplication {
 
 	@Override
 	public void initScreen() {
-		worldScreen = new WorldMain(640,480);
+		worldScreen = new WorldMain(getWidth(),getHeight());
 		battleScreen = new BattleMain(getWidth(),getHeight());
 		mainMenu = new Main(getWidth(),getHeight());
 		setScreen(mainMenu);
