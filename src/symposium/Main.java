@@ -35,7 +35,7 @@ public class Main extends Screen implements Runnable, KeyListener{
 	public void run() {
 		while(true){
 			try {
-				Thread.sleep(100);
+				Thread.sleep(300);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
