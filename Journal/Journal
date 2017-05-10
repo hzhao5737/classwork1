@@ -17,3 +17,8 @@ key press tomorrow.
 5-9-17
 Researched about KeyListeners but wasn't able change to the screen. Will try to be able
 to change screens with key presses tomorrow as well.
+
+5-10-17
+KeyListener works and can now change screens with a key press. Had to add things to
+screen and GuiApplication. Also researched how to set an image as a background. Will try
+to set an image as a background tomorrow.
