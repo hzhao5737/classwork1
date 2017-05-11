@@ -20,7 +20,7 @@ public class WorldMain extends Screen {
 
 	@Override
 	public void initObjects(ArrayList<Visible> v) {
-		img = new Background(0,0,640,480,"resources/sampleImages/Pallet.png");
+		img = new Background(0,0,640,480,0);
 		v.add(img);
 	}
 }
