@@ -22,3 +22,8 @@ to change screens with key presses tomorrow as well.
 KeyListener works and can now change screens with a key press. Had to add things to
 screen and GuiApplication. Also researched how to set an image as a background. Will try
 to set an image as a background tomorrow.
+
+5-11-17
+Was able to set the background for the game and added new tiles to the map. Will try to
+make it easier to add tiles in the future. Will try to add a charcter that moves
+tomorrow.
