@@ -14,10 +14,8 @@ import gui.components.Visible;
 
 public class WorldMain extends Screen implements Runnable, KeyListener{
 	
-	private Background background;
-	private Background block;
-	private Background block1;
-
+	public static ArrayList<Background> back;
+	
 	public WorldMain(int width, int height) {
 		super(width, height);
 		Thread play = new Thread(this);
@@ -26,12 +24,11 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 
 	@Override
 	public void initObjects(ArrayList<Visible> v) {
-		background = new Background(0,0,640,480,0);
-		v.add(background);
-		block = new Background(64,456,32,24,1);
-		v.add(block);
-		block1 = new Background(96,456,32,24,1);
-		v.add(block1);
+		back = new ArrayList<Background>();
+		back.add(new Background(0,0,640,480,0));
+		back.add(new Background(64,456,32,24,1));
+		back.add(new Background(96,456,32,24,1));
+		v.addAll(back);
 	}
 
 	@Override
