@@ -25,5 +25,9 @@ to set an image as a background tomorrow.
 
 5-11-17
 Was able to set the background for the game and added new tiles to the map. Will try to
-make it easier to add tiles in the future. Will try to add a charcter that moves
+make it easier to add tiles in the future. Will try to add a character that moves
 tomorrow.
+
+5-12-17
+Added character today and can move it around. Will add more pictures when moving and have
+wall collisions next time hopefully.

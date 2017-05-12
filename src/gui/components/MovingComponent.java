@@ -30,8 +30,8 @@ public class MovingComponent extends Component implements Runnable {
 	}
 
 	public void setY(int y) {
-		super.setX(y);
-		posx = y;//now the actual position is synced with the pixel (screen) position
+		super.setY(y);
+		posy = y;//now the actual position is synced with the pixel (screen) position
 	}
 	
 	public void run(){
