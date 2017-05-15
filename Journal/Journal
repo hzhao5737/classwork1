@@ -31,3 +31,7 @@ tomorrow.
 5-12-17
 Added character today and can move it around. Will add more pictures when moving and have
 wall collisions next time hopefully.
+
+5-15-17
+Added more character pictures when moving and added barriers to the map. Will add more 
+barriers in the future to prevent the character from walking on buildings.

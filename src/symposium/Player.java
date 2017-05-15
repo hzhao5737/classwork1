@@ -12,6 +12,8 @@ public class Player extends MovingComponent {
 
 	private int pos;
 	public static int screen;
+	private int newX;
+	private int newY;
 
 	public Player(int x, int y, int w, int h, int pos) {
 		super(x, y, w, h);
@@ -22,9 +24,9 @@ public class Player extends MovingComponent {
 	@Override
 	public void update(Graphics2D g) {
 		String[] player = {"resources/sampleImages/PlayerD.png",
-				"resources/sampleImages/PlayerD.png",
-				"resources/sampleImages/PlayerD.png",
-		"resources/sampleImages/PlayerD.png"};
+				"resources/sampleImages/PlayerL.png",
+				"resources/sampleImages/PlayerU.png",
+		"resources/sampleImages/PlayerR.png"};
 		g = clear();
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		g.fillRect(0, 0, getWidth(), getHeight());
@@ -38,22 +40,24 @@ public class Player extends MovingComponent {
 
 	public void move() {
 		if(pos == 0 && isValid0()){
-			super.setY(getY()+40);
+			setY(getY()+40);
 		}
 		if(pos == 1 && isValid1()){
-			super.setX(getX()-36);
+			setX(getX()-36);
 		}
 		if(pos == 2 && isValid2()){
-			super.setY(getY()-40);
+			setY(getY()-40);
 		}
 		if(pos == 3 && isValid3()){
-			super.setX(getX()+36);
+			setX(getX()+36);
 		}
 	}
 
 	private boolean isValid0() {
+		newX = getX();
+		newY = getY()+40;
 		if(screen == 0){
-			if(getY() >= 660){
+			if(getY() >= 660 || outOfBounds0()){
 				return false;
 			}
 		}
@@ -61,8 +65,10 @@ public class Player extends MovingComponent {
 	}
 
 	private boolean isValid1() {
+		newX = getX()-36;
+		newY = getY();
 		if(screen == 0){
-			if(getX() <= 36){
+			if(getX() <= 36 || outOfBounds0()){
 				return false;
 			}
 		}
@@ -70,18 +76,33 @@ public class Player extends MovingComponent {
 	}
 
 	private boolean isValid2() {
-		if(screen == 1){
-			return false;
+		newX = getX();
+		newY = getY()-40;
+		if(screen == 0){
+			if(outOfBounds0()){
+				return false;
+			}
 		}
 		return true;
 	}
 
 	private boolean isValid3() {
+		newX = getX()+36;
+		newY = getY();
 		if(screen == 0){
-			if(getX() >= 648){
+			if(getX() >= 648 || outOfBounds0()){
 				return false;
 			}
 		}
 		return true;
+	}
+
+	private boolean outOfBounds0() {
+		if(((newX >= 144 && newX <= 252) && (newY >= 580))
+				|| ((newX >= 360 && newX <= 540) && (newY == 540))
+				|| ((newX >= 144 && newX <= 252) && (newY == 380))){
+			return true;
+		}
+		return false;
 	}
 }
