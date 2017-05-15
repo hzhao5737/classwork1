@@ -45,7 +45,7 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 	public void run() {
 		while(true){
 			try {
-				Thread.sleep(300);
+				Thread.sleep(30);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
