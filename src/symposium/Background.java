@@ -6,9 +6,8 @@ import java.awt.RenderingHints;
 import javax.swing.ImageIcon;
 
 import gui.components.Component;
-import gui.components.MovingComponent;
 
-public class Background extends MovingComponent{
+public class Background extends Component{
 
 	private int file;
 

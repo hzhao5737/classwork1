@@ -24,6 +24,7 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 	
 	public WorldMain(int width, int height) {
 		super(width, height);
+		Player.screen = 0;
 		Thread play = new Thread(this);
 		play.start();
 		update();
@@ -32,11 +33,11 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 	@Override
 	public void initObjects(ArrayList<Visible> v) {
 		back = new ArrayList<Background>();
-		back.add(new Background(0,0,640,480,0));
-		back.add(new Background(64,456,32,24,1));
-		back.add(new Background(96,456,32,24,1));
+		back.add(new Background(0,20,720,720,0));
+		back.add(new Background(72,700,36,40,1));
+		back.add(new Background(108,700,36,40,1));
 		v.addAll(back);
-		player = new Player(160,160,32,24,DOWN);
+		player = new Player(180,260,36,40,DOWN);
 		v.add(player);
 	}
 

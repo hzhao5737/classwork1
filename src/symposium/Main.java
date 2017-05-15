@@ -22,7 +22,7 @@ public class Main extends Screen implements Runnable, KeyListener{
 
 	@Override
 	public void initObjects(ArrayList<Visible> view) {
-		intro = new CustomTextLabel(225, 200, 250, 30, "Press Any Key To Begin",Color.white);
+		intro = new CustomTextLabel(240, 240, 250, 30, "Press Any Key To Begin",Color.white);
 		view.add(intro);
 	}
 
