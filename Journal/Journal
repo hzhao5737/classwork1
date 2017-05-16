@@ -35,3 +35,7 @@ wall collisions next time hopefully.
 5-15-17
 Added more character pictures when moving and added barriers to the map. Will add more 
 barriers in the future to prevent the character from walking on buildings.
+
+5-16-17
+Added collisions today that prevent the player from going out of bounds. Will try to move
+to different screens tomorrow.

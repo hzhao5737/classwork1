@@ -5,13 +5,15 @@ import java.awt.RenderingHints;
 
 import javax.swing.ImageIcon;
 
+import gui.Screen;
 import gui.components.Component;
 
-public class Front extends Component {
-
+public class Door extends Component {
+	
 	private int file;
+	public Screen[] screens = {Symposium.battleScreen};
 
-	public Front(int x, int y, int w, int h, int file){
+	public Door(int x, int y, int w, int h, int file){
 		super(x,y,w,h);
 		this.file = file;
 		update();
@@ -19,15 +21,16 @@ public class Front extends Component {
 
 	@Override
 	public void update(Graphics2D g) {
-		String[] frontground = {"resources/sampleImages/Block.png",
-				"resources/sampleImages/Water.png",
-				"resources/sampleImages/Fence.png",
-				"resources/sampleImages/House.png",
-				"resources/sampleImages/Lab.png"};
+		String[] door = {"resources/sampleImages/Door.png"};
 		g = clear();
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		g.fillRect(0, 0, getWidth(), getHeight());
-		ImageIcon image = new ImageIcon(frontground[file]);
+		ImageIcon image = new ImageIcon(door[file]);
 		g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(), null);
 	}
+
+	public Screen getScreen() {
+		return screens[file];
+	}
+
 }

@@ -5,6 +5,7 @@ import java.awt.RenderingHints;
 
 import javax.swing.ImageIcon;
 
+import gui.Screen;
 import gui.components.Component;
 import gui.components.MovingComponent;
 
@@ -98,6 +99,11 @@ public class Player extends MovingComponent {
 	}
 
 	private boolean outOfBounds0() {
+		for(Door d : WorldMain.door){
+			if(newX == d.getX() && newY == d.getY()){
+				Symposium.game.setScreen(Symposium.battleScreen/*d.getScreen()*/);
+			}
+		}
 		for(Front f : WorldMain.fore){
 			if((newX >= f.getX() && newX < f.getX() + f.getWidth())
 					&& (newY >= f.getY() && newY < f.getY() + f.getHeight())){
