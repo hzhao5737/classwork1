@@ -98,10 +98,11 @@ public class Player extends MovingComponent {
 	}
 
 	private boolean outOfBounds0() {
-		if(((newX >= 144 && newX <= 252) && (newY >= 580))
-				|| ((newX >= 360 && newX <= 540) && (newY == 540))
-				|| ((newX >= 144 && newX <= 252) && (newY == 380))){
-			return true;
+		for(Front f : WorldMain.fore){
+			if((newX >= f.getX() && newX < f.getX() + f.getWidth())
+					&& (newY >= f.getY() && newY < f.getY() + f.getHeight())){
+				return true;
+			}
 		}
 		return false;
 	}

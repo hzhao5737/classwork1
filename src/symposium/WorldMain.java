@@ -19,7 +19,8 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 	private static final int LEFT = 1;
 	private static final int UP = 2;
 	private static final int RIGHT = 3;
-	public static ArrayList<Background> back;
+	private static ArrayList<Background> back;
+	public static ArrayList<Front> fore;
 	public Player player;
 	
 	public WorldMain(int width, int height) {
@@ -33,10 +34,22 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 	@Override
 	public void initObjects(ArrayList<Visible> v) {
 		back = new ArrayList<Background>();
+		fore = new ArrayList<Front>();
 		back.add(new Background(0,20,720,720,0));
-		back.add(new Background(72,700,36,40,1));
-		back.add(new Background(108,700,36,40,1));
+		fore.add(new Front(36,60,36,40,0));
+		fore.add(new Front(72,60,36,40,0));
+		fore.add(new Front(108,60,36,40,0));
+		fore.add(new Front(144,60,36,40,0));
+		fore.add(new Front(180,60,36,40,0));
+		fore.add(new Front(216,60,36,40,0));
+		fore.add(new Front(252,60,36,40,0));
+		fore.add(new Front(288,60,36,40,0));
+		fore.add(new Front(324,60,36,40,0));
+		fore.add(new Front(324,20,36,40,0));
+		fore.add(new Front(72,700,36,40,0));
+		fore.add(new Front(108,700,36,40,0));
 		v.addAll(back);
+		v.addAll(fore);
 		player = new Player(180,260,36,40,DOWN);
 		v.add(player);
 	}
