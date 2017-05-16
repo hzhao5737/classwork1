@@ -36,6 +36,8 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 		back = new ArrayList<Background>();
 		fore = new ArrayList<Front>();
 		back.add(new Background(0,20,720,720,0));
+		back.add(new Background(108,220,36,40,1));
+		back.add(new Background(396,220,36,40,1));
 		fore.add(new Front(36,60,36,40,0));
 		fore.add(new Front(72,60,36,40,0));
 		fore.add(new Front(108,60,36,40,0));
@@ -46,8 +48,29 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 		fore.add(new Front(288,60,36,40,0));
 		fore.add(new Front(324,60,36,40,0));
 		fore.add(new Front(324,20,36,40,0));
+		fore.add(new Front(432,20,36,40,0));
+		fore.add(new Front(432,60,36,40,0));
+		fore.add(new Front(468,60,36,40,0));
+		fore.add(new Front(504,60,36,40,0));
+		fore.add(new Front(540,60,36,40,0));
+		fore.add(new Front(576,60,36,40,0));
+		fore.add(new Front(612,60,36,40,0));
+		fore.add(new Front(648,60,36,40,0));
 		fore.add(new Front(72,700,36,40,0));
 		fore.add(new Front(108,700,36,40,0));
+		fore.add(new Front(144,580,144,160,1));
+		fore.add(new Front(144,380,36,40,2));
+		fore.add(new Front(180,380,36,40,2));
+		fore.add(new Front(216,380,36,40,2));
+		fore.add(new Front(252,380,36,40,2));
+		fore.add(new Front(360,540,36,40,2));
+		fore.add(new Front(396,540,36,40,2));
+		fore.add(new Front(432,540,36,40,2));
+		fore.add(new Front(468,540,36,40,2));
+		fore.add(new Front(504,540,36,40,2));
+		fore.add(new Front(540,540,36,40,2));
+		fore.add(new Front(144,140,144,120,3));
+		fore.add(new Front(432,140,144,120,3));
 		v.addAll(back);
 		v.addAll(fore);
 		player = new Player(180,260,36,40,DOWN);
@@ -62,7 +85,7 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			update();
+			//update();
 		}
 	}
 	
@@ -92,6 +115,9 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 			player.setPos(RIGHT);
 			player.update();
 	        player.move();
+	    }
+		if (key == KeyEvent.VK_ENTER) {
+			player.act();
 	    }
 	}
 

@@ -106,4 +106,9 @@ public class Player extends MovingComponent {
 		}
 		return false;
 	}
+
+	public void act() {
+		// TODO Auto-generated method stub
+		
+	}
 }
