@@ -62,6 +62,11 @@ public class Player extends MovingComponent {
 				return false;
 			}
 		}
+		if(screen == 1){
+			if(getY() >= 460 || outOfBounds1()){
+				return false;
+			}
+		}
 		return true;
 	}
 
@@ -70,6 +75,11 @@ public class Player extends MovingComponent {
 		newY = getY();
 		if(screen == 0){
 			if(getX() <= 36 || outOfBounds0()){
+				return false;
+			}
+		}
+		if(screen == 1){
+			if(getX() <= 0 || outOfBounds1()){
 				return false;
 			}
 		}
@@ -84,6 +94,11 @@ public class Player extends MovingComponent {
 				return false;
 			}
 		}
+		if(screen == 1){
+			if(getY() <= 60 || outOfBounds1()){
+				return false;
+			}
+		}
 		return true;
 	}
 
@@ -95,14 +110,23 @@ public class Player extends MovingComponent {
 				return false;
 			}
 		}
+		if(screen == 1){
+			if(getX() >= 324 || outOfBounds1()){
+				return false;
+			}
+		}
 		return true;
+	}
+
+	private boolean outOfBounds1() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	private boolean outOfBounds0() {
 		for(Door d : WorldMain.door){
 			if(newX == d.getX() && newY == d.getY()){
 				Symposium.game.setScreen(d.getScreen());
-				Player.screen = 1;
 			}
 		}
 		for(Front f : WorldMain.fore){

@@ -30,6 +30,9 @@ public class Door extends Component {
 
 	public Screen getScreen() {
 		if(file == 0){
+			Player.screen = 1;
+			WorldMain.player.setX(144);
+			WorldMain.player.setY(460);
 			return Symposium.labScreen;
 		}
 		return null;

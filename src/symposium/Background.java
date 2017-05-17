@@ -20,7 +20,9 @@ public class Background extends Component{
 	@Override
 	public void update(Graphics2D g) {
 		String[] background = {"resources/sampleImages/Pallet.png",
-				"resources/sampleImages/Blank.png"};
+				"resources/sampleImages/Blank.png",
+				"resources/sampleImages/Labinside.png",
+				"resources/sampleImages/Plank.png"};
 		g = clear();
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		g.fillRect(0, 0, getWidth(), getHeight());

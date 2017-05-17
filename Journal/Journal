@@ -39,3 +39,7 @@ barriers in the future to prevent the character from walking on buildings.
 5-16-17
 Added collisions today that prevent the player from going out of bounds. Will try to move
 to different screens tomorrow.
+
+5-17-17
+Allowed the character to move to a different screen. Will add collisions to the new
+screen tomorrow and try to add actions for the player.
