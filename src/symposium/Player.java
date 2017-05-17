@@ -101,7 +101,8 @@ public class Player extends MovingComponent {
 	private boolean outOfBounds0() {
 		for(Door d : WorldMain.door){
 			if(newX == d.getX() && newY == d.getY()){
-				Symposium.game.setScreen(Symposium.battleScreen/*d.getScreen()*/);
+				Symposium.game.setScreen(d.getScreen());
+				Player.screen = 1;
 			}
 		}
 		for(Front f : WorldMain.fore){

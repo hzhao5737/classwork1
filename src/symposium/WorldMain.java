@@ -22,7 +22,7 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 	private static ArrayList<Background> back;
 	public static ArrayList<Front> fore;
 	public static ArrayList<Door> door;
-	public Player player;
+	public static Player player;
 	
 	public WorldMain(int width, int height) {
 		super(width, height);

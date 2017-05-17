@@ -11,7 +11,6 @@ import gui.components.Component;
 public class Door extends Component {
 	
 	private int file;
-	public Screen[] screens = {Symposium.battleScreen};
 
 	public Door(int x, int y, int w, int h, int file){
 		super(x,y,w,h);
@@ -30,7 +29,9 @@ public class Door extends Component {
 	}
 
 	public Screen getScreen() {
-		return screens[file];
+		if(file == 0){
+			return Symposium.labScreen;
+		}
+		return null;
 	}
-
 }
