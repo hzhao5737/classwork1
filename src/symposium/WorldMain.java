@@ -10,7 +10,9 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import gui.Screen;
+import gui.components.Button;
 import gui.components.Component;
+import gui.components.TextLabel;
 import gui.components.Visible;
 
 public class WorldMain extends Screen implements Runnable, KeyListener{
@@ -22,7 +24,10 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 	private static ArrayList<Background> back;
 	public static ArrayList<Front> fore;
 	public static ArrayList<Door> door;
+	public static ArrayList<Interact> act;
 	public static Player player;
+	public static TextLabel text;
+	private Button box;
 	
 	public WorldMain(int width, int height) {
 		super(width, height);
@@ -37,6 +42,7 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 		back = new ArrayList<Background>();
 		fore = new ArrayList<Front>();
 		door = new ArrayList<Door>();
+		act = new ArrayList<Interact>();
 		back.add(new Background(0,20,720,720,0));
 		back.add(new Background(108,220,36,40,1));
 		back.add(new Background(396,220,36,40,1));
@@ -75,11 +81,18 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 		fore.add(new Front(432,140,144,120,3));
 		fore.add(new Front(360,340,216,160,4));
 		door.add(new Door(432,460,36,40,0));
+		act.add(new Interact(180,220,36,40,0));
 		v.addAll(back);
 		v.addAll(fore);
 		v.addAll(door);
+		v.addAll(act);
 		player = new Player(180,260,36,40,DOWN);
 		v.add(player);
+		box = new Button(36, 680, 650, 50, null, null, null);
+		v.add(box);
+		text = new TextLabel(36, 680, 648, 40, "");
+		v.add(text);
+		//v.remove(v.size()-1);
 	}
 
 	@Override

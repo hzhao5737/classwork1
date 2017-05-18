@@ -21,8 +21,6 @@ public class LabMain extends Screen implements Runnable, KeyListener{
 
 	public LabMain(int width, int height) {
 		super(width, height);
-		Thread play = new Thread(this);
-		play.start();
 		update();
 	}
 	

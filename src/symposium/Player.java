@@ -139,7 +139,33 @@ public class Player extends MovingComponent {
 	}
 
 	public void act() {
-		// TODO Auto-generated method stub
-		
+		if(pos == 0){
+			for(Interact i : WorldMain.act){
+				if(getY()+40 == i.getY() && getX() == i.getX()){
+					i.act();
+				}
+			}
+		}
+		if(pos == 1){
+			for(Interact i : WorldMain.act){
+				if(getY() == i.getY() && getX()-36 == i.getX()){
+					i.act();
+				}
+			}
+		}
+		if(pos == 2){
+			for(Interact i : WorldMain.act){
+				if(getY()-40 == i.getY() && getX() == i.getX()){
+					i.act();
+				}
+			}
+		}
+		if(pos == 3){
+			for(Interact i : WorldMain.act){
+				if(getY() == i.getY() && getX()+36 == i.getX()){
+					i.act();
+				}
+			}
+		}
 	}
 }
