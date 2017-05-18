@@ -12,6 +12,7 @@ public class Graphic implements Visible {
 	private boolean loadedImages;
 	private int x;
 	private int y;
+	private boolean visible;
 
 	/**
 	 * Full size graphics constructor
@@ -154,6 +155,14 @@ public class Graphic implements Visible {
 	@Override
 	public void update() {
 		//does nothing. Image stays they same
+	}
+	
+	public boolean isVisible(){
+		return visible;
+	}
+	
+	public void setVisible(boolean b){
+		visible = b;
 	}
 
 }

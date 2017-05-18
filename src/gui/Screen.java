@@ -61,6 +61,7 @@ public abstract class Screen {
 //		}
 		for(int i = 0; i < viewObjects.size(); i++){
 			Visible v= viewObjects.get(i);
+			if(v.isVisible())
 			g.drawImage(v.getImage(), v.getX(), v.getY(), null);
 		}
 	}

@@ -15,10 +15,12 @@ public class Player extends MovingComponent {
 	public static int screen;
 	private int newX;
 	private int newY;
+	public boolean moveable;
 
 	public Player(int x, int y, int w, int h, int pos) {
 		super(x, y, w, h);
 		this.pos = pos;
+		moveable = true;
 		update();
 	}
 
@@ -58,12 +60,12 @@ public class Player extends MovingComponent {
 		newX = getX();
 		newY = getY()+40;
 		if(screen == 0){
-			if(getY() >= 660 || outOfBounds0()){
+			if(outOfBounds0() || getY() >= 660){
 				return false;
 			}
 		}
 		if(screen == 1){
-			if(getY() >= 460 || outOfBounds1()){
+			if(outOfBounds1() || getY() >= 460){
 				return false;
 			}
 		}
@@ -74,12 +76,12 @@ public class Player extends MovingComponent {
 		newX = getX()-36;
 		newY = getY();
 		if(screen == 0){
-			if(getX() <= 36 || outOfBounds0()){
+			if(outOfBounds0() || getX() <= 36){
 				return false;
 			}
 		}
 		if(screen == 1){
-			if(getX() <= 0 || outOfBounds1()){
+			if(outOfBounds1() || getX() <= 0){
 				return false;
 			}
 		}
@@ -95,7 +97,7 @@ public class Player extends MovingComponent {
 			}
 		}
 		if(screen == 1){
-			if(getY() <= 60 || outOfBounds1()){
+			if(outOfBounds1() || getY() <= 60){
 				return false;
 			}
 		}
@@ -106,12 +108,12 @@ public class Player extends MovingComponent {
 		newX = getX()+36;
 		newY = getY();
 		if(screen == 0){
-			if(getX() >= 648 || outOfBounds0()){
+			if(outOfBounds0() || getX() >= 648){
 				return false;
 			}
 		}
 		if(screen == 1){
-			if(getX() >= 324 || outOfBounds1()){
+			if(outOfBounds1() || getX() >= 324){
 				return false;
 			}
 		}
@@ -119,7 +121,17 @@ public class Player extends MovingComponent {
 	}
 
 	private boolean outOfBounds1() {
-		// TODO Auto-generated method stub
+		for(Door d : LabMain.door){
+			if(newX == d.getX() && newY == d.getY()){
+				Symposium.game.setScreen(d.getScreen());
+			}
+		}
+		for(Front f : LabMain.fore){
+			if((newX >= f.getX() && newX < f.getX() + f.getWidth())
+					&& (newY >= f.getY() && newY < f.getY() + f.getHeight())){
+				return true;
+			}
+		}
 		return false;
 	}
 
@@ -167,5 +179,11 @@ public class Player extends MovingComponent {
 				}
 			}
 		}
+	}
+
+	public void endText() {
+		WorldMain.text.setText("");
+		WorldMain.box.setVisible(false);
+		WorldMain.player.moveable = true;
 	}
 }

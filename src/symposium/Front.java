@@ -23,7 +23,8 @@ public class Front extends Component {
 				"resources/sampleImages/Water.png",
 				"resources/sampleImages/Fence.png",
 				"resources/sampleImages/House.png",
-				"resources/sampleImages/Lab.png"};
+				"resources/sampleImages/Lab.png",
+				"resources/sampleImages/Shelf.png"};
 		g = clear();
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		g.fillRect(0, 0, getWidth(), getHeight());

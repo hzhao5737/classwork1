@@ -36,6 +36,10 @@ public class LabMain extends Screen implements Runnable, KeyListener{
 		door = new ArrayList<Door>();
 		back.add(new Background(0, 20, 360, 480, 2));
 		back.add(new Background(180, 460, 36, 40, 3));
+		fore.add(new Front(0, 260, 144, 80, 5));
+		fore.add(new Front(216, 260, 144, 80, 5));
+		fore.add(new Front(216, 20, 144, 80, 5));
+		door.add(new Door(144, 500, 36, 40, 1));
 		v.addAll(back);
 		v.addAll(fore);
 		v.addAll(door);

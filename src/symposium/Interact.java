@@ -9,7 +9,6 @@ import gui.components.Component;
 
 public class Interact extends Component {
 	
-	private long current;
 	private int file;
 
 	public Interact(int x, int y, int w, int h, int file) {
@@ -30,7 +29,9 @@ public class Interact extends Component {
 
 	public void act() {
 		if(file == 0){
+			WorldMain.box.setVisible(true);
 			WorldMain.text.setText("Door is locked.");
+			WorldMain.player.moveable = false;
 		}
 	}
 }

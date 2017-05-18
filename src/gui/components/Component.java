@@ -11,12 +11,14 @@ public abstract class Component implements Visible {
 	private int w;
 	private int h;
 	private BufferedImage image;
+	private boolean visible;
 	
 	public Component(int x, int y, int w, int h) {
 		this.x = x;
 		this.y = y;
 		this.w = w;
 		this.h = h;
+		visible = true;
 		this.image = new BufferedImage(w,h,BufferedImage.TYPE_INT_ARGB);
 		update(image.createGraphics());
 	}
@@ -63,5 +65,13 @@ public abstract class Component implements Visible {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+	
+	public boolean isVisible(){
+		return visible;
+	}
+	
+	public void setVisible(boolean b){
+		visible = b;
 	}
 }

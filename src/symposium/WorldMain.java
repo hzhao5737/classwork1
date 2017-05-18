@@ -16,7 +16,7 @@ import gui.components.TextLabel;
 import gui.components.Visible;
 
 public class WorldMain extends Screen implements Runnable, KeyListener{
-	
+
 	private static final int DOWN = 0;
 	private static final int LEFT = 1;
 	private static final int UP = 2;
@@ -27,8 +27,8 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 	public static ArrayList<Interact> act;
 	public static Player player;
 	public static TextLabel text;
-	private Button box;
-	
+	public static Button box;
+
 	public WorldMain(int width, int height) {
 		super(width, height);
 		Player.screen = 0;
@@ -82,6 +82,7 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 		fore.add(new Front(360,340,216,160,4));
 		door.add(new Door(432,460,36,40,0));
 		act.add(new Interact(180,220,36,40,0));
+		act.add(new Interact(468,220,36,40,0));
 		v.addAll(back);
 		v.addAll(fore);
 		v.addAll(door);
@@ -89,10 +90,10 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 		player = new Player(180,260,36,40,DOWN);
 		v.add(player);
 		box = new Button(36, 680, 650, 50, null, null, null);
+		box.setVisible(false);
 		v.add(box);
 		text = new TextLabel(36, 680, 648, 40, "");
 		v.add(text);
-		//v.remove(v.size()-1);
 	}
 
 	@Override
@@ -106,7 +107,7 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 			//update();
 		}
 	}
-	
+
 	public KeyListener getKeyListener() {
 		return this;
 	}
@@ -114,40 +115,49 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 	@Override
 	public void keyPressed(KeyEvent k) {
 		int key = k.getKeyCode();
-		if (key == KeyEvent.VK_DOWN) {
-			player.setPos(DOWN);
-			player.update();
-	        player.move();
-	    }
-		if (key == KeyEvent.VK_LEFT) {
-			player.setPos(LEFT);
-			player.update();
-	        player.move();
-	    }
-		if (key == KeyEvent.VK_UP) {
-			player.setPos(UP);
-			player.update();
-	        player.move();
-	    }
-		if (key == KeyEvent.VK_RIGHT) {
-			player.setPos(RIGHT);
-			player.update();
-	        player.move();
-	    }
-		if (key == KeyEvent.VK_ENTER) {
-			player.act();
-	    }
+		if (key == KeyEvent.VK_ESCAPE) {
+			player.endText();
+		}
+		if(player.moveable){
+			if (key == KeyEvent.VK_DOWN) {
+				player.setPos(DOWN);
+				player.update();
+				player.move();
+			}
+			if (key == KeyEvent.VK_LEFT) {
+				player.setPos(LEFT);
+				player.update();
+				player.move();
+			}
+			if (key == KeyEvent.VK_UP) {
+				player.setPos(UP);
+				player.update();
+				player.move();
+			}
+			if (key == KeyEvent.VK_RIGHT) {
+				player.setPos(RIGHT);
+				player.update();
+				player.move();
+			}
+			if (key == KeyEvent.VK_ENTER) {
+				player.act();
+			}
+		}else{
+			if (key == KeyEvent.VK_ENTER) {
+				player.endText();
+			}
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent k) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyTyped(KeyEvent k) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

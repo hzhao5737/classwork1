@@ -43,3 +43,8 @@ to different screens tomorrow.
 5-17-17
 Allowed the character to move to a different screen. Will add collisions to the new
 screen tomorrow and try to add actions for the player.
+
+5-18-17
+Allowed the character to interact with certain objects. Also enabled and disabled text
+boxes when interacting. Disabled movement when talking and enabled when not talking. Will
+try to add more things to interact with tomorrow.
