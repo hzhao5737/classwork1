@@ -12,7 +12,7 @@ import gui.components.Visible;
 
 public class Main extends Screen implements Runnable, KeyListener{
 
-	private TextLabel intro;
+	private ArrayList<TextLabel> intro;
 
 	public Main(int width, int height) {
 		super(width, height);
@@ -22,8 +22,8 @@ public class Main extends Screen implements Runnable, KeyListener{
 
 	@Override
 	public void initObjects(ArrayList<Visible> view) {
-		intro = new CustomTextLabel(240, 240, 250, 30, "Press Any Key To Begin",Color.white);
-		view.add(intro);
+		intro.add(new CustomTextLabel(240, 240, 250, 30, "Press Any Key To Begin",Color.white));
+		view.addAll(intro);
 	}
 
 	public void drawBackground(Graphics2D g){
