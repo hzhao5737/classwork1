@@ -31,6 +31,7 @@ public class Interact extends Component {
 	public void act() {
 		if(file == 0){
 			WorldMain.box.setVisible(true);
+			isText = true;
 			WorldMain.text.setText("Door is locked.");
 			Player.moveable = false;
 		}
