@@ -48,3 +48,8 @@ screen tomorrow and try to add actions for the player.
 Allowed the character to interact with certain objects. Also enabled and disabled text
 boxes when interacting. Disabled movement when talking and enabled when not talking. Will
 try to add more things to interact with tomorrow.
+
+5-22-17
+Added a menu when the player hits spacebar. Can choose options with the number keys.
+Will need to add things to do when the numbers are hit. Will try to make the text boxes
+better tomorrow.

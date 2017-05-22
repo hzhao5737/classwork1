@@ -128,10 +128,18 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 	@Override
 	public void keyPressed(KeyEvent k) {
 		int key = k.getKeyCode();
-		if (key == KeyEvent.VK_ESCAPE) {
-			player.endText();
+		if(player.isMenu){
+			if (key == KeyEvent.VK_1){
+				
+			}
+			if (key == KeyEvent.VK_2){
+				
+			}
+			if (key == KeyEvent.VK_3){
+				player.menuClose();
+			}
 		}
-		if(player.moveable){
+		if(Player.moveable){
 			if (key == KeyEvent.VK_DOWN) {
 				player.setPos(DOWN);
 				player.update();
@@ -153,7 +161,7 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 				player.move(RIGHT);
 			}
 			if (key == KeyEvent.VK_ENTER) {
-				player.act();
+				player.act0();
 			}
 			if (key == KeyEvent.VK_SPACE) {
 				player.menu();
@@ -164,6 +172,9 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 			}
 			if (key == KeyEvent.VK_SPACE) {
 				player.menuClose();
+			}
+			if (key == KeyEvent.VK_ESCAPE) {
+				player.endText();
 			}
 		}
 	}

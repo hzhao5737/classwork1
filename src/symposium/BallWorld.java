@@ -7,12 +7,11 @@ import javax.swing.ImageIcon;
 
 import gui.components.Component;
 
-public class Interact extends Component {
+public class BallWorld extends Component {
 	
-	public static boolean isText;
 	private int file;
 
-	public Interact(int x, int y, int w, int h, int file) {
+	public BallWorld(int x, int y, int w, int h, int file) {
 		super(x, y, w, h);
 		this.file = file;
 		update();
@@ -20,18 +19,27 @@ public class Interact extends Component {
 
 	@Override
 	public void update(Graphics2D g) {
-		String[] action = {"resources/sampleImages/Door.png"};
 		g = clear();
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		g.fillRect(0, 0, getWidth(), getHeight());
-		ImageIcon image = new ImageIcon(action[file]);
+		ImageIcon image = new ImageIcon("resources/sampleImages/Ballworld.png");
 		g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(), null);
 	}
 
 	public void act() {
 		if(file == 0){
-			WorldMain.box.setVisible(true);
-			WorldMain.text.setText("Door is locked.");
+			LabMain.box.setVisible(true);
+			LabMain.text.setText("Venusaur");
+			Player.moveable = false;
+		}
+		if(file == 1){
+			LabMain.box.setVisible(true);
+			LabMain.text.setText("Charizard");
+			Player.moveable = false;
+		}
+		if(file == 2){
+			LabMain.box.setVisible(true);
+			LabMain.text.setText("Blastoise");
 			Player.moveable = false;
 		}
 	}

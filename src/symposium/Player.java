@@ -17,7 +17,7 @@ public class Player extends MovingComponent {
 	public static int screen;
 	private int newX;
 	private int newY;
-	public boolean moveable;
+	public static boolean moveable;
 
 	public Player(int x, int y, int w, int h, int pos) {
 		super(x, y, w, h);
@@ -152,7 +152,7 @@ public class Player extends MovingComponent {
 		return false;
 	}
 
-	public void act() {
+	public void act0() {
 		if(pos == 0){
 			for(Interact i : WorldMain.act){
 				if(getY()+40 == i.getY() && getX() == i.getX()){
@@ -183,44 +183,120 @@ public class Player extends MovingComponent {
 		}
 	}
 
+	public void act1() {
+		if(pos == 0){
+			for(BallWorld i : LabMain.balls){
+				if(getY()+40 == i.getY() && getX() == i.getX()){
+					i.act();
+				}
+			}
+		}
+		if(pos == 1){
+			for(BallWorld i : LabMain.balls){
+				if(getY() == i.getY() && getX()-36 == i.getX()){
+					i.act();
+				}
+			}
+		}
+		if(pos == 2){
+			for(BallWorld i : LabMain.balls){
+				if(getY()-40 == i.getY() && getX() == i.getX()){
+					i.act();
+				}
+			}
+		}
+		if(pos == 3){
+			for(BallWorld i : LabMain.balls){
+				if(getY() == i.getY() && getX()+36 == i.getX()){
+					i.act();
+				}
+			}
+		}
+	}
+
 	public void endText() {
-		WorldMain.text.setText("");
-		WorldMain.box.setVisible(false);
-		WorldMain.menu.setVisible(false);
-		for(TextLabel t : WorldMain.menuText){
-			t.setVisible(false);
-		}
-		isMenu = false;
-		Interact.isText = false;
-		WorldMain.player.moveable = true;
-	}
-
-	public void menu() {
-		WorldMain.player.moveable = false;
-		WorldMain.menu.setVisible(true);
-		isMenu = true;
-		for(TextLabel t : WorldMain.menuText){
-			t.setVisible(true);
-		}
-	}
-
-	public void menuAct() {
-		if(Interact.isText == true){
+		if(screen == 0){
 			WorldMain.text.setText("");
 			WorldMain.box.setVisible(false);
-			WorldMain.player.moveable = true;
-			Interact.isText = false;
-		}
-	}
-
-	public void menuClose() {
-		if(isMenu == true){
 			WorldMain.menu.setVisible(false);
 			for(TextLabel t : WorldMain.menuText){
 				t.setVisible(false);
 			}
 			isMenu = false;
-			WorldMain.player.moveable = true;
+			Interact.isText = false;
+			moveable = true;
+		}
+		if(screen == 1){
+			LabMain.text.setText("");
+			LabMain.box.setVisible(false);
+			LabMain.menu.setVisible(false);
+			for(TextLabel t : LabMain.menuText){
+				t.setVisible(false);
+			}
+			isMenu = false;
+			Interact.isText = false;
+			moveable = true;
+		}
+	}
+
+	public void menu() {
+		if(screen == 0){
+			moveable = false;
+			WorldMain.menu.setVisible(true);
+			isMenu = true;
+			for(TextLabel t : WorldMain.menuText){
+				t.setVisible(true);
+			}
+		}
+		if(screen == 1){
+			moveable = false;
+			LabMain.menu.setVisible(true);
+			isMenu = true;
+			for(TextLabel t : LabMain.menuText){
+				t.setVisible(true);
+			}
+		}
+	}
+
+	public void menuAct() {
+		if(screen == 0){
+			if(Interact.isText == true){
+				WorldMain.text.setText("");
+				WorldMain.box.setVisible(false);
+				moveable = true;
+				Interact.isText = false;
+			}
+		}
+		if(screen == 1){
+			if(Interact.isText == true){
+				LabMain.text.setText("");
+				LabMain.box.setVisible(false);
+				moveable = true;
+				Interact.isText = false;
+			}
+		}
+	}
+
+	public void menuClose() {
+		if(screen == 0){
+			if(isMenu == true){
+				WorldMain.menu.setVisible(false);
+				for(TextLabel t : WorldMain.menuText){
+					t.setVisible(false);
+				}
+				isMenu = false;
+				moveable = true;
+			}
+		}
+		if(screen == 1){
+			if(isMenu == true){
+				LabMain.menu.setVisible(false);
+				for(TextLabel t : LabMain.menuText){
+					t.setVisible(false);
+				}
+				isMenu = false;
+				moveable = true;
+			}
 		}
 	}
 }
