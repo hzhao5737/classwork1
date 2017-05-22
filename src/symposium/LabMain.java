@@ -56,22 +56,22 @@ public class LabMain extends Screen implements Runnable, KeyListener{
 		if (key == KeyEvent.VK_DOWN) {
 			WorldMain.player.setPos(DOWN);
 			WorldMain.player.update();
-			WorldMain.player.move();
+			WorldMain.player.move(DOWN);
 	    }
 		if (key == KeyEvent.VK_LEFT) {
 			WorldMain.player.setPos(LEFT);
 			WorldMain.player.update();
-			WorldMain.player.move();
+			WorldMain.player.move(LEFT);
 	    }
 		if (key == KeyEvent.VK_UP) {
 			WorldMain.player.setPos(UP);
 			WorldMain.player.update();
-			WorldMain.player.move();
+			WorldMain.player.move(UP);
 	    }
 		if (key == KeyEvent.VK_RIGHT) {
 			WorldMain.player.setPos(RIGHT);
 			WorldMain.player.update();
-			WorldMain.player.move();
+			WorldMain.player.move(RIGHT);
 	    }
 		if (key == KeyEvent.VK_ENTER) {
 			WorldMain.player.act();

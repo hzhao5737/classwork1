@@ -10,7 +10,7 @@ import gui.components.Component;
 
 public class Door extends Component {
 	
-	private int file;
+	public int file;
 
 	public Door(int x, int y, int w, int h, int file){
 		super(x,y,w,h);

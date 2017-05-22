@@ -27,7 +27,9 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 	public static ArrayList<Interact> act;
 	public static Player player;
 	public static TextLabel text;
+	public static ArrayList<TextLabel> menuText;
 	public static Button box;
+	public static Button menu;
 
 	public WorldMain(int width, int height) {
 		super(width, height);
@@ -43,6 +45,7 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 		fore = new ArrayList<Front>();
 		door = new ArrayList<Door>();
 		act = new ArrayList<Interact>();
+		menuText = new ArrayList<TextLabel>();
 		back.add(new Background(0,20,720,720,0));
 		back.add(new Background(108,220,36,40,1));
 		back.add(new Background(396,220,36,40,1));
@@ -91,8 +94,18 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 		v.add(player);
 		box = new Button(36, 680, 650, 50, null, null, null);
 		box.setVisible(false);
+		menu = new Button(524, 40, 160, 200, null, null, null);
+		menu.setVisible(false);
 		v.add(box);
+		v.add(menu);
 		text = new TextLabel(36, 680, 648, 40, "");
+		menuText.add(new TextLabel(550, 80, 160, 40, "POKEMON"));
+		menuText.add(new TextLabel(550, 120, 160, 40, "ITEM"));
+		menuText.add(new TextLabel(550, 160, 160, 40, "EXIT"));
+		for(TextLabel t : menuText){
+			t.setVisible(false);
+		}
+		v.addAll(menuText);
 		v.add(text);
 	}
 
@@ -122,29 +135,35 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 			if (key == KeyEvent.VK_DOWN) {
 				player.setPos(DOWN);
 				player.update();
-				player.move();
+				player.move(DOWN);
 			}
 			if (key == KeyEvent.VK_LEFT) {
 				player.setPos(LEFT);
 				player.update();
-				player.move();
+				player.move(LEFT);
 			}
 			if (key == KeyEvent.VK_UP) {
 				player.setPos(UP);
 				player.update();
-				player.move();
+				player.move(UP);
 			}
 			if (key == KeyEvent.VK_RIGHT) {
 				player.setPos(RIGHT);
 				player.update();
-				player.move();
+				player.move(RIGHT);
 			}
 			if (key == KeyEvent.VK_ENTER) {
 				player.act();
 			}
+			if (key == KeyEvent.VK_SPACE) {
+				player.menu();
+			}
 		}else{
 			if (key == KeyEvent.VK_ENTER) {
-				player.endText();
+				player.menuAct();
+			}
+			if (key == KeyEvent.VK_SPACE) {
+				player.menuClose();
 			}
 		}
 	}

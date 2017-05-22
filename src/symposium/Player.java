@@ -8,9 +8,11 @@ import javax.swing.ImageIcon;
 import gui.Screen;
 import gui.components.Component;
 import gui.components.MovingComponent;
+import gui.components.TextLabel;
 
 public class Player extends MovingComponent {
 
+	public boolean isMenu;
 	private int pos;
 	public static int screen;
 	private int newX;
@@ -41,7 +43,7 @@ public class Player extends MovingComponent {
 		this.pos = pos;
 	}
 
-	public void move() {
+	public void move(int pos) {
 		if(pos == 0 && isValid0()){
 			setY(getY()+40);
 		}
@@ -184,6 +186,39 @@ public class Player extends MovingComponent {
 	public void endText() {
 		WorldMain.text.setText("");
 		WorldMain.box.setVisible(false);
+		WorldMain.menu.setVisible(false);
+		for(TextLabel t : WorldMain.menuText){
+			t.setVisible(false);
+		}
 		WorldMain.player.moveable = true;
+	}
+
+	public void menu() {
+		WorldMain.player.moveable = false;
+		WorldMain.menu.setVisible(true);
+		isMenu = true;
+		for(TextLabel t : WorldMain.menuText){
+			t.setVisible(true);
+		}
+	}
+
+	public void menuAct() {
+		if(Interact.isText == true){
+			WorldMain.text.setText("");
+			WorldMain.box.setVisible(false);
+			WorldMain.player.moveable = true;
+			Interact.isText = false;
+		}
+	}
+
+	public void menuClose() {
+		if(isMenu == true){
+			WorldMain.menu.setVisible(false);
+			for(TextLabel t : WorldMain.menuText){
+				t.setVisible(false);
+			}
+			isMenu = false;
+			WorldMain.player.moveable = true;
+		}
 	}
 }
