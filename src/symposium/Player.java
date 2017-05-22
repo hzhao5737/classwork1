@@ -190,6 +190,8 @@ public class Player extends MovingComponent {
 		for(TextLabel t : WorldMain.menuText){
 			t.setVisible(false);
 		}
+		isMenu = false;
+		Interact.isText = false;
 		WorldMain.player.moveable = true;
 	}
 
