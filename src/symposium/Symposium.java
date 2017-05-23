@@ -5,6 +5,7 @@ import gui.Screen;
 
 public class Symposium extends GUIApplication {
 	
+	public static Screen infoScreen;
 	public static Screen mainMenu;
 	public static Screen worldScreen;
 	public static Screen labScreen;
@@ -22,6 +23,7 @@ public class Symposium extends GUIApplication {
 
 	@Override
 	public void initScreen() {
+		infoScreen = new MenuMain(getWidth(),getHeight());
 		worldScreen = new WorldMain(getWidth(),getHeight());
 		labScreen = new LabMain(getWidth(),getHeight());
 		mainMenu = new Main(getWidth(),getHeight());
