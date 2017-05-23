@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import gui.Screen;
 import gui.components.Visible;
 
-public class MenuMain extends Screen implements KeyListener, Runnable {
+public class MenuMain extends Screen implements Runnable, KeyListener {
 
 	public MenuMain(int width, int height) {
 		super(width, height);
