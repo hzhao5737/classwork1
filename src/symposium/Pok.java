@@ -1,6 +1,6 @@
 package symposium;
 
-public class Pokemon {
+public class Pok {
 	
 	public String name;
 	public int hp;
@@ -9,7 +9,7 @@ public class Pokemon {
 	public int speed;
 	public int special;
 	
-	public Pokemon(String name, int hp, int attack, int defense, int speed, int special){
+	public Pok(String name, int hp, int attack, int defense, int speed, int special){
 		this.name = name;
 		this.hp = hp;
 		this.attack = attack;

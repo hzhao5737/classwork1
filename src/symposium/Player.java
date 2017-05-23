@@ -21,7 +21,7 @@ public class Player extends MovingComponent {
 	public static boolean moveable;
 	public static boolean isChoose;
 	public int chosen;
-	public ArrayList<Pokemon> party;
+	public ArrayList<Pok> party;
 
 	public Player(int x, int y, int w, int h, int pos) {
 		super(x, y, w, h);
@@ -311,13 +311,13 @@ public class Player extends MovingComponent {
 
 	public void selectBall() {
 		if(chosen == 0){
-			party.add(new Pokemon("Venusaur",80,82,83,80,100));
+			party.add(new Pok("Venusaur",80,82,83,80,100));
 		}
 		if(chosen == 1){
-			party.add(new Pokemon("Charizard",80,82,83,80,100));
+			party.add(new Pok("Charizard",80,82,83,80,100));
 		}
 		if(chosen == 2){
-			party.add(new Pokemon("Blastoise",80,82,83,80,100));
+			party.add(new Pok("Blastoise",80,82,83,80,100));
 		}
 		isChoose = false;
 	}

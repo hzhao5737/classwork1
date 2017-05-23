@@ -53,3 +53,7 @@ try to add more things to interact with tomorrow.
 Added a menu when the player hits spacebar. Can choose options with the number keys.
 Will need to add things to do when the numbers are hit. Will try to make the text boxes
 better tomorrow.
+
+5-23-17
+Added instructions and controls in the title screen. Created a basic class for Pokemons.
+Will try to allow players to see what pokemon they have tomorrow.
