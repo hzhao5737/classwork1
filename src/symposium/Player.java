@@ -2,6 +2,7 @@ package symposium;
 
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
@@ -18,6 +19,9 @@ public class Player extends MovingComponent {
 	private int newX;
 	private int newY;
 	public static boolean moveable;
+	public static boolean isChoose;
+	public int chosen;
+	public ArrayList<Pokemon> party;
 
 	public Player(int x, int y, int w, int h, int pos) {
 		super(x, y, w, h);
@@ -187,6 +191,7 @@ public class Player extends MovingComponent {
 		if(pos == 0){
 			for(BallWorld i : LabMain.balls){
 				if(getY()+40 == i.getY() && getX() == i.getX()){
+					chosen = i.getFile();
 					i.act();
 				}
 			}
@@ -194,6 +199,7 @@ public class Player extends MovingComponent {
 		if(pos == 1){
 			for(BallWorld i : LabMain.balls){
 				if(getY() == i.getY() && getX()-36 == i.getX()){
+					chosen = i.getFile();
 					i.act();
 				}
 			}
@@ -201,6 +207,7 @@ public class Player extends MovingComponent {
 		if(pos == 2){
 			for(BallWorld i : LabMain.balls){
 				if(getY()-40 == i.getY() && getX() == i.getX()){
+					chosen = i.getFile();
 					i.act();
 				}
 			}
@@ -208,6 +215,7 @@ public class Player extends MovingComponent {
 		if(pos == 3){
 			for(BallWorld i : LabMain.balls){
 				if(getY() == i.getY() && getX()+36 == i.getX()){
+					chosen = i.getFile();
 					i.act();
 				}
 			}
@@ -234,6 +242,7 @@ public class Player extends MovingComponent {
 				t.setVisible(false);
 			}
 			isMenu = false;
+			isChoose = false;
 			Interact.isText = false;
 			moveable = true;
 		}
@@ -298,5 +307,18 @@ public class Player extends MovingComponent {
 				moveable = true;
 			}
 		}
+	}
+
+	public void selectBall() {
+		if(chosen == 0){
+			party.add(new Pokemon("Venusaur",80,82,83,80,100));
+		}
+		if(chosen == 1){
+			party.add(new Pokemon("Charizard",80,82,83,80,100));
+		}
+		if(chosen == 2){
+			party.add(new Pokemon("Blastoise",80,82,83,80,100));
+		}
+		isChoose = false;
 	}
 }

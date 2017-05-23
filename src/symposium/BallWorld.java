@@ -29,18 +29,25 @@ public class BallWorld extends Component {
 	public void act() {
 		if(file == 0){
 			LabMain.box.setVisible(true);
-			LabMain.text.setText("Venusaur");
+			Player.isChoose = true;
+			LabMain.text.setText("Venusaur?     Yes   No");
 			Player.moveable = false;
 		}
 		if(file == 1){
 			LabMain.box.setVisible(true);
-			LabMain.text.setText("Charizard");
+			Player.isChoose = true;
+			LabMain.text.setText("Charizard?     Yes   No");
 			Player.moveable = false;
 		}
 		if(file == 2){
 			LabMain.box.setVisible(true);
-			LabMain.text.setText("Blastoise");
+			Player.isChoose = true;
+			LabMain.text.setText("Blastoise?     Yes   No");
 			Player.moveable = false;
 		}
+	}
+
+	public int getFile() {
+		return file;
 	}
 }

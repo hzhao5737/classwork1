@@ -86,7 +86,7 @@ public class LabMain extends Screen implements Runnable, KeyListener{
 		int key = k.getKeyCode();
 		if(WorldMain.player.isMenu){
 			if (key == KeyEvent.VK_1){
-
+				
 			}
 			if (key == KeyEvent.VK_2){
 
@@ -122,7 +122,19 @@ public class LabMain extends Screen implements Runnable, KeyListener{
 			if (key == KeyEvent.VK_SPACE) {
 				WorldMain.player.menu();
 			}
-		}else{
+		}
+		if(Player.isChoose){
+			if (key == KeyEvent.VK_1) {
+				WorldMain.player.selectBall();
+			}
+			if (key == KeyEvent.VK_2) {
+				WorldMain.player.endText();
+			}
+			if (key == KeyEvent.VK_ESCAPE) {
+				WorldMain.player.endText();
+			}
+		}
+			else{
 			if (key == KeyEvent.VK_ENTER) {
 				WorldMain.player.menuAct();
 			}
