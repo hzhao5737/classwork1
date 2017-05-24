@@ -30,19 +30,19 @@ public class BallWorld extends Component {
 		if(file == 0){
 			LabMain.box.setVisible(true);
 			Player.isChoose = true;
-			LabMain.text.setText("Venusaur?     Yes   No");
+			LabMain.text.setText("Choose Venusaur?     Yes   No");
 			Player.moveable = false;
 		}
 		if(file == 1){
 			LabMain.box.setVisible(true);
 			Player.isChoose = true;
-			LabMain.text.setText("Charizard?     Yes   No");
+			LabMain.text.setText("Choose Charizard?     Yes   No");
 			Player.moveable = false;
 		}
 		if(file == 2){
 			LabMain.box.setVisible(true);
 			Player.isChoose = true;
-			LabMain.text.setText("Blastoise?     Yes   No");
+			LabMain.text.setText("Choose Blastoise?     Yes   No");
 			Player.moveable = false;
 		}
 	}

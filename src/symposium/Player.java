@@ -13,7 +13,7 @@ import gui.components.TextLabel;
 
 public class Player extends MovingComponent {
 
-	public boolean isMenu;
+	public static boolean isMenu;
 	private int pos;
 	public static int screen;
 	private int newX;
@@ -22,12 +22,14 @@ public class Player extends MovingComponent {
 	public static boolean isChoose;
 	public int chosen;
 	public static ArrayList<Pok> party;
+	public static ArrayList<Pok> pc;
 
 	public Player(int x, int y, int w, int h, int pos) {
 		super(x, y, w, h);
 		this.pos = pos;
 		moveable = true;
 		party = new ArrayList<Pok>();
+		pc = new ArrayList<Pok>();
 		update();
 	}
 
@@ -190,6 +192,34 @@ public class Player extends MovingComponent {
 
 	public void act1() {
 		if(pos == 0){
+			for(Interact i : LabMain.act){
+				if(getY()+40 == i.getY() && getX() == i.getX()){
+					i.act();
+				}
+			}
+		}
+		if(pos == 1){
+			for(Interact i : LabMain.act){
+				if(getY() == i.getY() && getX()-36 == i.getX()){
+					i.act();
+				}
+			}
+		}
+		if(pos == 2){
+			for(Interact i : LabMain.act){
+				if(getY()-40 == i.getY() && getX() == i.getX()){
+					i.act();
+				}
+			}
+		}
+		if(pos == 3){
+			for(Interact i : LabMain.act){
+				if(getY() == i.getY() && getX()+36 == i.getX()){
+					i.act();
+				}
+			}
+		}
+		if(pos == 0){
 			for(BallWorld i : LabMain.balls){
 				if(getY()+40 == i.getY() && getX() == i.getX()){
 					chosen = i.getFile();
@@ -254,16 +284,16 @@ public class Player extends MovingComponent {
 			moveable = false;
 			WorldMain.menu.setVisible(true);
 			isMenu = true;
-			for(TextLabel t : WorldMain.menuText){
-				t.setVisible(true);
+			for(TextLabel w : WorldMain.menuText){
+				w.setVisible(true);
 			}
 		}
 		if(screen == 1){
 			moveable = false;
 			LabMain.menu.setVisible(true);
 			isMenu = true;
-			for(TextLabel t : LabMain.menuText){
-				t.setVisible(true);
+			for(TextLabel l : LabMain.menuText){
+				l.setVisible(true);
 			}
 		}
 	}
@@ -312,13 +342,17 @@ public class Player extends MovingComponent {
 
 	public void selectBall() {
 		if(chosen == 0){
-			party.add(new Pok("Venusaur",80,82,83,80,100));
+			party.add(new Pok("Venusaur",80,82,83,80,100,3,8));
 		}
 		if(chosen == 1){
-			party.add(new Pok("Charizard",80,82,83,80,100));
+			party.add(new Pok("Charizard",80,82,83,80,100,2,10));
 		}
 		if(chosen == 2){
-			party.add(new Pok("Blastoise",80,82,83,80,100));
+			party.add(new Pok("Blastoise",80,82,83,80,100,3,0));
+		}
+		if(party.size() > 6){
+			pc.add(party.get(6));
+			party.remove(6);
 		}
 		MenuMain.partyUpdate();
 	}

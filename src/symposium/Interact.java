@@ -20,7 +20,8 @@ public class Interact extends Component {
 
 	@Override
 	public void update(Graphics2D g) {
-		String[] action = {"resources/sampleImages/Door.png"};
+		String[] action = {"resources/sampleImages/Door.png",
+				"resources/sampleImages/Prof.png"};
 		g = clear();
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		g.fillRect(0, 0, getWidth(), getHeight());
@@ -33,6 +34,12 @@ public class Interact extends Component {
 			WorldMain.box.setVisible(true);
 			isText = true;
 			WorldMain.text.setText("Door is locked.");
+			Player.moveable = false;
+		}
+		if(file == 1){
+			LabMain.box.setVisible(true);
+			isText = true;
+			LabMain.text.setText("Defeat the gym leaders to win");
 			Player.moveable = false;
 		}
 	}

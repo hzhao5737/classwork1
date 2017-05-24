@@ -10,12 +10,7 @@ import gui.components.Visible;
 
 public class MenuMain extends Screen implements Runnable, KeyListener {
 
-	public static TextLabel pok0;
-	public static TextLabel pok1;
-	public static TextLabel pok2;
-	public static TextLabel pok3;
-	public static TextLabel pok4;
-	public static TextLabel pok5;
+	public static ArrayList<TextLabel> pok;
 
 	public MenuMain(int width, int height) {
 		super(width, height);
@@ -24,18 +19,14 @@ public class MenuMain extends Screen implements Runnable, KeyListener {
 
 	@Override
 	public void initObjects(ArrayList<Visible> v) {
-		pok0 = new TextLabel(100, 100, 500, 50, "A");
-		pok1 = new TextLabel(100, 150, 500, 50, "B");
-		pok2 = new TextLabel(100, 200, 500, 50, "C");
-		pok3 = new TextLabel(100, 250, 500, 50, "D");
-		pok4 = new TextLabel(100, 300, 500, 50, "E");
-		pok5 = new TextLabel(100, 350, 500, 50, "F");
-		v.add(pok0);
-		v.add(pok1);
-		v.add(pok2);
-		v.add(pok3);
-		v.add(pok4);
-		v.add(pok5);
+		pok = new ArrayList<TextLabel>();
+		pok.add(new TextLabel(100, 100, 500, 50, ""));
+		pok.add(new TextLabel(100, 150, 500, 50, ""));
+		pok.add(new TextLabel(100, 200, 500, 50, ""));
+		pok.add(new TextLabel(100, 250, 500, 50, ""));
+		pok.add(new TextLabel(100, 300, 500, 50, ""));
+		pok.add(new TextLabel(100, 350, 500, 50, ""));
+		v.addAll(pok);
 	}
 
 	@Override
@@ -50,9 +41,11 @@ public class MenuMain extends Screen implements Runnable, KeyListener {
 	}
 
 	public static void partyUpdate() {
-		pok0.setText(Player.party.get(0).getName());
+		for(int i = 0; i < Player.party.size(); i++){
+			pok.get(i).setText(Player.party.get(i).getName());
+		}
 	}
-	
+
 	public KeyListener getKeyListener() {
 		return this;
 	}
@@ -61,7 +54,12 @@ public class MenuMain extends Screen implements Runnable, KeyListener {
 	public void keyPressed(KeyEvent k) {
 		int key = k.getKeyCode();
 		if (key == KeyEvent.VK_ESCAPE) {
-			Symposium.game.setScreen(Symposium.worldScreen);
+			if(Player.screen == 0){
+				Symposium.game.setScreen(Symposium.worldScreen);
+			}
+			if(Player.screen == 1){
+				Symposium.game.setScreen(Symposium.labScreen);
+			}
 		}
 	}
 

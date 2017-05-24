@@ -26,7 +26,8 @@ public class Front extends Component {
 				"resources/sampleImages/Lab.png",
 				"resources/sampleImages/Shelf.png",
 				"resources/sampleImages/Table.png",
-				"resources/sampleImages/Computer.png"};
+				"resources/sampleImages/Computer.png",
+				"resources/sampleImages/Prof.png"};
 		g = clear();
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		g.fillRect(0, 0, getWidth(), getHeight());

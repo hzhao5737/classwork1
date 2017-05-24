@@ -20,6 +20,7 @@ public class LabMain extends Screen implements Runnable, KeyListener{
 	private static ArrayList<Background> back;
 	public static ArrayList<Front> fore;
 	public static ArrayList<Door> door;
+	public static ArrayList<Interact> act;
 	public static ArrayList<BallWorld> balls;
 	public static TextLabel text;
 	public static ArrayList<TextLabel> menuText;
@@ -44,6 +45,7 @@ public class LabMain extends Screen implements Runnable, KeyListener{
 		door = new ArrayList<Door>();
 		balls = new ArrayList<BallWorld>();
 		menuText = new ArrayList<TextLabel>();
+		act = new ArrayList<Interact>();
 		back.add(new Background(0, 20, 360, 480, 2));
 		back.add(new Background(180, 460, 36, 40, 3));
 		fore.add(new Front(0, 260, 144, 80, 5));
@@ -51,14 +53,17 @@ public class LabMain extends Screen implements Runnable, KeyListener{
 		fore.add(new Front(216, 20, 144, 80, 5));
 		fore.add(new Front(216, 140, 108, 40, 6));
 		fore.add(new Front(0, 60, 144, 40, 7));
+		fore.add(new Front(144, 100, 36, 40, 8));
 		door.add(new Door(144, 500, 36, 40, 1));
 		balls.add(new BallWorld(216, 140, 36, 40, 0));
 		balls.add(new BallWorld(252, 140, 36, 40, 1));
 		balls.add(new BallWorld(288, 140, 36, 40, 2));
+		act.add(new Interact(144, 100, 36, 40, 1));
 		v.addAll(back);
 		v.addAll(fore);
 		v.addAll(door);
 		v.addAll(balls);
+		v.addAll(act);
 		box = new Button(36, 680, 650, 50, null, null, null);
 		box.setVisible(false);
 		menu = new Button(524, 40, 160, 200, null, null, null);
@@ -84,7 +89,7 @@ public class LabMain extends Screen implements Runnable, KeyListener{
 	@Override
 	public void keyPressed(KeyEvent k) {
 		int key = k.getKeyCode();
-		if(WorldMain.player.isMenu){
+		if(Player.isMenu){
 			if (key == KeyEvent.VK_1){
 				Symposium.game.setScreen(Symposium.infoScreen);
 			}
@@ -122,6 +127,16 @@ public class LabMain extends Screen implements Runnable, KeyListener{
 			if (key == KeyEvent.VK_SPACE) {
 				WorldMain.player.menu();
 			}
+		}else{
+			if (key == KeyEvent.VK_ENTER) {
+				WorldMain.player.menuAct();
+			}
+			if (key == KeyEvent.VK_SPACE) {
+				WorldMain.player.menuClose();
+			}
+			if (key == KeyEvent.VK_ESCAPE) {
+				WorldMain.player.endText();
+			}
 		}
 		if(Player.isChoose){
 			if (key == KeyEvent.VK_1) {
@@ -135,17 +150,7 @@ public class LabMain extends Screen implements Runnable, KeyListener{
 				WorldMain.player.endText();
 			}
 		}
-			else{
-			if (key == KeyEvent.VK_ENTER) {
-				WorldMain.player.menuAct();
-			}
-			if (key == KeyEvent.VK_SPACE) {
-				WorldMain.player.menuClose();
-			}
-			if (key == KeyEvent.VK_ESCAPE) {
-				WorldMain.player.endText();
-			}
-		}
+		update();
 	}
 
 	@Override
