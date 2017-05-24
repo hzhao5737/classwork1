@@ -25,7 +25,7 @@ public class Main extends Screen implements Runnable, KeyListener{
 		intro = new ArrayList<CustomTextLabel>();
 		intro.add(new CustomTextLabel(240, 240, 250, 30, "Press Any Key To Begin",Color.white));
 		intro.add(new CustomTextLabel(240, 280, 250, 30, "Use Arrow Keys to move", Color.white));
-		intro.add(new CustomTextLabel(240, 320, 250, 30, "Use Spacebar to open menu", Color.white));
+		intro.add(new CustomTextLabel(240, 320, 300, 30, "Use Spacebar to open menu", Color.white));
 		intro.add(new CustomTextLabel(240, 360, 250, 30, "Use Enter to interact", Color.white));
 		intro.add(new CustomTextLabel(240, 400, 250, 30, "Use Escape to go back", Color.white));
 		view.addAll(intro);

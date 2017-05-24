@@ -21,12 +21,13 @@ public class Player extends MovingComponent {
 	public static boolean moveable;
 	public static boolean isChoose;
 	public int chosen;
-	public ArrayList<Pok> party;
+	public static ArrayList<Pok> party;
 
 	public Player(int x, int y, int w, int h, int pos) {
 		super(x, y, w, h);
 		this.pos = pos;
 		moveable = true;
+		party = new ArrayList<Pok>();
 		update();
 	}
 
@@ -319,6 +320,6 @@ public class Player extends MovingComponent {
 		if(chosen == 2){
 			party.add(new Pok("Blastoise",80,82,83,80,100));
 		}
-		isChoose = false;
+		MenuMain.partyUpdate();
 	}
 }

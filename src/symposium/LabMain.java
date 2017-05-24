@@ -86,10 +86,10 @@ public class LabMain extends Screen implements Runnable, KeyListener{
 		int key = k.getKeyCode();
 		if(WorldMain.player.isMenu){
 			if (key == KeyEvent.VK_1){
-				
+				Symposium.game.setScreen(Symposium.infoScreen);
 			}
 			if (key == KeyEvent.VK_2){
-
+				Symposium.game.setScreen(Symposium.infoScreen);
 			}
 			if (key == KeyEvent.VK_3){
 				WorldMain.player.menuClose();
@@ -126,6 +126,7 @@ public class LabMain extends Screen implements Runnable, KeyListener{
 		if(Player.isChoose){
 			if (key == KeyEvent.VK_1) {
 				WorldMain.player.selectBall();
+				WorldMain.player.endText();
 			}
 			if (key == KeyEvent.VK_2) {
 				WorldMain.player.endText();

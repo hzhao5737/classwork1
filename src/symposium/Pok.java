@@ -17,4 +17,8 @@ public class Pok {
 		this.speed = speed;
 		this.special = special;
 	}
+
+	public String getName() {
+		return name;
+	}
 }

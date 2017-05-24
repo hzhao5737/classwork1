@@ -34,8 +34,6 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 	public WorldMain(int width, int height) {
 		super(width, height);
 		Player.screen = 0;
-		Thread play = new Thread(this);
-		play.start();
 		update();
 	}
 
@@ -130,10 +128,10 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 		int key = k.getKeyCode();
 		if(player.isMenu){
 			if (key == KeyEvent.VK_1){
-				
+				Symposium.game.setScreen(Symposium.infoScreen);
 			}
 			if (key == KeyEvent.VK_2){
-				
+				Symposium.game.setScreen(Symposium.infoScreen);
 			}
 			if (key == KeyEvent.VK_3){
 				player.menuClose();
