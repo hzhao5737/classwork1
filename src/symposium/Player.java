@@ -64,8 +64,9 @@ public class Player extends MovingComponent {
 				if(outOfBounds1() || getY() >= 460){
 					break;
 				}
+				setY(getY()+40);
+				break;
 			}
-			setY(getY()+40);
 			break;
 		}
 		case 1:{
@@ -80,8 +81,9 @@ public class Player extends MovingComponent {
 				if(outOfBounds1() || getX() <= 0){
 					break;
 				}
+				setX(getX()-36);			
+				break;
 			}
-			setX(getX()-36);			
 			break;
 		}
 		case 2:{
@@ -96,8 +98,9 @@ public class Player extends MovingComponent {
 				if(outOfBounds1() || getY() <= 60){
 					break;
 				}
+				setY(getY()-40);
+				break;
 			}
-			setY(getY()-40);
 			break;
 		}
 		case 3:{
@@ -112,8 +115,9 @@ public class Player extends MovingComponent {
 				if(outOfBounds1() || getX() >= 324){
 					break;
 				}
+				setX(getX()+36);
+				break;
 			}
-			setX(getX()+36);
 			break;
 		}
 		}
