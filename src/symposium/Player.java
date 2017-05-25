@@ -51,83 +51,141 @@ public class Player extends MovingComponent {
 	}
 
 	public void move(int pos) {
-		if(pos == 0 && isValid0()){
+		switch(pos){
+		case 0:{
+			newX = getX();
+			newY = getY()+40;
+			switch(screen){
+			case 0:
+				if(outOfBounds0() || getY() >= 660){
+					break;
+				}
+			case 1:
+				if(outOfBounds1() || getY() >= 460){
+					break;
+				}
+			}
 			setY(getY()+40);
+			break;
 		}
-		if(pos == 1 && isValid1()){
-			setX(getX()-36);
+		case 1:{
+			newX = getX()-36;
+			newY = getY();
+			switch(screen){
+			case 0:
+				if(outOfBounds0() || getX() <= 36){
+					break;
+				}
+			case 1:
+				if(outOfBounds1() || getX() <= 0){
+					break;
+				}
+			}
+			setX(getX()-36);			
+			break;
 		}
-		if(pos == 2 && isValid2()){
+		case 2:{
+			newX = getX();
+			newY = getY()-40;
+			switch(screen){
+			case 0:
+				if(outOfBounds0() || (getY() <= 100 && party.size() == 0)){
+					break;
+				}
+			case 1:
+				if(outOfBounds1() || getY() <= 60){
+					break;
+				}
+			}
 			setY(getY()-40);
+			break;
 		}
-		if(pos == 3 && isValid3()){
+		case 3:{
+			newX = getX()+36;
+			newY = getY();
+			if(screen == 0){
+				if(outOfBounds0() || getX() >= 648){
+					break;
+				}
+			}
+			if(screen == 1){
+				if(outOfBounds1() || getX() >= 324){
+					break;
+				}
+			}
 			setX(getX()+36);
+			break;
+		}
 		}
 	}
 
-	private boolean isValid0() {
-		newX = getX();
-		newY = getY()+40;
-		if(screen == 0){
-			if(outOfBounds0() || getY() >= 660){
-				return false;
+	/*private boolean isValid() {
+		switch(pos){
+		case 0:
+			newX = getX();
+			newY = getY()+40;
+			switch(screen){
+			case 0:
+				if(outOfBounds0() || getY() >= 660){
+					return false;
+				}
+				break;
+			case 1:
+				if(outOfBounds1() || getY() >= 460){
+					return false;
+				}
+				break;
 			}
-		}
-		if(screen == 1){
-			if(outOfBounds1() || getY() >= 460){
-				return false;
+			return true;
+		case 1:
+			newX = getX()-36;
+			newY = getY();
+			switch(screen){
+			case 0:
+				if(outOfBounds0() || getX() <= 36){
+					return false;
+				}
+				break;
+			case 1:
+				if(outOfBounds1() || getX() <= 0){
+					return false;
+				}
+				break;
 			}
-		}
-		return true;
-	}
-
-	private boolean isValid1() {
-		newX = getX()-36;
-		newY = getY();
-		if(screen == 0){
-			if(outOfBounds0() || getX() <= 36){
-				return false;
+			return true;
+		case 2:
+			newX = getX();
+			newY = getY()-40;
+			switch(screen){
+			case 0:
+				if(outOfBounds0() || (getY() <= 100 && party.size() == 0)){
+					return false;
+				}
+				break;
+			case 1:
+				if(outOfBounds1() || getY() <= 60){
+					return false;
+				}
+				break;
 			}
-		}
-		if(screen == 1){
-			if(outOfBounds1() || getX() <= 0){
-				return false;
+			return true;
+		case 3:
+			newX = getX()+36;
+			newY = getY();
+			if(screen == 0){
+				if(outOfBounds0() || getX() >= 648){
+					return false;
+				}
 			}
-		}
-		return true;
-	}
-
-	private boolean isValid2() {
-		newX = getX();
-		newY = getY()-40;
-		if(screen == 0){
-			if(outOfBounds0()){
-				return false;
+			if(screen == 1){
+				if(outOfBounds1() || getX() >= 324){
+					return false;
+				}
 			}
+			return true;
 		}
-		if(screen == 1){
-			if(outOfBounds1() || getY() <= 60){
-				return false;
-			}
-		}
-		return true;
-	}
-
-	private boolean isValid3() {
-		newX = getX()+36;
-		newY = getY();
-		if(screen == 0){
-			if(outOfBounds0() || getX() >= 648){
-				return false;
-			}
-		}
-		if(screen == 1){
-			if(outOfBounds1() || getX() >= 324){
-				return false;
-			}
-		}
-		return true;
-	}
+		return true;	
+	}*/
 
 	private boolean outOfBounds1() {
 		for(Door d : LabMain.door){
