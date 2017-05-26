@@ -50,80 +50,32 @@ public class Player extends MovingComponent {
 		this.pos = pos;
 	}
 
-	public void move(int pos) {
+	public void move() {
 		switch(pos){
-		case 0:{
-			newX = getX();
-			newY = getY()+40;
-			switch(screen){
-			case 0:
-				if(outOfBounds0() || getY() >= 660){
-					break;
-				}
-			case 1:
-				if(outOfBounds1() || getY() >= 460){
-					break;
-				}
+		case 0:
+			if(isValid()){
 				setY(getY()+40);
 				break;
 			}
-			break;
-		}
-		case 1:{
-			newX = getX()-36;
-			newY = getY();
-			switch(screen){
-			case 0:
-				if(outOfBounds0() || getX() <= 36){
-					break;
-				}
-			case 1:
-				if(outOfBounds1() || getX() <= 0){
-					break;
-				}
-				setX(getX()-36);			
+		case 1:
+			if(isValid()){
+				setX(getX()-36);
 				break;
 			}
-			break;
-		}
-		case 2:{
-			newX = getX();
-			newY = getY()-40;
-			switch(screen){
-			case 0:
-				if(outOfBounds0() || (getY() <= 100 && party.size() == 0)){
-					break;
-				}
-			case 1:
-				if(outOfBounds1() || getY() <= 60){
-					break;
-				}
+		case 2:
+			if(isValid()){
 				setY(getY()-40);
 				break;
 			}
-			break;
-		}
-		case 3:{
-			newX = getX()+36;
-			newY = getY();
-			if(screen == 0){
-				if(outOfBounds0() || getX() >= 648){
-					break;
-				}
-			}
-			if(screen == 1){
-				if(outOfBounds1() || getX() >= 324){
-					break;
-				}
+		case 3:
+			if(isValid()){
 				setX(getX()+36);
 				break;
 			}
-			break;
-		}
 		}
 	}
 
-	/*private boolean isValid() {
+	private boolean isValid() {
 		switch(pos){
 		case 0:
 			newX = getX();
@@ -133,14 +85,13 @@ public class Player extends MovingComponent {
 				if(outOfBounds0() || getY() >= 660){
 					return false;
 				}
-				break;
+				return true;
 			case 1:
 				if(outOfBounds1() || getY() >= 460){
 					return false;
 				}
-				break;
+				return true;
 			}
-			return true;
 		case 1:
 			newX = getX()-36;
 			newY = getY();
@@ -149,14 +100,13 @@ public class Player extends MovingComponent {
 				if(outOfBounds0() || getX() <= 36){
 					return false;
 				}
-				break;
+				return true;
 			case 1:
 				if(outOfBounds1() || getX() <= 0){
 					return false;
 				}
-				break;
+				return true;
 			}
-			return true;
 		case 2:
 			newX = getX();
 			newY = getY()-40;
@@ -165,31 +115,31 @@ public class Player extends MovingComponent {
 				if(outOfBounds0() || (getY() <= 100 && party.size() == 0)){
 					return false;
 				}
-				break;
+				return true;
 			case 1:
 				if(outOfBounds1() || getY() <= 60){
 					return false;
 				}
-				break;
+				return true;
 			}
-			return true;
 		case 3:
 			newX = getX()+36;
 			newY = getY();
-			if(screen == 0){
+			switch(screen){
+			case 0:
 				if(outOfBounds0() || getX() >= 648){
 					return false;
 				}
-			}
-			if(screen == 1){
+				return true;
+			case 1:
 				if(outOfBounds1() || getX() >= 324){
 					return false;
 				}
+				return true;
 			}
-			return true;
 		}
-		return true;	
-	}*/
+		return false;
+	}
 
 	private boolean outOfBounds1() {
 		for(Door d : LabMain.door){

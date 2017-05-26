@@ -31,15 +31,15 @@ public class Door extends Component {
 
 	public Screen getScreen() {
 		if(file == 0){
-			Player.screen = 1;
-			WorldMain.player.setX(144);
+			WorldMain.player.setX(108);
 			WorldMain.player.setY(460);
+			Player.screen = 1;
 			return Symposium.labScreen;
 		}
 		if(file == 1){
-			Player.screen = 0;
 			WorldMain.player.setX(432);
 			WorldMain.player.setY(500);
+			Player.screen = 0;
 			return Symposium.worldScreen;
 		}
 		return null;

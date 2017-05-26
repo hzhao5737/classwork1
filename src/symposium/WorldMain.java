@@ -140,22 +140,22 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 			if (key == KeyEvent.VK_DOWN) {
 				player.setPos(DOWN);
 				player.update();
-				player.move(DOWN);
+				player.move();
 			}
 			if (key == KeyEvent.VK_LEFT) {
 				player.setPos(LEFT);
 				player.update();
-				player.move(LEFT);
+				player.move();
 			}
 			if (key == KeyEvent.VK_UP) {
 				player.setPos(UP);
 				player.update();
-				player.move(UP);
+				player.move();
 			}
 			if (key == KeyEvent.VK_RIGHT) {
 				player.setPos(RIGHT);
 				player.update();
-				player.move(RIGHT);
+				player.move();
 			}
 			if (key == KeyEvent.VK_ENTER) {
 				player.act0();
