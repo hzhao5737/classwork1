@@ -21,7 +21,8 @@ public class Door extends Component {
 	@Override
 	public void update(Graphics2D g) {
 		String[] door = {"resources/sampleImages/Door.png",
-				"resources/sampleImages/Black.png"};
+				"resources/sampleImages/Black.png",
+				"resources/sampleImages/Grass.png"};
 		g = clear();
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		g.fillRect(0, 0, getWidth(), getHeight());
@@ -41,6 +42,12 @@ public class Door extends Component {
 			WorldMain.player.setY(500);
 			Player.screen = 0;
 			return Symposium.worldScreen;
+		}
+		if(file == 2){
+			WorldMain.player.setX(432);
+			WorldMain.player.setY(500);
+			Player.screen = 2;
+			return Symposium.routeScreen1;
 		}
 		return null;
 	}

@@ -99,8 +99,25 @@ public class LabMain extends Screen implements Runnable, KeyListener{
 			if (key == KeyEvent.VK_3){
 				WorldMain.player.menuClose();
 			}
-		}
-		if(Player.moveable){
+			if (key == KeyEvent.VK_ESCAPE) {
+				WorldMain.player.endText();
+			}
+		}else if(Player.isChoose){
+			if (key == KeyEvent.VK_1) {
+				WorldMain.player.selectBall();
+				WorldMain.player.endText();
+			}
+			if (key == KeyEvent.VK_2) {
+				WorldMain.player.endText();
+			}
+			if (key == KeyEvent.VK_ENTER) {
+				WorldMain.player.selectBall();
+				WorldMain.player.menuAct();
+			}
+			if (key == KeyEvent.VK_ESCAPE) {
+				WorldMain.player.endText();
+			}
+		}else if(Player.moveable){
 			if (key == KeyEvent.VK_DOWN) {
 				WorldMain.player.setPos(DOWN);
 				WorldMain.player.update();
@@ -122,7 +139,7 @@ public class LabMain extends Screen implements Runnable, KeyListener{
 				WorldMain.player.move();
 			}
 			if (key == KeyEvent.VK_ENTER) {
-				WorldMain.player.act1();
+				WorldMain.player.act();
 			}
 			if (key == KeyEvent.VK_SPACE) {
 				WorldMain.player.menu();
@@ -133,18 +150,6 @@ public class LabMain extends Screen implements Runnable, KeyListener{
 			}
 			if (key == KeyEvent.VK_SPACE) {
 				WorldMain.player.menuClose();
-			}
-			if (key == KeyEvent.VK_ESCAPE) {
-				WorldMain.player.endText();
-			}
-		}
-		if(Player.isChoose){
-			if (key == KeyEvent.VK_1) {
-				WorldMain.player.selectBall();
-				WorldMain.player.endText();
-			}
-			if (key == KeyEvent.VK_2) {
-				WorldMain.player.endText();
 			}
 			if (key == KeyEvent.VK_ESCAPE) {
 				WorldMain.player.endText();

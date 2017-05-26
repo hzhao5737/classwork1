@@ -54,11 +54,13 @@ public class MenuMain extends Screen implements Runnable, KeyListener {
 	public void keyPressed(KeyEvent k) {
 		int key = k.getKeyCode();
 		if (key == KeyEvent.VK_ESCAPE) {
-			if(Player.screen == 0){
+			switch(Player.screen){
+			case 0:
 				Symposium.game.setScreen(Symposium.worldScreen);
-			}
-			if(Player.screen == 1){
+				break;
+			case 1:
 				Symposium.game.setScreen(Symposium.labScreen);
+				break;
 			}
 		}
 	}

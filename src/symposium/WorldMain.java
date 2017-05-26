@@ -56,6 +56,8 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 		fore.add(new Front(288,60,36,40,0));
 		fore.add(new Front(324,60,36,40,0));
 		fore.add(new Front(324,20,36,40,0));
+		fore.add(new Front(360,60,36,40,0));
+		fore.add(new Front(360,20,36,40,0));
 		fore.add(new Front(432,20,36,40,0));
 		fore.add(new Front(432,60,36,40,0));
 		fore.add(new Front(468,60,36,40,0));
@@ -81,6 +83,7 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 		fore.add(new Front(432,140,144,120,3));
 		fore.add(new Front(360,340,216,160,4));
 		door.add(new Door(432,460,36,40,0));
+		door.add(new Door(396,20,36,40,2));
 		act.add(new Interact(180,220,36,40,0));
 		act.add(new Interact(468,220,36,40,0));
 		v.addAll(back);
@@ -135,8 +138,10 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 			if (key == KeyEvent.VK_3){
 				player.menuClose();
 			}
-		}
-		if(Player.moveable){
+			if (key == KeyEvent.VK_ESCAPE) {
+				player.endText();
+			}
+		}else if(Player.moveable){
 			if (key == KeyEvent.VK_DOWN) {
 				player.setPos(DOWN);
 				player.update();
@@ -158,7 +163,7 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 				player.move();
 			}
 			if (key == KeyEvent.VK_ENTER) {
-				player.act0();
+				player.act();
 			}
 			if (key == KeyEvent.VK_SPACE) {
 				player.menu();

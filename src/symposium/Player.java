@@ -82,12 +82,12 @@ public class Player extends MovingComponent {
 			newY = getY()+40;
 			switch(screen){
 			case 0:
-				if(outOfBounds0() || getY() >= 660){
+				if(outOfBounds() || getY() >= 660){
 					return false;
 				}
 				return true;
 			case 1:
-				if(outOfBounds1() || getY() >= 460){
+				if(outOfBounds() || getY() >= 460){
 					return false;
 				}
 				return true;
@@ -97,12 +97,12 @@ public class Player extends MovingComponent {
 			newY = getY();
 			switch(screen){
 			case 0:
-				if(outOfBounds0() || getX() <= 36){
+				if(outOfBounds() || getX() <= 36){
 					return false;
 				}
 				return true;
 			case 1:
-				if(outOfBounds1() || getX() <= 0){
+				if(outOfBounds() || getX() <= 0){
 					return false;
 				}
 				return true;
@@ -112,12 +112,12 @@ public class Player extends MovingComponent {
 			newY = getY()-40;
 			switch(screen){
 			case 0:
-				if(outOfBounds0() || (getY() <= 100 && party.size() == 0)){
+				if(outOfBounds() || (getY() <= 100 && party.size() == 0)){
 					return false;
 				}
 				return true;
 			case 1:
-				if(outOfBounds1() || getY() <= 60){
+				if(outOfBounds() || getY() <= 60){
 					return false;
 				}
 				return true;
@@ -127,12 +127,12 @@ public class Player extends MovingComponent {
 			newY = getY();
 			switch(screen){
 			case 0:
-				if(outOfBounds0() || getX() >= 648){
+				if(outOfBounds() || getX() >= 648){
 					return false;
 				}
 				return true;
 			case 1:
-				if(outOfBounds1() || getX() >= 324){
+				if(outOfBounds() || getX() >= 324){
 					return false;
 				}
 				return true;
@@ -141,132 +141,126 @@ public class Player extends MovingComponent {
 		return false;
 	}
 
-	private boolean outOfBounds1() {
-		for(Door d : LabMain.door){
-			if(newX == d.getX() && newY == d.getY()){
-				Symposium.game.setScreen(d.getScreen());
+	private boolean outOfBounds() {
+		switch(screen){
+		case 0:
+			for(Door d : WorldMain.door){
+				if(newX == d.getX() && newY == d.getY()){
+					Symposium.game.setScreen(d.getScreen());
+					break;
+				}
 			}
-		}
-		for(Front f : LabMain.fore){
-			if((newX >= f.getX() && newX < f.getX() + f.getWidth())
-					&& (newY >= f.getY() && newY < f.getY() + f.getHeight())){
-				return true;
+			for(Front f : WorldMain.fore){
+				if((newX >= f.getX() && newX < f.getX() + f.getWidth())
+						&& (newY >= f.getY() && newY < f.getY() + f.getHeight())){
+					return true;
+				}
 			}
+			return false;
+		case 1:
+			for(Door d : LabMain.door){
+				if(newX == d.getX() && newY == d.getY()){
+					Symposium.game.setScreen(d.getScreen());
+					break;
+				}
+			}
+			for(Front f : LabMain.fore){
+				if((newX >= f.getX() && newX < f.getX() + f.getWidth())
+						&& (newY >= f.getY() && newY < f.getY() + f.getHeight())){
+					return true;
+				}
+			}
+			return false;
 		}
 		return false;
 	}
 
-	private boolean outOfBounds0() {
-		for(Door d : WorldMain.door){
-			if(newX == d.getX() && newY == d.getY()){
-				Symposium.game.setScreen(d.getScreen());
-			}
-		}
-		for(Front f : WorldMain.fore){
-			if((newX >= f.getX() && newX < f.getX() + f.getWidth())
-					&& (newY >= f.getY() && newY < f.getY() + f.getHeight())){
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public void act0() {
-		if(pos == 0){
-			for(Interact i : WorldMain.act){
-				if(getY()+40 == i.getY() && getX() == i.getX()){
-					i.act();
+	public void act(){
+		switch(screen){
+		case 0:
+			switch(pos){
+			case 0:
+				for(Interact i : WorldMain.act){
+					if(getY()+40 == i.getY() && getX() == i.getX()){
+						i.act();
+					}
+				}
+			case 1:
+				for(Interact i : WorldMain.act){
+					if(getY() == i.getY() && getX()-36 == i.getX()){
+						i.act();
+					}
+				}
+			case 2:
+				for(Interact i : WorldMain.act){
+					if(getY()-40 == i.getY() && getX() == i.getX()){
+						i.act();
+					}
+				}
+			case 3:
+				for(Interact i : WorldMain.act){
+					if(getY() == i.getY() && getX()+36 == i.getX()){
+						i.act();
+					}
 				}
 			}
-		}
-		if(pos == 1){
-			for(Interact i : WorldMain.act){
-				if(getY() == i.getY() && getX()-36 == i.getX()){
-					i.act();
+		case 1:
+			switch(pos){
+			case 0:
+				for(Interact i : LabMain.act){
+					if(getY()+40 == i.getY() && getX() == i.getX()){
+						i.act();
+					}
 				}
-			}
-		}
-		if(pos == 2){
-			for(Interact i : WorldMain.act){
-				if(getY()-40 == i.getY() && getX() == i.getX()){
-					i.act();
+				for(BallWorld i : LabMain.balls){
+					if(getY()+40 == i.getY() && getX() == i.getX()){
+						chosen = i.getFile();
+						i.act();
+					}
 				}
-			}
-		}
-		if(pos == 3){
-			for(Interact i : WorldMain.act){
-				if(getY() == i.getY() && getX()+36 == i.getX()){
-					i.act();
+			case 1:
+				for(Interact i : LabMain.act){
+					if(getY() == i.getY() && getX()-36 == i.getX()){
+						i.act();
+					}
 				}
-			}
-		}
-	}
-
-	public void act1() {
-		if(pos == 0){
-			for(Interact i : LabMain.act){
-				if(getY()+40 == i.getY() && getX() == i.getX()){
-					i.act();
+				for(BallWorld i : LabMain.balls){
+					if(getY() == i.getY() && getX()-36 == i.getX()){
+						chosen = i.getFile();
+						i.act();
+					}
 				}
-			}
-		}
-		if(pos == 1){
-			for(Interact i : LabMain.act){
-				if(getY() == i.getY() && getX()-36 == i.getX()){
-					i.act();
+			case 2:
+				for(Interact i : LabMain.act){
+					if(getY()-40 == i.getY() && getX() == i.getX()){
+						i.act();
+					}
 				}
-			}
-		}
-		if(pos == 2){
-			for(Interact i : LabMain.act){
-				if(getY()-40 == i.getY() && getX() == i.getX()){
-					i.act();
+				for(BallWorld i : LabMain.balls){
+					if(getY()-40 == i.getY() && getX() == i.getX()){
+						chosen = i.getFile();
+						i.act();
+					}
 				}
-			}
-		}
-		if(pos == 3){
-			for(Interact i : LabMain.act){
-				if(getY() == i.getY() && getX()+36 == i.getX()){
-					i.act();
+			case 3:
+				for(Interact i : LabMain.act){
+					if(getY() == i.getY() && getX()+36 == i.getX()){
+						i.act();
+					}
 				}
-			}
-		}
-		if(pos == 0){
-			for(BallWorld i : LabMain.balls){
-				if(getY()+40 == i.getY() && getX() == i.getX()){
-					chosen = i.getFile();
-					i.act();
-				}
-			}
-		}
-		if(pos == 1){
-			for(BallWorld i : LabMain.balls){
-				if(getY() == i.getY() && getX()-36 == i.getX()){
-					chosen = i.getFile();
-					i.act();
-				}
-			}
-		}
-		if(pos == 2){
-			for(BallWorld i : LabMain.balls){
-				if(getY()-40 == i.getY() && getX() == i.getX()){
-					chosen = i.getFile();
-					i.act();
-				}
-			}
-		}
-		if(pos == 3){
-			for(BallWorld i : LabMain.balls){
-				if(getY() == i.getY() && getX()+36 == i.getX()){
-					chosen = i.getFile();
-					i.act();
+				for(BallWorld i : LabMain.balls){
+					if(getY() == i.getY() && getX()+36 == i.getX()){
+						chosen = i.getFile();
+						i.act();
+					}
 				}
 			}
 		}
 	}
 
 	public void endText() {
-		if(screen == 0){
+		switch(screen){
+		case 0:
 			WorldMain.text.setText("");
 			WorldMain.box.setVisible(false);
 			WorldMain.menu.setVisible(false);
@@ -276,8 +270,7 @@ public class Player extends MovingComponent {
 			isMenu = false;
 			Interact.isText = false;
 			moveable = true;
-		}
-		if(screen == 1){
+		case 1:
 			LabMain.text.setText("");
 			LabMain.box.setVisible(false);
 			LabMain.menu.setVisible(false);
@@ -292,15 +285,15 @@ public class Player extends MovingComponent {
 	}
 
 	public void menu() {
-		if(screen == 0){
+		switch(screen){
+		case 0:
 			moveable = false;
 			WorldMain.menu.setVisible(true);
 			isMenu = true;
 			for(TextLabel w : WorldMain.menuText){
 				w.setVisible(true);
 			}
-		}
-		if(screen == 1){
+		case 1:
 			moveable = false;
 			LabMain.menu.setVisible(true);
 			isMenu = true;
@@ -311,27 +304,36 @@ public class Player extends MovingComponent {
 	}
 
 	public void menuAct() {
-		if(screen == 0){
-			if(Interact.isText == true){
+		switch(screen){
+		case 0:
+			if(Interact.isText){
 				WorldMain.text.setText("");
 				WorldMain.box.setVisible(false);
 				moveable = true;
 				Interact.isText = false;
+				break;
 			}
-		}
-		if(screen == 1){
-			if(Interact.isText == true){
+		case 1:
+			if(Interact.isText){
 				LabMain.text.setText("");
 				LabMain.box.setVisible(false);
 				moveable = true;
 				Interact.isText = false;
+				break;
+			}
+			if(isChoose){
+				isChoose = false;
+				moveable = true;
+				LabMain.text.setText("");
+				LabMain.box.setVisible(false);
+				break;
 			}
 		}
 	}
 
 	public void menuClose() {
 		if(screen == 0){
-			if(isMenu == true){
+			if(isMenu){
 				WorldMain.menu.setVisible(false);
 				for(TextLabel t : WorldMain.menuText){
 					t.setVisible(false);
@@ -341,7 +343,7 @@ public class Player extends MovingComponent {
 			}
 		}
 		if(screen == 1){
-			if(isMenu == true){
+			if(isMenu){
 				LabMain.menu.setVisible(false);
 				for(TextLabel t : LabMain.menuText){
 					t.setVisible(false);

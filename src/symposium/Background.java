@@ -22,7 +22,8 @@ public class Background extends Component{
 		String[] background = {"resources/sampleImages/Pallet.png",
 				"resources/sampleImages/Blank.png",
 				"resources/sampleImages/Labinside.png",
-				"resources/sampleImages/Plank.png"};
+				"resources/sampleImages/Plank.png",
+				"resources/sampleImages/Route1.png"};
 		g = clear();
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		g.fillRect(0, 0, getWidth(), getHeight());
