@@ -30,6 +30,7 @@ public class Player extends MovingComponent {
 		moveable = true;
 		party = new ArrayList<Pok>();
 		pc = new ArrayList<Pok>();
+		screen = 0;
 		update();
 	}
 
@@ -91,6 +92,11 @@ public class Player extends MovingComponent {
 					return false;
 				}
 				return true;
+			case 2:
+				if(outOfBounds() || getY() >= 580){
+					return false;
+				}
+				return true;
 			}
 		case 1:
 			newX = getX()-36;
@@ -103,6 +109,11 @@ public class Player extends MovingComponent {
 				return true;
 			case 1:
 				if(outOfBounds() || getX() <= 0){
+					return false;
+				}
+				return true;
+			case 2:
+				if(outOfBounds() || getX() <= 36){
 					return false;
 				}
 				return true;
@@ -121,6 +132,11 @@ public class Player extends MovingComponent {
 					return false;
 				}
 				return true;
+			case 2:
+				if(outOfBounds() || getY() <= 60){
+					return false;
+				}
+				return true;
 			}
 		case 3:
 			newX = getX()+36;
@@ -133,6 +149,11 @@ public class Player extends MovingComponent {
 				return true;
 			case 1:
 				if(outOfBounds() || getX() >= 324){
+					return false;
+				}
+				return true;
+			case 2:
+				if(outOfBounds() || getX() >= 504){
 					return false;
 				}
 				return true;
@@ -165,6 +186,20 @@ public class Player extends MovingComponent {
 				}
 			}
 			for(Front f : LabMain.fore){
+				if((newX >= f.getX() && newX < f.getX() + f.getWidth())
+						&& (newY >= f.getY() && newY < f.getY() + f.getHeight())){
+					return true;
+				}
+			}
+			return false;
+		case 2:
+			for(Door d : RouteMain1.door){
+				if(newX == d.getX() && newY == d.getY()){
+					Symposium.game.setScreen(d.getScreen());
+					break;
+				}
+			}
+			for(Front f : RouteMain1.fore){
 				if((newX >= f.getX() && newX < f.getX() + f.getWidth())
 						&& (newY >= f.getY() && newY < f.getY() + f.getHeight())){
 					return true;
@@ -281,6 +316,16 @@ public class Player extends MovingComponent {
 			isChoose = false;
 			Interact.isText = false;
 			moveable = true;
+		case 2:
+			RouteMain1.text.setText("");
+			RouteMain1.box.setVisible(false);
+			RouteMain1.menu.setVisible(false);
+			for(TextLabel t : RouteMain1.menuText){
+				t.setVisible(false);
+			}
+			isMenu = false;
+			Interact.isText = false;
+			moveable = true;
 		}
 	}
 
@@ -299,6 +344,13 @@ public class Player extends MovingComponent {
 			isMenu = true;
 			for(TextLabel l : LabMain.menuText){
 				l.setVisible(true);
+			}
+		case 2:
+			moveable = false;
+			RouteMain1.menu.setVisible(true);
+			isMenu = true;
+			for(TextLabel w : RouteMain1.menuText){
+				w.setVisible(true);
 			}
 		}
 	}
@@ -328,11 +380,20 @@ public class Player extends MovingComponent {
 				LabMain.box.setVisible(false);
 				break;
 			}
+		case 2:
+			if(Interact.isText){
+				RouteMain1.text.setText("");
+				RouteMain1.box.setVisible(false);
+				moveable = true;
+				Interact.isText = false;
+				break;
+			}
 		}
 	}
 
 	public void menuClose() {
-		if(screen == 0){
+		switch(screen){
+		case 0:
 			if(isMenu){
 				WorldMain.menu.setVisible(false);
 				for(TextLabel t : WorldMain.menuText){
@@ -341,11 +402,19 @@ public class Player extends MovingComponent {
 				isMenu = false;
 				moveable = true;
 			}
-		}
-		if(screen == 1){
+		case 1:
 			if(isMenu){
 				LabMain.menu.setVisible(false);
 				for(TextLabel t : LabMain.menuText){
+					t.setVisible(false);
+				}
+				isMenu = false;
+				moveable = true;
+			}
+		case 2:
+			if(isMenu){
+				RouteMain1.menu.setVisible(false);
+				for(TextLabel t : RouteMain1.menuText){
 					t.setVisible(false);
 				}
 				isMenu = false;

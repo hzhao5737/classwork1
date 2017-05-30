@@ -22,6 +22,7 @@ public class Door extends Component {
 	public void update(Graphics2D g) {
 		String[] door = {"resources/sampleImages/Door.png",
 				"resources/sampleImages/Black.png",
+				"resources/sampleImages/Grass.png",
 				"resources/sampleImages/Grass.png"};
 		g = clear();
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
@@ -44,10 +45,16 @@ public class Door extends Component {
 			return Symposium.worldScreen;
 		}
 		if(file == 2){
-			WorldMain.player.setX(432);
-			WorldMain.player.setY(500);
+			WorldMain.player.setX(288);
+			WorldMain.player.setY(580);
 			Player.screen = 2;
 			return Symposium.routeScreen1;
+		}
+		if(file == 3){
+			WorldMain.player.setX(396);
+			WorldMain.player.setY(20);
+			Player.screen = 0;
+			return Symposium.worldScreen;
 		}
 		return null;
 	}

@@ -136,9 +136,12 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 				Symposium.game.setScreen(Symposium.infoScreen);
 			}
 			if (key == KeyEvent.VK_3){
-				player.menuClose();
+				player.endText();
 			}
 			if (key == KeyEvent.VK_ESCAPE) {
+				player.endText();
+			}
+			if (key == KeyEvent.VK_SPACE) {
 				player.endText();
 			}
 		}else if(Player.moveable){
