@@ -61,6 +61,9 @@ public class MenuMain extends Screen implements Runnable, KeyListener {
 			case 1:
 				Symposium.game.setScreen(Symposium.labScreen);
 				break;
+			case 2:
+				Symposium.game.setScreen(Symposium.routeScreen1);
+				break;
 			}
 		}
 	}
