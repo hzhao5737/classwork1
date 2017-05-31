@@ -25,6 +25,7 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 	public static ArrayList<Front> fore;
 	public static ArrayList<Door> door;
 	public static ArrayList<Interact> act;
+	public static ArrayList<Grass> grass;
 	public static Player player;
 	public static TextLabel text;
 	public static ArrayList<TextLabel> menuText;
@@ -42,10 +43,12 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 		fore = new ArrayList<Front>();
 		door = new ArrayList<Door>();
 		act = new ArrayList<Interact>();
+		grass = new ArrayList<Grass>();
 		menuText = new ArrayList<TextLabel>();
 		back.add(new Background(0,20,720,720,0));
 		back.add(new Background(108,220,36,40,1));
 		back.add(new Background(396,220,36,40,1));
+		grass.add(new Grass(396,60,36,40));
 		fore.add(new Front(36,60,36,40,0));
 		fore.add(new Front(72,60,36,40,0));
 		fore.add(new Front(108,60,36,40,0));
@@ -87,6 +90,7 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 		act.add(new Interact(180,220,36,40,0));
 		act.add(new Interact(468,220,36,40,0));
 		v.addAll(back);
+		v.addAll(grass);
 		v.addAll(fore);
 		v.addAll(door);
 		v.addAll(act);

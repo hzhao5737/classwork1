@@ -74,6 +74,23 @@ public class Player extends MovingComponent {
 				break;
 			}
 		}
+		if(isGrass()){
+			if(Math.random() < .1){
+				Symposium.game.setScreen(Symposium.battleScreen);
+			}
+		}
+	}
+
+	private boolean isGrass() {
+		switch(screen){
+		case 0: 
+			for(Grass g : WorldMain.grass){
+				if(getX() == g.getX() && getY() == g.getY()){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	private boolean isValid() {

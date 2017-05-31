@@ -10,6 +10,7 @@ public class Symposium extends GUIApplication {
 	public static Screen worldScreen;
 	public static Screen labScreen;
 	public static Screen routeScreen1;
+	public static Screen battleScreen;
 	public static Symposium game;
 
 	public Symposium(int width, int height) {
@@ -24,6 +25,7 @@ public class Symposium extends GUIApplication {
 
 	@Override
 	public void initScreen() {
+		battleScreen = new BattleMain(getWidth(),getHeight());
 		infoScreen = new MenuMain(getWidth(),getHeight());
 		worldScreen = new WorldMain(getWidth(),getHeight());
 		labScreen = new LabMain(getWidth(),getHeight());
