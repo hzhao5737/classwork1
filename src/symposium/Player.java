@@ -76,6 +76,13 @@ public class Player extends MovingComponent {
 		}
 		if(isGrass()){
 			if(Math.random() < .1){
+				BattleMain.opponent = new Pok("Venusaur");
+				BattleMain.oppPok.setText(BattleMain.opponent.name
+						+ "   " + BattleMain.opponent.currenthp
+						+ "/" + BattleMain.opponent.hp);
+				BattleMain.ownPok.setText(current().name
+						+ "   " + current().currenthp
+						+ "/" + current().hp);
 				Symposium.game.setScreen(Symposium.battleScreen);
 			}
 		}
@@ -442,18 +449,27 @@ public class Player extends MovingComponent {
 
 	public void selectBall() {
 		if(chosen == 0){
-			party.add(new Pok("Venusaur",80,82,83,80,100,3,8));
+			party.add(new Pok("Venusaur"));
 		}
 		if(chosen == 1){
-			party.add(new Pok("Charizard",80,82,83,80,100,2,10));
+			party.add(new Pok("Charizard"));
 		}
 		if(chosen == 2){
-			party.add(new Pok("Blastoise",80,82,83,80,100,3,0));
+			party.add(new Pok("Blastoise"));
 		}
 		if(party.size() > 6){
 			pc.add(party.get(6));
 			party.remove(6);
 		}
 		MenuMain.partyUpdate();
+	}
+	
+	public static Pok current(){
+		for(Pok p : party){
+			if(p.currenthp != 0){
+				return p;
+			}
+		}
+		return null;
 	}
 }

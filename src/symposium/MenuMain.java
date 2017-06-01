@@ -42,7 +42,9 @@ public class MenuMain extends Screen implements Runnable, KeyListener {
 
 	public static void partyUpdate() {
 		for(int i = 0; i < Player.party.size(); i++){
-			pok.get(i).setText(Player.party.get(i).getName());
+			pok.get(i).setText(Player.party.get(i).name
+					+ " " + Player.party.get(i).currenthp
+					+ "/" + Player.party.get(i).hp);
 		}
 	}
 
