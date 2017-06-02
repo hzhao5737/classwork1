@@ -94,8 +94,7 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 				hideMoves();
 				startTurn();
 			}
-		}
-		if(inMenu){
+		}else if(inMenu){
 			if (key == KeyEvent.VK_1){
 				showMoves();
 				inMenu = false;
