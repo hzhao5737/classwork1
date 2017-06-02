@@ -470,6 +470,17 @@ public class Player extends MovingComponent {
 				return p;
 			}
 		}
+		switch(screen){
+		case 0:
+			Symposium.game.setScreen(Symposium.worldScreen);
+			break;
+		case 1:
+			Symposium.game.setScreen(Symposium.labScreen);
+			break;
+		case 2:
+			Symposium.game.setScreen(Symposium.routeScreen1);
+			break;
+		}
 		return null;
 	}
 }

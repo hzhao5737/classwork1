@@ -19,6 +19,8 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 	public boolean inMenu;
 	public boolean inAttack;
 	public static Pok opponent;
+	public static Moves playermove;
+	public static Pok ours;
 	
 	public BattleMain(int width, int height) {
 		super(width, height);
@@ -44,7 +46,7 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 		moves = new ArrayList<TextLabel>();
 		actions = new ArrayList<TextLabel>();
 		menu = new Button(100, 500, 500, 200, null, null, null);
-		oppPok = new TextLabel(200, 100, 500, 50, "SSS");
+		oppPok = new TextLabel(200, 100, 500, 50, "");
 		ownPok = new TextLabel(400, 400, 500, 50, "");
 		moves.add(new TextLabel(100, 500, 500, 50, ""));
 		moves.add(new TextLabel(100, 550, 500, 50, ""));
@@ -75,6 +77,22 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 				hideMoves();
 				inMenu = true;
 				inAttack = false;
+			}if (key == KeyEvent.VK_1){
+				playermove = Player.current().moves[0];
+				hideMoves();
+				startTurn();
+			}if (key == KeyEvent.VK_2){
+				playermove = Player.current().moves[1];
+				hideMoves();
+				startTurn();
+			}if (key == KeyEvent.VK_3){
+				playermove = Player.current().moves[2];
+				hideMoves();
+				startTurn();
+			}if (key == KeyEvent.VK_4){
+				playermove = Player.current().moves[3];
+				hideMoves();
+				startTurn();
 			}
 		}
 		if(inMenu){
@@ -97,6 +115,45 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 				}
 			}
 		}
+	}
+
+	private void startTurn() {
+		ours = Player.current();
+		Moves oppMove = opponent.moves[(int) Math.random() * 4];
+		boolean isFirst = ours.currentspeed >= opponent.currentspeed;
+		if(isFirst){
+			opponent.currenthp = opponent.currenthp - playermove.power;
+			if(opponent.currenthp <= 0){
+				opponent.currenthp = 0;
+			}else{
+				ours.currenthp = ours.currenthp - oppMove.power;
+				if(ours.currenthp <= 0){
+					ours.currenthp = 0;
+				}
+			}
+		}else{
+			ours.currenthp = ours.currenthp - oppMove.power;
+			if(ours.currenthp <= 0){
+				ours.currenthp = 0;
+			}else{
+				opponent.currenthp = opponent.currenthp - playermove.power;
+				if(opponent.currenthp <= 0){
+					opponent.currenthp = 0;
+				}
+			}
+		}
+		updateHealth();
+		inAttack = false;
+		inMenu = true;
+	}
+
+	private void updateHealth() {
+		oppPok.setText(BattleMain.opponent.name
+				+ "   " + BattleMain.opponent.currenthp
+				+ "/" + BattleMain.opponent.hp);
+		ownPok.setText(ours.name
+				+ "   " + ours.currenthp
+				+ "/" + ours.hp);
 	}
 
 	@Override

@@ -11,13 +11,18 @@ public class Pok {
 	public int[] type;
 	public Moves[] moves;
 	public int currenthp;
+	public int currentattack;
+	public int currentdefense;
+	public int currentspeed;
+	public int currentspecial;
+	
 	
 	public Pok(String name){
 		this.name = name;
+		moves = new Moves[4];
 		switch(name){
 		case "Venusaur":
 			type = new int[2];
-			moves = new Moves[4];
 			hp = 80;
 			attack = 82;
 			defense = 83;
@@ -25,7 +30,6 @@ public class Pok {
 			special = 100;
 			type[0] = 3;
 			type[1] = 8;
-			currenthp = hp;
 			moves[0] = new Moves("Tackle");
 			moves[1] = new Moves("Tackle");
 			moves[2] = new Moves("Tackle");
@@ -40,7 +44,6 @@ public class Pok {
 			special = 100;
 			type[0] = 2;
 			type[1] = 10;
-			currenthp = hp;
 			moves[0] = new Moves("Tackle");
 			moves[1] = new Moves("Tackle");
 			moves[2] = new Moves("Tackle");
@@ -54,12 +57,16 @@ public class Pok {
 			speed = 80;
 			special = 100;
 			type[0] = 3;
-			currenthp = hp;
 			moves[0] = new Moves("Tackle");
 			moves[1] = new Moves("Tackle");
 			moves[2] = new Moves("Tackle");
 			moves[3] = new Moves("Tackle");
 			break;
 		}
+		currenthp = hp;
+		currentattack = attack;
+		currentdefense = defense;
+		currentspeed = speed;
+		currentspecial = special;
 	}
 }
