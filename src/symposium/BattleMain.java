@@ -21,23 +21,33 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 	public static Pok opponent;
 	public static Moves playermove;
 	public static Pok ours;
-	
+	public static Moves oppMove;
+
 	public BattleMain(int width, int height) {
 		super(width, height);
 		update();
 	}
-	
+
 	public static void showMoves(){
 		for(int i = 0; i < moves.size(); i++){
-			actions.get(i).setVisible(false);
-			moves.get(i).setText(Player.current().moves[i].move);
+			moves.get(i).setText(ours.moves[i].move);
 		}
 	}
-	
+
 	public static void hideMoves(){
 		for(int i = 0; i < moves.size(); i++){
-			actions.get(i).setVisible(true);
 			moves.get(i).setText("");
+		}
+	}
+
+	public static void showMenu(){
+		for(int i = 0; i < moves.size(); i++){
+			actions.get(i).setVisible(true);
+		}
+	}
+	public static void hideMenu(){
+		for(int i = 0; i < moves.size(); i++){
+			actions.get(i).setVisible(false);
 		}
 	}
 
@@ -68,35 +78,41 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 	public KeyListener getKeyListener() {
 		return this;
 	}
-	
+
 	@Override
 	public void keyPressed(KeyEvent k) {
 		int key = k.getKeyCode();
 		if(inAttack){
 			if (key == KeyEvent.VK_ESCAPE){
 				hideMoves();
+				showMenu();
 				inMenu = true;
 				inAttack = false;
 			}if (key == KeyEvent.VK_1){
-				playermove = Player.current().moves[0];
+				playermove = ours.moves[0];
 				hideMoves();
+				hideMenu();
 				startTurn();
 			}if (key == KeyEvent.VK_2){
-				playermove = Player.current().moves[1];
+				playermove = ours.moves[1];
 				hideMoves();
+				hideMenu();
 				startTurn();
 			}if (key == KeyEvent.VK_3){
-				playermove = Player.current().moves[2];
+				playermove = ours.moves[2];
 				hideMoves();
+				hideMenu();
 				startTurn();
 			}if (key == KeyEvent.VK_4){
-				playermove = Player.current().moves[3];
+				playermove = ours.moves[3];
 				hideMoves();
+				hideMenu();
 				startTurn();
 			}
 		}else if(inMenu){
 			if (key == KeyEvent.VK_1){
 				showMoves();
+				hideMenu();
 				inMenu = false;
 				inAttack = true;
 			}
@@ -116,34 +132,79 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 		}
 	}
 
-	private void startTurn() {
+	public static void startBattle(){
 		ours = Player.current();
-		Moves oppMove = opponent.moves[(int) Math.random() * 4];
+	}
+
+	private void startTurn() {
+		oppMove = opponent.moves[(int) Math.random() * 4];
 		boolean isFirst = ours.currentspeed >= opponent.currentspeed;
 		if(isFirst){
-			opponent.currenthp = opponent.currenthp - playermove.power;
-			if(opponent.currenthp <= 0){
-				opponent.currenthp = 0;
+			youAttack();
+			if(opponent.currenthp == 0){
+				endBattle();
 			}else{
-				ours.currenthp = ours.currenthp - oppMove.power;
-				if(ours.currenthp <= 0){
-					ours.currenthp = 0;
+				opponentAttack();
+				if(ours.currenthp == 0 && Player.current() == null){
+					endBattle();
 				}
+				ours = Player.current();
 			}
 		}else{
-			ours.currenthp = ours.currenthp - oppMove.power;
-			if(ours.currenthp <= 0){
-				ours.currenthp = 0;
+			opponentAttack();
+			if(ours.currenthp == 0 && Player.current() == null){
+				endBattle();
 			}else{
-				opponent.currenthp = opponent.currenthp - playermove.power;
-				if(opponent.currenthp <= 0){
-					opponent.currenthp = 0;
+				ours = Player.current();
+				youAttack();
+				if(opponent.currenthp == 0){
+					endBattle();
 				}
 			}
 		}
 		updateHealth();
+		showMenu();
 		inAttack = false;
 		inMenu = true;
+	}
+
+	private void endBattle() {
+		if(Player.current() == null){
+			Player.healAll();
+			WorldMain.player.setX(180);
+			WorldMain.player.setY(260);
+			WorldMain.player.setPos(0);
+			WorldMain.player.update();
+			Symposium.game.setScreen(Symposium.worldScreen);
+		}else{
+			switch(Player.screen){
+			case 0:
+				Symposium.game.setScreen(Symposium.worldScreen);
+				break;
+			case 1:
+				Symposium.game.setScreen(Symposium.labScreen);
+				break;
+			case 2:
+				Symposium.game.setScreen(Symposium.routeScreen1);
+				break;
+			}
+		}
+	}
+
+	private void youAttack() {
+		opponent.currenthp = opponent.currenthp - playermove.power;
+		if(opponent.currenthp <= 0){
+			opponent.currenthp = 0;
+		}
+		updateHealth();
+	}
+
+	private void opponentAttack() {
+		ours.currenthp = ours.currenthp - oppMove.power;
+		if(ours.currenthp <= 0){
+			ours.currenthp = 0;
+		}
+		updateHealth();
 	}
 
 	private void updateHealth() {
@@ -158,13 +219,13 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

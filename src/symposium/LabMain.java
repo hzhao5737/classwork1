@@ -91,9 +91,11 @@ public class LabMain extends Screen implements Runnable, KeyListener{
 		int key = k.getKeyCode();
 		if(Player.isMenu){
 			if (key == KeyEvent.VK_1){
+				MenuMain.partyUpdate();
 				Symposium.game.setScreen(Symposium.infoScreen);
 			}
 			if (key == KeyEvent.VK_2){
+				MenuMain.partyUpdate();
 				Symposium.game.setScreen(Symposium.infoScreen);
 			}
 			if (key == KeyEvent.VK_3){

@@ -76,6 +76,7 @@ public class Player extends MovingComponent {
 		}
 		if(isGrass()){
 			if(Math.random() < .1){
+				BattleMain.startBattle();
 				BattleMain.opponent = new Pok("Venusaur");
 				BattleMain.oppPok.setText(BattleMain.opponent.name
 						+ "   " + BattleMain.opponent.currenthp
@@ -463,24 +464,19 @@ public class Player extends MovingComponent {
 		}
 		MenuMain.partyUpdate();
 	}
-	
+
 	public static Pok current(){
 		for(Pok p : party){
 			if(p.currenthp != 0){
 				return p;
 			}
 		}
-		switch(screen){
-		case 0:
-			Symposium.game.setScreen(Symposium.worldScreen);
-			break;
-		case 1:
-			Symposium.game.setScreen(Symposium.labScreen);
-			break;
-		case 2:
-			Symposium.game.setScreen(Symposium.routeScreen1);
-			break;
-		}
 		return null;
+	}
+
+	public static void healAll(){
+		for(Pok p : party){
+			p.currenthp = p.hp;
+		}
 	}
 }
