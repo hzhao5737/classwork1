@@ -16,6 +16,7 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 	public static Button menu;
 	public static TextLabel ownPok;
 	public static TextLabel oppPok;
+	public static TextLabel action;
 	public boolean inMenu;
 	public boolean inAttack;
 	public static Pok opponent;
@@ -45,10 +46,20 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 			actions.get(i).setVisible(true);
 		}
 	}
+
 	public static void hideMenu(){
 		for(int i = 0; i < moves.size(); i++){
 			actions.get(i).setVisible(false);
 		}
+	}
+
+	public static void showAction(){
+		action.setVisible(true);
+
+	}
+
+	public static void hideAction(){
+		action.setVisible(false);
 	}
 
 	@Override
@@ -56,6 +67,7 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 		moves = new ArrayList<TextLabel>();
 		actions = new ArrayList<TextLabel>();
 		menu = new Button(100, 500, 500, 200, null, null, null);
+		action = new TextLabel(100, 550, 500, 50, "YOU USED TACKLE");
 		oppPok = new TextLabel(200, 100, 500, 50, "");
 		ownPok = new TextLabel(400, 400, 500, 50, "");
 		moves.add(new TextLabel(100, 500, 500, 50, ""));
@@ -71,6 +83,8 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 		v.add(menu);
 		v.addAll(actions);
 		v.addAll(moves);
+		v.add(action);
+		action.setVisible(false);
 		inMenu = true;
 		inAttack = false;
 	}
@@ -196,7 +210,9 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 		if(opponent.currenthp <= 0){
 			opponent.currenthp = 0;
 		}
+		showAction();
 		updateHealth();
+		hideAction();
 	}
 
 	private void opponentAttack() {
@@ -204,7 +220,9 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 		if(ours.currenthp <= 0){
 			ours.currenthp = 0;
 		}
+		showAction();
 		updateHealth();
+		hideAction();
 	}
 
 	private void updateHealth() {
@@ -230,13 +248,10 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 
 	@Override
 	public void run() {
-		while(true){
-			try {
-				Thread.sleep(300);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			//update();
+		try {
+			Thread.sleep(300);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 }
