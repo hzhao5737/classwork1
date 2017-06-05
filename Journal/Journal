@@ -83,3 +83,7 @@ Will continue working on the battle system tomorrow.
 6-2-17
 Worked on the battling system and allowed the player to attack and the computer to attack as well. Will try to fix
 bugs and add more features to the battle tomorrow.
+
+6-5-17
+Fixed some bugs in the battling today. Battle now ends when hp reaches 0. Will try to add text to say what moves
+were used tomorrow.
