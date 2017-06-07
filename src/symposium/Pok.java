@@ -30,18 +30,18 @@ public class Pok {
 			special = 100;
 			type[0] = 3;
 			type[1] = 8;
-			moves[0] = new Moves("Tackle");
-			moves[1] = new Moves("Tackle");
-			moves[2] = new Moves("Tackle");
+			moves[0] = new Moves("SolarBeam");
+			moves[1] = new Moves("Razor Leaf");
+			moves[2] = new Moves("Vine Whip");
 			moves[3] = new Moves("Tackle");
 			break;
 		case "Charizard":
 			type = new int[2];
-			hp = 80;
-			attack = 82;
-			defense = 83;
-			speed = 80;
-			special = 100;
+			hp = 78;
+			attack = 84;
+			defense = 78;
+			speed = 100;
+			special = 85;
 			type[0] = 2;
 			type[1] = 10;
 			moves[0] = new Moves("Tackle");
@@ -51,11 +51,11 @@ public class Pok {
 			break;
 		case "Blastoise":
 			type = new int[1];
-			hp = 80;
-			attack = 82;
-			defense = 83;
-			speed = 80;
-			special = 100;
+			hp = 79;
+			attack = 83;
+			defense = 100;
+			speed = 78;
+			special = 85;
 			type[0] = 3;
 			moves[0] = new Moves("Tackle");
 			moves[1] = new Moves("Tackle");

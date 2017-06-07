@@ -19,10 +19,15 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 	public static TextLabel action;
 	public boolean inMenu;
 	public boolean inAttack;
+	public boolean inAction;
+	public boolean isFirst;
 	public static Pok opponent;
 	public static Moves playermove;
 	public static Pok ours;
 	public static Moves oppMove;
+	public int message;
+	public int damage;
+	public int multiplier;
 
 	public BattleMain(int width, int height) {
 		super(width, height);
@@ -31,7 +36,7 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 
 	public static void showMoves(){
 		for(int i = 0; i < moves.size(); i++){
-			moves.get(i).setText(ours.moves[i].move);
+			moves.get(i).setText(i+1 + ". " + ours.moves[i].move);
 		}
 	}
 
@@ -66,18 +71,18 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 	public void initObjects(ArrayList<Visible> v) {
 		moves = new ArrayList<TextLabel>();
 		actions = new ArrayList<TextLabel>();
-		menu = new Button(100, 500, 500, 200, null, null, null);
-		action = new TextLabel(100, 550, 500, 50, "YOU USED TACKLE");
+		menu = new Button(50, 500, 600, 200, null, null, null);
+		action = new TextLabel(100, 550, 500, 50, "");
 		oppPok = new TextLabel(200, 100, 500, 50, "");
 		ownPok = new TextLabel(400, 400, 500, 50, "");
 		moves.add(new TextLabel(100, 500, 500, 50, ""));
 		moves.add(new TextLabel(100, 550, 500, 50, ""));
 		moves.add(new TextLabel(100, 600, 500, 50, ""));
 		moves.add(new TextLabel(100, 650, 500, 50, ""));
-		actions.add(new TextLabel(500, 500, 500, 50, "Fight"));
-		actions.add(new TextLabel(500, 550, 500, 50, "Pokemon"));
-		actions.add(new TextLabel(500, 600, 500, 50, "Items"));
-		actions.add(new TextLabel(500, 650, 500, 50, "Run"));
+		actions.add(new TextLabel(500, 500, 500, 50, "1. Fight"));
+		actions.add(new TextLabel(500, 550, 500, 50, "2. Pokemon"));
+		actions.add(new TextLabel(500, 600, 500, 50, "3. Items"));
+		actions.add(new TextLabel(500, 650, 500, 50, "4. Run"));
 		v.add(oppPok);
 		v.add(ownPok);
 		v.add(menu);
@@ -131,18 +136,118 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 				inAttack = true;
 			}
 			if (key == KeyEvent.VK_4){
-				switch(Player.screen){
-				case 0:
-					Symposium.game.setScreen(Symposium.worldScreen);
-					break;
-				case 1:
-					Symposium.game.setScreen(Symposium.labScreen);
-					break;
-				case 2:
-					Symposium.game.setScreen(Symposium.routeScreen1);
-					break;
+				if(ours.currentspeed >= opponent.currentspeed){
+					switch(Player.screen){
+					case 0:
+						Symposium.game.setScreen(Symposium.worldScreen);
+						break;
+					case 1:
+						Symposium.game.setScreen(Symposium.labScreen);
+						break;
+					case 2:
+						Symposium.game.setScreen(Symposium.routeScreen1);
+						break;
+					}
+				}else{
+					inMenu = false;
+					inAction = true;
+					hideMenu();
+					opponentAttack();
 				}
 			}
+		}else if(inAction){
+			if (key == KeyEvent.VK_ENTER){
+				nextAttack();
+			}
+		}
+	}
+
+	private void nextAttack() {
+		if(message == 0){
+			if(ours.currenthp == 0 && Player.current() == null){
+				hideAction();
+				updateHealth();
+				showMenu();
+				inAttack = false;
+				inMenu = true;
+				inAction = false;
+				message = 0;
+				endBattle();
+			}
+			ours = Player.current();
+			hideAction();
+			updateHealth();
+			showMenu();
+			inAttack = false;
+			inMenu = true;
+			inAction = false;
+		}
+		if(message == 1){
+			if(opponent.currenthp == 0){
+				hideAction();
+				updateHealth();
+				showMenu();
+				inAttack = false;
+				inMenu = true;
+				inAction = false;
+				message = 0;
+				endBattle();
+			}else{
+				opponentAttack();
+				message = 3;
+			}
+		}else if(message == 2){
+			if(ours.currenthp == 0 && Player.current() == null){
+				hideAction();
+				updateHealth();
+				showMenu();
+				inAttack = false;
+				inMenu = true;
+				inAction = false;
+				message = 0;
+				endBattle();
+			}else{
+				ours = Player.current();
+				youAttack();
+				message = 4;
+			}
+		}else if(message == 3){
+			if(ours.currenthp == 0 && Player.current() == null){
+				hideAction();
+				updateHealth();
+				showMenu();
+				inAttack = false;
+				inMenu = true;
+				inAction = false;
+				message = 0;
+				endBattle();
+			}
+			ours = Player.current();
+			hideAction();
+			updateHealth();
+			showMenu();
+			inAttack = false;
+			inMenu = true;
+			inAction = false;
+			message = 0;
+		}else if(message == 4){
+			if(opponent.currenthp == 0){
+				hideAction();
+				updateHealth();
+				showMenu();
+				inAttack = false;
+				inMenu = true;
+				inAction = false;
+				message = 0;
+				endBattle();
+			}
+			hideAction();
+			updateHealth();
+			showMenu();
+			inAttack = false;
+			inMenu = true;
+			inAction = false;
+			message = 0;
 		}
 	}
 
@@ -151,35 +256,17 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 	}
 
 	private void startTurn() {
-		oppMove = opponent.moves[(int) Math.random() * 4];
-		boolean isFirst = ours.currentspeed >= opponent.currentspeed;
+		inAttack = false;
+		message = 0;
+		inAction = true;
+		isFirst = ours.currentspeed >= opponent.currentspeed;
 		if(isFirst){
 			youAttack();
-			if(opponent.currenthp == 0){
-				endBattle();
-			}else{
-				opponentAttack();
-				if(ours.currenthp == 0 && Player.current() == null){
-					endBattle();
-				}
-				ours = Player.current();
-			}
+			message = 1;
 		}else{
 			opponentAttack();
-			if(ours.currenthp == 0 && Player.current() == null){
-				endBattle();
-			}else{
-				ours = Player.current();
-				youAttack();
-				if(opponent.currenthp == 0){
-					endBattle();
-				}
-			}
+			message = 2;
 		}
-		updateHealth();
-		showMenu();
-		inAttack = false;
-		inMenu = true;
 	}
 
 	private void endBattle() {
@@ -206,23 +293,70 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 	}
 
 	private void youAttack() {
-		opponent.currenthp = opponent.currenthp - playermove.power;
+		if(playermove.which == 1){
+			damage = playermove.power + ours.currentattack - opponent.currentdefense;
+		}else if(playermove.which == 2){
+			damage = playermove.power + ours.currentspecial - opponent.currentspecial;
+		}
+		isEffective(playermove.type);
+		damage = damage * multiplier;
+		opponent.currenthp = opponent.currenthp - damage;
 		if(opponent.currenthp <= 0){
 			opponent.currenthp = 0;
 		}
 		showAction();
+		action.setText("You used " + playermove.move);
 		updateHealth();
-		hideAction();
 	}
 
 	private void opponentAttack() {
-		ours.currenthp = ours.currenthp - oppMove.power;
+		oppMove = opponent.moves[(int) Math.random() * 4];
+		if(oppMove.which == 1){
+			damage = oppMove.power + opponent.currentattack - ours.currentdefense;
+		}else if(oppMove.which == 2){
+			damage = oppMove.power + opponent.currentspecial - ours.currentspecial;
+		}
+		isEffective(oppMove.type);
+		damage = damage * multiplier;
+		ours.currenthp = ours.currenthp - damage;
 		if(ours.currenthp <= 0){
 			ours.currenthp = 0;
 		}
 		showAction();
+		action.setText("He used " + oppMove.move);
 		updateHealth();
-		hideAction();
+	}
+
+	private void isEffective(int type) {
+		multiplier = 1;
+		switch(type){
+		case 0:
+			for(int t: opponent.type){
+				if(t == 12){
+					multiplier = multiplier / 2;
+				}if(t == 13){
+					multiplier = multiplier * 0;
+				}
+			}
+		case 1:
+			for(int t: opponent.type){
+				if(t == 1){
+					multiplier = multiplier / 2;
+				}if(t == 2){
+					multiplier = multiplier / 2;
+				}if(t == 4){
+					multiplier = multiplier * 2;
+				}if(t == 5){
+					multiplier = multiplier * 2;
+				}if(t == 11){
+					multiplier = multiplier * 2;
+				}if(t == 12){
+					multiplier = multiplier / 2;
+				}if(t == 14){
+					multiplier = multiplier / 2;
+				}
+			}
+		}
 	}
 
 	private void updateHealth() {

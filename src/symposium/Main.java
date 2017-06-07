@@ -28,6 +28,7 @@ public class Main extends Screen implements Runnable, KeyListener{
 		intro.add(new CustomTextLabel(240, 320, 300, 30, "Use Spacebar to open menu", Color.white));
 		intro.add(new CustomTextLabel(240, 360, 250, 30, "Use Enter to interact", Color.white));
 		intro.add(new CustomTextLabel(240, 400, 250, 30, "Use Escape to go back", Color.white));
+		intro.add(new CustomTextLabel(240, 440, 300, 30, "Use Numbers to select options", Color.white));
 		view.addAll(intro);
 	}
 
