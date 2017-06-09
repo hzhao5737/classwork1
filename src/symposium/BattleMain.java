@@ -36,7 +36,7 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 
 	public static void showMoves(){
 		for(int i = 0; i < moves.size(); i++){
-			moves.get(i).setText(i+1 + ". " + ours.moves[i].move);
+			moves.get(i).setText(i+1 + ". " + ours.moves[i].move + "   " + ours.moves[i].currentpp + "/" + ours.moves[i].pp);
 		}
 	}
 
@@ -108,25 +108,33 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 				inMenu = true;
 				inAttack = false;
 			}if (key == KeyEvent.VK_1){
-				playermove = ours.moves[0];
-				hideMoves();
-				hideMenu();
-				startTurn();
+				if(ours.moves[0].currentpp > 0){
+					playermove = ours.moves[0];
+					hideMoves();
+					hideMenu();
+					startTurn();
+				}
 			}if (key == KeyEvent.VK_2){
-				playermove = ours.moves[1];
-				hideMoves();
-				hideMenu();
-				startTurn();
+				if(ours.moves[1].currentpp > 0){
+					playermove = ours.moves[1];
+					hideMoves();
+					hideMenu();
+					startTurn();
+				}
 			}if (key == KeyEvent.VK_3){
-				playermove = ours.moves[2];
-				hideMoves();
-				hideMenu();
-				startTurn();
+				if(ours.moves[2].currentpp > 0){
+					playermove = ours.moves[2];
+					hideMoves();
+					hideMenu();
+					startTurn();
+				}
 			}if (key == KeyEvent.VK_4){
-				playermove = ours.moves[3];
-				hideMoves();
-				hideMenu();
-				startTurn();
+				if(ours.moves[3].currentpp > 0){
+					playermove = ours.moves[3];
+					hideMoves();
+					hideMenu();
+					startTurn();
+				}
 			}
 		}else if(inMenu){
 			if (key == KeyEvent.VK_1){
@@ -293,69 +301,145 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 	}
 
 	private void youAttack() {
-		if(playermove.which == 1){
-			damage = playermove.power + ours.currentattack - opponent.currentdefense;
-		}else if(playermove.which == 2){
-			damage = playermove.power + ours.currentspecial - opponent.currentspecial;
+		playermove.currentpp --;
+		if(playermove.accuracy >= ((int) (Math.random() * 100))){
+			if(playermove.which == 1){
+				damage = playermove.power + ours.currentattack - opponent.currentdefense;
+			}else if(playermove.which == 2){
+				damage = playermove.power + ours.currentspecial - opponent.currentspecial;
+			}
+			if(isStabUs()){
+				damage = (int) (damage * 1.5);
+			}
+			isEffectiveTo(playermove.type);
+			damage = damage * multiplier;
+			opponent.currenthp = opponent.currenthp - damage;
+			if(opponent.currenthp <= 0){
+				opponent.currenthp = 0;
+			}
+			showAction();
+			if(multiplier < 1){
+				action.setText("You used " + oppMove.move + ". It's was not very effective.");
+			}else if(multiplier > 1){
+				action.setText("You used " + oppMove.move + ". It's super effective.");
+			}else{
+				action.setText("You used " + playermove.move);
+			}
+			updateHealth();
+		}else{
+			showAction();
+			action.setText("You missed");
 		}
-		isEffective(playermove.type);
-		damage = damage * multiplier;
-		opponent.currenthp = opponent.currenthp - damage;
-		if(opponent.currenthp <= 0){
-			opponent.currenthp = 0;
-		}
-		showAction();
-		action.setText("You used " + playermove.move);
-		updateHealth();
 	}
 
 	private void opponentAttack() {
-		oppMove = opponent.moves[(int) Math.random() * 4];
-		if(oppMove.which == 1){
-			damage = oppMove.power + opponent.currentattack - ours.currentdefense;
-		}else if(oppMove.which == 2){
-			damage = oppMove.power + opponent.currentspecial - ours.currentspecial;
+		chooseMove();
+		if(oppMove.accuracy >= ((int) (Math.random() * 100))){
+			if(oppMove.which == 1){
+				damage = oppMove.power + opponent.currentattack - ours.currentdefense;
+			}else if(oppMove.which == 2){
+				damage = oppMove.power + opponent.currentspecial - ours.currentspecial;
+			}
+			if(isStabOpp()){
+				damage = (int) (damage * 1.5);
+			}
+			isEffectiveFrom(oppMove.type);
+			damage = damage * multiplier;
+			ours.currenthp = ours.currenthp - damage;
+			if(ours.currenthp <= 0){
+				ours.currenthp = 0;
+			}
+			showAction();
+			if(multiplier < 1){
+				action.setText("Opponent used " + oppMove.move + ". It's was not very effective.");
+			}else if(multiplier > 1){
+				action.setText("Opponent used " + oppMove.move + ". It's super effective.");
+			}else{
+				action.setText("Opponent used " + oppMove.move);
+			}
+			updateHealth();
+		}else{
+			showAction();
+			action.setText("Opponent missed");
 		}
-		isEffective(oppMove.type);
-		damage = damage * multiplier;
-		ours.currenthp = ours.currenthp - damage;
-		if(ours.currenthp <= 0){
-			ours.currenthp = 0;
-		}
-		showAction();
-		action.setText("He used " + oppMove.move);
-		updateHealth();
 	}
 
-	private void isEffective(int type) {
+	private void chooseMove() {
+		int[] moves = new int[4];
+		int unusable = 0;
+		boolean finding = true;
+		for(int i = 0; i < 4; i++){
+			if(opponent.moves[i].currentpp == 0){
+				moves[i] = 1;
+				unusable ++;
+			}
+		}
+		if(unusable == 4){
+			oppMove = new Moves("Struggle");
+		}else{
+			while(finding){
+				oppMove = opponent.moves[(int) (Math.random() * 4)];
+				if(oppMove.currentpp > 0){
+					oppMove.currentpp --;
+					finding = false;
+				}
+			}
+		}
+	}
+
+	private boolean isStabUs() {
+		for(int t: ours.type){
+			if(t == playermove.type){
+				return true;
+			}	
+		}
+		return false;
+	}
+
+	private boolean isStabOpp() {
+		for(int t: opponent.type){
+			if(t == oppMove.type){
+				return true;
+			}	
+		}
+		return false;
+	}
+
+	private void isEffectiveFrom(int type) {
+
+	}
+
+	private void isEffectiveTo(int type) {
 		multiplier = 1;
 		switch(type){
 		case 0:
 			for(int t: opponent.type){
-				if(t == 12){
+				if(t == 5){
 					multiplier = multiplier / 2;
-				}if(t == 13){
+				}if(t == 7){
 					multiplier = multiplier * 0;
 				}
-			}
+			}break;
 		case 1:
 			for(int t: opponent.type){
-				if(t == 1){
-					multiplier = multiplier / 2;
+				if(t == 0){
+					multiplier = multiplier * 2;
 				}if(t == 2){
 					multiplier = multiplier / 2;
-				}if(t == 4){
-					multiplier = multiplier * 2;
+				}if(t == 3){
+					multiplier = multiplier / 2;
 				}if(t == 5){
 					multiplier = multiplier * 2;
-				}if(t == 11){
-					multiplier = multiplier * 2;
+				}if(t == 6){
+					multiplier = multiplier / 2;
+				}if(t == 7){
+					multiplier = multiplier * 0;
 				}if(t == 12){
 					multiplier = multiplier / 2;
-				}if(t == 14){
-					multiplier = multiplier / 2;
+				}if(t == 13){
+					multiplier = multiplier * 2;
 				}
-			}
+			}break;
 		}
 	}
 

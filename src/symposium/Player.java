@@ -477,6 +477,9 @@ public class Player extends MovingComponent {
 	public static void healAll(){
 		for(Pok p : party){
 			p.currenthp = p.hp;
+			for(Moves m : p.moves){
+				m.currentpp = m.pp;
+			}
 		}
 	}
 }

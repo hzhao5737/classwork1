@@ -16,6 +16,22 @@ public class Pok {
 	public int currentspeed;
 	public int currentspecial;
 	
+	/* 0 normal
+	 * 1 fight
+	 * 2 flying
+	 * 3 poison
+	 * 4 ground
+	 * 5 rock
+	 * 6 bug
+	 * 7 ghost
+	 * 8 fire
+	 * 9 water
+	 * 10 grass
+	 * 11 electric
+	 * 12 psychic
+	 * 13 ice
+	 * 14 dragon
+	 */
 	
 	public Pok(String name){
 		this.name = name;
@@ -29,8 +45,8 @@ public class Pok {
 			speed = 80;
 			special = 100;
 			type[0] = 3;
-			type[1] = 8;
-			moves[0] = new Moves("SolarBeam");
+			type[1] = 10;
+			moves[0] = new Moves("Solar Beam");
 			moves[1] = new Moves("Razor Leaf");
 			moves[2] = new Moves("Vine Whip");
 			moves[3] = new Moves("Tackle");
@@ -43,7 +59,7 @@ public class Pok {
 			speed = 100;
 			special = 85;
 			type[0] = 2;
-			type[1] = 10;
+			type[1] = 8;
 			moves[0] = new Moves("Tackle");
 			moves[1] = new Moves("Tackle");
 			moves[2] = new Moves("Tackle");
@@ -56,7 +72,7 @@ public class Pok {
 			defense = 100;
 			speed = 78;
 			special = 85;
-			type[0] = 3;
+			type[0] = 9;
 			moves[0] = new Moves("Tackle");
 			moves[1] = new Moves("Tackle");
 			moves[2] = new Moves("Tackle");
