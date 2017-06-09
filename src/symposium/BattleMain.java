@@ -28,6 +28,7 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 	public int message;
 	public int damage;
 	public int multiplier;
+	private int[][] effective;
 
 	public BattleMain(int width, int height) {
 		super(width, height);
@@ -92,6 +93,91 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 		action.setVisible(false);
 		inMenu = true;
 		inAttack = false;
+		effective = new int[15][15];
+		effective[0][7] = -1;
+		effective[1][7] = -1;
+		effective[4][2] = -1;
+		effective[7][0] = -1;
+		effective[7][12] = -1;
+		effective[11][4] = -1;
+		effective[0][5] = 1;
+		effective[1][2] = 1;
+		effective[1][3] = 1;
+		effective[1][6] = 1;
+		effective[1][12] = 1;
+		effective[2][5] = 1;
+		effective[2][11] = 1;
+		effective[3][3] = 1;
+		effective[3][4] = 1;
+		effective[3][5] = 1;
+		effective[3][7] = 1;
+		effective[4][6] = 1;
+		effective[4][10] = 1;
+		effective[5][1] = 1;
+		effective[5][4] = 1;
+		effective[6][1] = 1;
+		effective[6][2] = 1;
+		effective[6][7] = 1;
+		effective[6][8] = 1;
+		effective[8][5] = 1;
+		effective[8][8] = 1;
+		effective[8][9] = 1;
+		effective[8][14] = 1;
+		effective[9][9] = 1;
+		effective[9][10] = 1;
+		effective[9][14] = 1;
+		effective[10][2] = 1;
+		effective[10][3] = 1;
+		effective[10][6] = 1;
+		effective[10][8] = 1;
+		effective[10][10] = 1;
+		effective[10][14] = 1;
+		effective[11][10] = 1;
+		effective[11][11] = 1;
+		effective[11][14] = 1;
+		effective[12][12] = 1;
+		effective[13][9] = 1;
+		effective[13][13] = 1;
+		effective[1][0] = 2;
+		effective[1][5] = 2;
+		effective[1][13] = 2;
+		effective[2][1] = 2;
+		effective[2][6] = 2;
+		effective[2][10] = 2;
+		effective[3][6] = 2;
+		effective[3][10] = 2;
+		effective[4][3] = 2;
+		effective[4][5] = 2;
+		effective[4][8] = 2;
+		effective[4][11] = 2;
+		effective[5][2] = 2;
+		effective[5][6] = 2;
+		effective[5][8] = 2;
+		effective[5][13] = 2;
+		effective[6][3] = 2;
+		effective[6][10] = 2;
+		effective[6][12] = 2;
+		effective[7][7] = 2;
+		
+		effective[8][8] = 2;
+		effective[8][9] = 2;
+		effective[8][14] = 2;
+		
+		effective[9][9] = 2;
+		effective[9][10] = 2;
+		effective[9][14] = 2;
+		effective[10][2] = 2;
+		effective[10][3] = 2;
+		effective[10][6] = 2;
+		effective[10][8] = 2;
+		effective[10][10] = 2;
+		effective[10][14] = 2;
+		effective[11][10] = 2;
+		effective[11][11] = 2;
+		effective[11][14] = 2;
+		effective[12][12] = 2;
+		effective[13][9] = 2;
+		effective[13][13] = 2;
 	}
 
 	public KeyListener getKeyListener() {
@@ -304,9 +390,9 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 		playermove.currentpp --;
 		if(playermove.accuracy >= ((int) (Math.random() * 100))){
 			if(playermove.which == 1){
-				damage = playermove.power + ours.currentattack - opponent.currentdefense;
+				damage = ((42 * playermove.power * (ours.currentattack / opponent.currentdefense)) / 50) +2;
 			}else if(playermove.which == 2){
-				damage = playermove.power + ours.currentspecial - opponent.currentspecial;
+				damage = ((42 * playermove.power * (ours.currentspecial / opponent.currentspecial)) / 50) +2;
 			}
 			if(isStabUs()){
 				damage = (int) (damage * 1.5);
@@ -336,9 +422,9 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 		chooseMove();
 		if(oppMove.accuracy >= ((int) (Math.random() * 100))){
 			if(oppMove.which == 1){
-				damage = oppMove.power + opponent.currentattack - ours.currentdefense;
+				damage = ((42 * oppMove.power * (opponent.currentattack / ours.currentdefense)) / 50) +2;
 			}else if(oppMove.which == 2){
-				damage = oppMove.power + opponent.currentspecial - ours.currentspecial;
+				damage = ((42 * oppMove.power * (opponent.currentspecial / ours.currentspecial)) / 50) +2;
 			}
 			if(isStabOpp()){
 				damage = (int) (damage * 1.5);
@@ -440,8 +526,91 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 					multiplier = multiplier * 2;
 				}
 			}break;
+		case 2:
+			for(int t: opponent.type){
+				if(t == 1){
+					multiplier = multiplier * 2;
+				}if(t == 5){
+					multiplier = multiplier / 2;
+				}if(t == 6){
+					multiplier = multiplier * 2;
+				}if(t == 10){
+					multiplier = multiplier * 2;
+				}if(t == 11){
+					multiplier = multiplier / 2;
+				}
+			}break;
+		case 3:
+			for(int t: opponent.type){
+				if(t == 3){
+					multiplier = multiplier / 2;
+				}if(t == 4){
+					multiplier = multiplier / 2;
+				}if(t == 5){
+					multiplier = multiplier / 2;
+				}if(t == 6){
+					multiplier = multiplier * 2;
+				}if(t == 7){
+					multiplier = multiplier / 2;
+				}if(t == 10){
+					multiplier = multiplier * 2;
+				}
+			}break;
+		case 4:
+			for(int t: opponent.type){
+				if(t == 2){
+					multiplier = multiplier * 0;
+				}if(t == 3){
+					multiplier = multiplier / 2;
+				}if(t == 5){
+					multiplier = multiplier * 2;
+				}if(t == 6){
+					multiplier = multiplier / 2;
+				}if(t == 8){
+					multiplier = multiplier * 2;
+				}if(t == 10){
+					multiplier = multiplier / 2;
+				}if(t == 11){
+					multiplier = multiplier * 2;
+				}
+			}break;
+		case 5:
+			for(int t: opponent.type){
+				if(t == 2){
+					multiplier = multiplier * 0;
+				}if(t == 3){
+					multiplier = multiplier / 2;
+				}if(t == 5){
+					multiplier = multiplier * 2;
+				}if(t == 6){
+					multiplier = multiplier / 2;
+				}if(t == 8){
+					multiplier = multiplier * 2;
+				}if(t == 10){
+					multiplier = multiplier / 2;
+				}if(t == 11){
+					multiplier = multiplier * 2;
+				}
+			}break;
 		}
 	}
+
+	/* 0 normal
+	 * 1 fight
+	 * 2 flying
+	 * 3 poison
+	 * 4 ground
+	 * 5 rock
+	 * 6 bug
+	 * 7 ghost
+	 * 8 fire
+	 * 9 water
+	 * 10 grass
+	 * 11 electric
+	 * 12 psychic
+	 * 13 ice
+	 * 14 dragon
+	 */
 
 	private void updateHealth() {
 		oppPok.setText(BattleMain.opponent.name

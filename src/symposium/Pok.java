@@ -39,7 +39,7 @@ public class Pok {
 		switch(name){
 		case "Venusaur":
 			type = new int[2];
-			hp = 80;
+			hp = 270;
 			attack = 82;
 			defense = 83;
 			speed = 80;
@@ -53,7 +53,7 @@ public class Pok {
 			break;
 		case "Charizard":
 			type = new int[2];
-			hp = 78;
+			hp = 266;
 			attack = 84;
 			defense = 78;
 			speed = 100;
@@ -67,7 +67,7 @@ public class Pok {
 			break;
 		case "Blastoise":
 			type = new int[1];
-			hp = 79;
+			hp = 268;
 			attack = 83;
 			defense = 100;
 			speed = 78;
