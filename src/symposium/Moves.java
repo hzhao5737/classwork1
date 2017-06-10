@@ -45,7 +45,7 @@ public class Moves {
 			accuracy = 95;
 			type = 0;
 			which = 1;
-			pp = 1;
+			pp = 35;
 			currentpp = pp;
 			action = "";
 			break;
@@ -54,7 +54,7 @@ public class Moves {
 			accuracy = 100;
 			type = 10;
 			which = 2;
-			pp = 1;
+			pp = 10;
 			currentpp = pp;
 			action = "Skip First Turn";
 			break;
@@ -64,7 +64,7 @@ public class Moves {
 			accuracy = 95;
 			type = 10;
 			which = 2;
-			pp = 1;
+			pp = 25;
 			currentpp = pp;
 			action = "Crit";
 			break;
@@ -74,7 +74,7 @@ public class Moves {
 			accuracy = 100;
 			type = 10;
 			which = 2;
-			pp = 1;
+			pp = 10;
 			currentpp = pp;
 			action = "";
 			break;
