@@ -9,6 +9,7 @@ public class Moves {
 	public int which;
 	public int pp;
 	public int currentpp;
+	public String action;
 	
 	/* 0 normal
 	 * 1 fight
@@ -31,28 +32,31 @@ public class Moves {
 		this.move = move;
 		switch(move){
 		case "Struggle":
-			power = 25;
+			power = 50;
 			accuracy = 100;
 			type = 0;
 			which = 1;
 			pp = 10;
 			currentpp = pp;
+			action = "Recoil 1/2";
 			break;
 		case "Tackle":
 			power = 35;
 			accuracy = 95;
 			type = 0;
 			which = 1;
-			pp = 35;
+			pp = 1;
 			currentpp = pp;
+			action = "";
 			break;
 		case "Solar Beam":
 			power = 120;
 			accuracy = 100;
 			type = 10;
 			which = 2;
-			pp = 10;
+			pp = 1;
 			currentpp = pp;
+			action = "Skip First Turn";
 			break;
 
 		case "Razor Leaf":
@@ -60,8 +64,9 @@ public class Moves {
 			accuracy = 95;
 			type = 10;
 			which = 2;
-			pp = 25;
+			pp = 1;
 			currentpp = pp;
+			action = "Crit";
 			break;
 
 		case "Vine Whip":
@@ -69,8 +74,9 @@ public class Moves {
 			accuracy = 100;
 			type = 10;
 			which = 2;
-			pp = 10;
+			pp = 1;
 			currentpp = pp;
+			action = "";
 			break;
 		}
 	}

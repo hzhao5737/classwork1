@@ -27,8 +27,11 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 	public static Moves oppMove;
 	public int message;
 	public int damage;
-	public int multiplier;
-	private int[][] effective;
+	public double multiplier;
+	private double[][] effective;
+	private int chargeTurn;
+	private int oppChargeTurn;
+	private boolean isCrit;
 
 	public BattleMain(int width, int height) {
 		super(width, height);
@@ -73,7 +76,7 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 		moves = new ArrayList<TextLabel>();
 		actions = new ArrayList<TextLabel>();
 		menu = new Button(50, 500, 600, 200, null, null, null);
-		action = new TextLabel(100, 550, 500, 50, "");
+		action = new TextLabel(50, 550, 600, 50, "");
 		oppPok = new TextLabel(200, 100, 500, 50, "");
 		ownPok = new TextLabel(400, 400, 500, 50, "");
 		moves.add(new TextLabel(100, 500, 500, 50, ""));
@@ -93,51 +96,56 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 		action.setVisible(false);
 		inMenu = true;
 		inAttack = false;
-		effective = new int[15][15];
-		effective[0][7] = -1;
-		effective[1][7] = -1;
-		effective[4][2] = -1;
-		effective[7][0] = -1;
-		effective[7][12] = -1;
-		effective[11][4] = -1;
-		effective[0][5] = 1;
-		effective[1][2] = 1;
-		effective[1][3] = 1;
-		effective[1][6] = 1;
-		effective[1][12] = 1;
-		effective[2][5] = 1;
-		effective[2][11] = 1;
-		effective[3][3] = 1;
-		effective[3][4] = 1;
-		effective[3][5] = 1;
-		effective[3][7] = 1;
-		effective[4][6] = 1;
-		effective[4][10] = 1;
-		effective[5][1] = 1;
-		effective[5][4] = 1;
-		effective[6][1] = 1;
-		effective[6][2] = 1;
-		effective[6][7] = 1;
-		effective[6][8] = 1;
-		effective[8][5] = 1;
-		effective[8][8] = 1;
-		effective[8][9] = 1;
-		effective[8][14] = 1;
-		effective[9][9] = 1;
-		effective[9][10] = 1;
-		effective[9][14] = 1;
-		effective[10][2] = 1;
-		effective[10][3] = 1;
-		effective[10][6] = 1;
-		effective[10][8] = 1;
-		effective[10][10] = 1;
-		effective[10][14] = 1;
-		effective[11][10] = 1;
-		effective[11][11] = 1;
-		effective[11][14] = 1;
-		effective[12][12] = 1;
-		effective[13][9] = 1;
-		effective[13][13] = 1;
+		effective = new double[15][15];
+		for(int i = 0; i < effective.length; i++){
+			for(int k = 0; k < effective[i].length; k++){
+				effective[i][k] = 1;
+			}
+		}
+		effective[0][7] = 0;
+		effective[1][7] = 0;
+		effective[4][2] = 0;
+		effective[7][0] = 0;
+		effective[7][12] = 0;
+		effective[11][4] = 0;
+		effective[0][5] = .5;
+		effective[1][2] = .5;
+		effective[1][3] = .5;
+		effective[1][6] = .5;
+		effective[1][12] = .5;
+		effective[2][5] = .5;
+		effective[2][11] = .5;
+		effective[3][3] = .5;
+		effective[3][4] = .5;
+		effective[3][5] = .5;
+		effective[3][7] = .5;
+		effective[4][6] = .5;
+		effective[4][10] = .5;
+		effective[5][1] = .5;
+		effective[5][4] = .5;
+		effective[6][1] = .5;
+		effective[6][2] = .5;
+		effective[6][7] = .5;
+		effective[6][8] = .5;
+		effective[8][5] = .5;
+		effective[8][8] = .5;
+		effective[8][9] = .5;
+		effective[8][14] = .5;
+		effective[9][9] = .5;
+		effective[9][10] = .5;
+		effective[9][14] = .5;
+		effective[10][2] = .5;
+		effective[10][3] = .5;
+		effective[10][6] = .5;
+		effective[10][8] = .5;
+		effective[10][10] = .5;
+		effective[10][14] = .5;
+		effective[11][10] = .5;
+		effective[11][11] = .5;
+		effective[11][14] = .5;
+		effective[12][12] = .5;
+		effective[13][9] = .5;
+		effective[13][13] = .5;
 		effective[1][0] = 2;
 		effective[1][5] = 2;
 		effective[1][13] = 2;
@@ -158,26 +166,24 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 		effective[6][10] = 2;
 		effective[6][12] = 2;
 		effective[7][7] = 2;
-		
-		effective[8][8] = 2;
-		effective[8][9] = 2;
-		effective[8][14] = 2;
-		
-		effective[9][9] = 2;
-		effective[9][10] = 2;
-		effective[9][14] = 2;
-		effective[10][2] = 2;
-		effective[10][3] = 2;
-		effective[10][6] = 2;
-		effective[10][8] = 2;
-		effective[10][10] = 2;
-		effective[10][14] = 2;
-		effective[11][10] = 2;
-		effective[11][11] = 2;
-		effective[11][14] = 2;
-		effective[12][12] = 2;
-		effective[13][9] = 2;
-		effective[13][13] = 2;
+		effective[8][6] = 2;
+		effective[8][10] = 2;
+		effective[8][13] = 2;
+		effective[9][4] = 2;
+		effective[9][5] = 2;
+		effective[9][8] = 2;
+		effective[10][4] = 2;
+		effective[10][5] = 2;
+		effective[10][9] = 2;
+		effective[11][2] = 2;
+		effective[11][9] = 2;
+		effective[12][1] = 2;
+		effective[12][3] = 2;
+		effective[13][2] = 2;
+		effective[13][4] = 2;
+		effective[13][10] = 2;
+		effective[13][14] = 2;
+		effective[14][14] = 2;
 	}
 
 	public KeyListener getKeyListener() {
@@ -224,36 +230,61 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 			}
 		}else if(inMenu){
 			if (key == KeyEvent.VK_1){
-				showMoves();
-				hideMenu();
-				inMenu = false;
-				inAttack = true;
-			}
-			if (key == KeyEvent.VK_4){
-				if(ours.currentspeed >= opponent.currentspeed){
-					switch(Player.screen){
-					case 0:
-						Symposium.game.setScreen(Symposium.worldScreen);
-						break;
-					case 1:
-						Symposium.game.setScreen(Symposium.labScreen);
-						break;
-					case 2:
-						Symposium.game.setScreen(Symposium.routeScreen1);
-						break;
-					}
-				}else{
-					inMenu = false;
-					inAction = true;
+				if(chargeTurn == 1){
+					hideMoves();
 					hideMenu();
-					opponentAttack();
+					startTurn();
+					inMenu = false;
+				}else if(noMoves()){
+					hideMoves();
+					hideMenu();
+					playermove = new Moves("Struggle");
+					startTurn();
+					inMenu = false;
+				}else{
+					showMoves();
+					hideMenu();
+					inMenu = false;
+					inAttack = true;
 				}
 			}
-		}else if(inAction){
+		}else if(key == KeyEvent.VK_4){
+			if(ours.currentspeed >= opponent.currentspeed){
+				switch(Player.screen){
+				case 0:
+					Symposium.game.setScreen(Symposium.worldScreen);
+					break;
+				case 1:
+					Symposium.game.setScreen(Symposium.labScreen);
+					break;
+				case 2:
+					Symposium.game.setScreen(Symposium.routeScreen1);
+					break;
+				}
+			}else{
+				inMenu = false;
+				inAction = true;
+				hideMenu();
+				opponentAttack();
+			}
+		}
+		else if(inAction){
 			if (key == KeyEvent.VK_ENTER){
 				nextAttack();
 			}
 		}
+	}
+
+	private boolean noMoves(){
+		int moves = 0;
+		for(Moves m : ours.moves){
+			if(m.currentpp == 0){
+				moves++;
+			}
+		}if(moves == 4){
+			return true;
+		}
+		return false;
 	}
 
 	private void nextAttack() {
@@ -387,66 +418,142 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 	}
 
 	private void youAttack() {
-		playermove.currentpp --;
-		if(playermove.accuracy >= ((int) (Math.random() * 100))){
-			if(playermove.which == 1){
-				damage = ((42 * playermove.power * (ours.currentattack / opponent.currentdefense)) / 50) +2;
-			}else if(playermove.which == 2){
-				damage = ((42 * playermove.power * (ours.currentspecial / opponent.currentspecial)) / 50) +2;
-			}
-			if(isStabUs()){
-				damage = (int) (damage * 1.5);
-			}
-			isEffectiveTo(playermove.type);
-			damage = damage * multiplier;
-			opponent.currenthp = opponent.currenthp - damage;
-			if(opponent.currenthp <= 0){
-				opponent.currenthp = 0;
-			}
+		if(opponent.currenthp == 0){
 			showAction();
-			if(multiplier < 1){
-				action.setText("You used " + oppMove.move + ". It's was not very effective.");
-			}else if(multiplier > 1){
-				action.setText("You used " + oppMove.move + ". It's super effective.");
-			}else{
-				action.setText("You used " + playermove.move);
-			}
-			updateHealth();
+			action.setText("No target");
+		}else if(playermove.action.equals("Skip First Turn") && chargeTurn == 0){
+			showAction();
+			chargeTurn++;
+			action.setText("You are charging");
 		}else{
-			showAction();
-			action.setText("You missed");
+			playermove.currentpp --;
+			if(playermove.accuracy >= ((int) (Math.random() * 100))){
+				if(playermove.which == 1){
+					damage = ((42 * playermove.power * (ours.currentattack / opponent.currentdefense)) / 50) +2;
+				}else if(playermove.which == 2){
+					damage = ((42 * playermove.power * (ours.currentspecial / opponent.currentspecial)) / 50) +2;
+				}
+				if(isStabUs()){
+					damage = (int) (damage * 1.5);
+				}
+				isEffective(playermove.type, opponent.type);
+				damage = (int) (damage * multiplier);
+				if(playermove.action.equals("Crit") && Math.random() < .25){
+					damage = damage *2;
+					isCrit = true;
+				}
+				if(damage < 1 && multiplier != 0){
+					damage = 1;
+				}
+				opponent.currenthp = opponent.currenthp - damage;
+				if(opponent.currenthp <= 0){
+					opponent.currenthp = 0;
+				}
+				if(playermove.action.equals("Recoil 1/2")){
+					ours.currenthp = ours.currenthp - (damage /2);
+				}
+				chargeTurn = 0;
+				showAction();
+				if(multiplier < 1){
+					if(isCrit){
+						action.setText("Critical hit. You used " + playermove.move + ". It's was not very effective.");
+					}else{
+						action.setText("You used " + playermove.move + ". It's was not very effective.");
+					}
+				}else if(multiplier > 1){
+					if(isCrit){
+						action.setText("Critical hit. You used " + playermove.move + ". It's super effective.");
+					}else{
+						action.setText("You used " + playermove.move + ". It's super effective.");
+					}
+				}else{
+					if(isCrit){
+						action.setText("Critical hit. You used " + playermove.move);
+					}else{
+						action.setText("You used " + playermove.move);
+					}
+				}
+				isCrit = false;
+				updateHealth();
+			}else{
+				showAction();
+				action.setText("You missed");
+			}
 		}
 	}
 
 	private void opponentAttack() {
-		chooseMove();
-		if(oppMove.accuracy >= ((int) (Math.random() * 100))){
-			if(oppMove.which == 1){
-				damage = ((42 * oppMove.power * (opponent.currentattack / ours.currentdefense)) / 50) +2;
-			}else if(oppMove.which == 2){
-				damage = ((42 * oppMove.power * (opponent.currentspecial / ours.currentspecial)) / 50) +2;
-			}
-			if(isStabOpp()){
-				damage = (int) (damage * 1.5);
-			}
-			isEffectiveFrom(oppMove.type);
-			damage = damage * multiplier;
-			ours.currenthp = ours.currenthp - damage;
-			if(ours.currenthp <= 0){
-				ours.currenthp = 0;
-			}
-			showAction();
-			if(multiplier < 1){
-				action.setText("Opponent used " + oppMove.move + ". It's was not very effective.");
-			}else if(multiplier > 1){
-				action.setText("Opponent used " + oppMove.move + ". It's super effective.");
+		if(ours.currenthp != 0){
+			if(oppChargeTurn == 0){
+				chooseMove();
+			}if(oppMove.action.equals("Skip First Turn") && oppChargeTurn == 0){
+				showAction();
+				oppChargeTurn++;
+				action.setText("Opponent is charging");
 			}else{
-				action.setText("Opponent used " + oppMove.move);
+				if(oppMove.accuracy >= ((int) (Math.random() * 100))){
+					if(oppMove.which == 1){
+						damage = ((42 * oppMove.power * (opponent.currentattack / ours.currentdefense)) / 50) +2;
+					}else if(oppMove.which == 2){
+						damage = ((42 * oppMove.power * (opponent.currentspecial / ours.currentspecial)) / 50) +2;
+					}
+					if(isStabOpp()){
+						damage = (int) (damage * 1.5);
+					}
+					isEffective(oppMove.type, ours.type);
+					damage = (int) (damage * multiplier);
+					if(oppMove.action.equals("Crit") && Math.random() < .25){
+						damage = damage *2;
+						isCrit = true;
+					}
+					if(damage < 1 && multiplier != 0){
+						damage = 1;
+					}
+					ours.currenthp = ours.currenthp - damage;
+					if(ours.currenthp <= 0){
+						ours.currenthp = 0;
+					}
+					if(oppMove.action.equals("Recoil 1/2")){
+						opponent.currenthp = opponent.currenthp - (damage /2);
+					}
+					oppChargeTurn = 0;
+					showAction();
+					if(multiplier < 1){
+						if(isCrit){
+							action.setText("Critical hit. Opponent used " + oppMove.move + ". It's was not very effective.");
+						}else{
+							action.setText("Opponent used " + oppMove.move + ". It's was not very effective.");
+						}
+					}else if(multiplier > 1){
+						if(isCrit){
+							action.setText("Critical hit. Opponent used " + oppMove.move + ". It's super effective.");
+						}else{
+							action.setText("Opponent used " + oppMove.move + ". It's super effective.");
+						}
+					}else{
+						if(isCrit){
+							action.setText("Critical hit. Opponent used " + oppMove.move);
+						}else{
+							action.setText("Opponent used " + oppMove.move);
+						}
+					}
+					isCrit = false;
+					updateHealth();
+				}else{
+					showAction();
+					action.setText("Opponent missed");
+				}
 			}
-			updateHealth();
 		}else{
 			showAction();
-			action.setText("Opponent missed");
+			action.setText("No target");
+		}
+	}
+
+	private void isEffective(int type, int[] type2) {
+		multiplier = 1;
+		for(int t: type2){
+			multiplier = multiplier * effective[type][t];
 		}
 	}
 
@@ -490,127 +597,6 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 		}
 		return false;
 	}
-
-	private void isEffectiveFrom(int type) {
-
-	}
-
-	private void isEffectiveTo(int type) {
-		multiplier = 1;
-		switch(type){
-		case 0:
-			for(int t: opponent.type){
-				if(t == 5){
-					multiplier = multiplier / 2;
-				}if(t == 7){
-					multiplier = multiplier * 0;
-				}
-			}break;
-		case 1:
-			for(int t: opponent.type){
-				if(t == 0){
-					multiplier = multiplier * 2;
-				}if(t == 2){
-					multiplier = multiplier / 2;
-				}if(t == 3){
-					multiplier = multiplier / 2;
-				}if(t == 5){
-					multiplier = multiplier * 2;
-				}if(t == 6){
-					multiplier = multiplier / 2;
-				}if(t == 7){
-					multiplier = multiplier * 0;
-				}if(t == 12){
-					multiplier = multiplier / 2;
-				}if(t == 13){
-					multiplier = multiplier * 2;
-				}
-			}break;
-		case 2:
-			for(int t: opponent.type){
-				if(t == 1){
-					multiplier = multiplier * 2;
-				}if(t == 5){
-					multiplier = multiplier / 2;
-				}if(t == 6){
-					multiplier = multiplier * 2;
-				}if(t == 10){
-					multiplier = multiplier * 2;
-				}if(t == 11){
-					multiplier = multiplier / 2;
-				}
-			}break;
-		case 3:
-			for(int t: opponent.type){
-				if(t == 3){
-					multiplier = multiplier / 2;
-				}if(t == 4){
-					multiplier = multiplier / 2;
-				}if(t == 5){
-					multiplier = multiplier / 2;
-				}if(t == 6){
-					multiplier = multiplier * 2;
-				}if(t == 7){
-					multiplier = multiplier / 2;
-				}if(t == 10){
-					multiplier = multiplier * 2;
-				}
-			}break;
-		case 4:
-			for(int t: opponent.type){
-				if(t == 2){
-					multiplier = multiplier * 0;
-				}if(t == 3){
-					multiplier = multiplier / 2;
-				}if(t == 5){
-					multiplier = multiplier * 2;
-				}if(t == 6){
-					multiplier = multiplier / 2;
-				}if(t == 8){
-					multiplier = multiplier * 2;
-				}if(t == 10){
-					multiplier = multiplier / 2;
-				}if(t == 11){
-					multiplier = multiplier * 2;
-				}
-			}break;
-		case 5:
-			for(int t: opponent.type){
-				if(t == 2){
-					multiplier = multiplier * 0;
-				}if(t == 3){
-					multiplier = multiplier / 2;
-				}if(t == 5){
-					multiplier = multiplier * 2;
-				}if(t == 6){
-					multiplier = multiplier / 2;
-				}if(t == 8){
-					multiplier = multiplier * 2;
-				}if(t == 10){
-					multiplier = multiplier / 2;
-				}if(t == 11){
-					multiplier = multiplier * 2;
-				}
-			}break;
-		}
-	}
-
-	/* 0 normal
-	 * 1 fight
-	 * 2 flying
-	 * 3 poison
-	 * 4 ground
-	 * 5 rock
-	 * 6 bug
-	 * 7 ghost
-	 * 8 fire
-	 * 9 water
-	 * 10 grass
-	 * 11 electric
-	 * 12 psychic
-	 * 13 ice
-	 * 14 dragon
-	 */
 
 	private void updateHealth() {
 		oppPok.setText(BattleMain.opponent.name
