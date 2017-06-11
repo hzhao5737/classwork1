@@ -29,9 +29,11 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 	public int damage;
 	public double multiplier;
 	private double[][] effective;
-	private int chargeTurn;
-	private int oppChargeTurn;
+	private static int chargeTurn;
+	private static int oppChargeTurn;
 	private boolean isCrit;
+	private static double rageCount;
+	private static double oppRageCount;
 
 	public BattleMain(int width, int height) {
 		super(width, height);
@@ -184,6 +186,7 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 		effective[13][10] = 2;
 		effective[13][14] = 2;
 		effective[14][14] = 2;
+		rageCount = 1;
 	}
 
 	public KeyListener getKeyListener() {
@@ -235,7 +238,13 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 					hideMenu();
 					startTurn();
 					inMenu = false;
-				}else if(noMoves()){
+				}else if(rageCount > 1){
+					hideMoves();
+					hideMenu();
+					startTurn();
+					inMenu = false;
+				}
+				else if(noMoves()){
 					hideMoves();
 					hideMenu();
 					playermove = new Moves("Struggle");
@@ -248,24 +257,25 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 					inAttack = true;
 				}
 			}
-		}else if(key == KeyEvent.VK_4){
-			if(ours.currentspeed >= opponent.currentspeed){
-				switch(Player.screen){
-				case 0:
-					Symposium.game.setScreen(Symposium.worldScreen);
-					break;
-				case 1:
-					Symposium.game.setScreen(Symposium.labScreen);
-					break;
-				case 2:
-					Symposium.game.setScreen(Symposium.routeScreen1);
-					break;
+			if(key == KeyEvent.VK_4){
+				if(ours.currentspeed >= opponent.currentspeed){
+					switch(Player.screen){
+					case 0:
+						Symposium.game.setScreen(Symposium.worldScreen);
+						break;
+					case 1:
+						Symposium.game.setScreen(Symposium.labScreen);
+						break;
+					case 2:
+						Symposium.game.setScreen(Symposium.routeScreen1);
+						break;
+					}
+				}else{
+					inMenu = false;
+					inAction = true;
+					hideMenu();
+					opponentAttack();
 				}
-			}else{
-				inMenu = false;
-				inAction = true;
-				hideMenu();
-				opponentAttack();
 			}
 		}
 		else if(inAction){
@@ -298,6 +308,9 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 				inAction = false;
 				message = 0;
 				endBattle();
+			}if(ours != Player.current()){
+				chargeTurn = 0;
+				rageCount = 1;
 			}
 			ours = Player.current();
 			hideAction();
@@ -331,7 +344,9 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 				inAction = false;
 				message = 0;
 				endBattle();
-			}else{
+			}if(ours != Player.current()){
+				chargeTurn = 0;
+				rageCount = 1;
 				ours = Player.current();
 				youAttack();
 				message = 4;
@@ -346,6 +361,9 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 				inAction = false;
 				message = 0;
 				endBattle();
+			}if(ours != Player.current()){
+				chargeTurn = 0;
+				rageCount = 1;
 			}
 			ours = Player.current();
 			hideAction();
@@ -378,6 +396,10 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 
 	public static void startBattle(){
 		ours = Player.current();
+		chargeTurn = 0;
+		rageCount = 1;
+		oppChargeTurn = 0;
+		oppRageCount = 1;
 	}
 
 	private void startTurn() {
@@ -429,21 +451,35 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 			playermove.currentpp --;
 			if(playermove.accuracy >= ((int) (Math.random() * 100))){
 				if(playermove.which == 1){
-					damage = ((42 * playermove.power * (ours.currentattack / opponent.currentdefense)) / 50) +2;
+					damage = (int) (((42 * playermove.power * (ours.currentattack / opponent.currentdefense)) / 50) +2);
+					//System.out.println(damage);
 				}else if(playermove.which == 2){
-					damage = ((42 * playermove.power * (ours.currentspecial / opponent.currentspecial)) / 50) +2;
+					damage = (int) (((42 * playermove.power * (ours.currentspecial / opponent.currentspecial)) / 50) +2);
+					//System.out.println(damage);
 				}
-				if(isStabUs()){
-					damage = (int) (damage * 1.5);
-				}
-				isEffective(playermove.type, opponent.type);
-				damage = (int) (damage * multiplier);
 				if(playermove.action.equals("Crit") && Math.random() < .25){
 					damage = damage *2;
 					isCrit = true;
+					//System.out.println(damage);
+				}
+				if(isStabUs()){
+					damage = (int) (damage * 1.5);
+					//System.out.println(damage);
+				}
+				isEffective(playermove.type, opponent.type);
+				damage = (int) (damage * multiplier);
+				//System.out.println(damage);
+				if(playermove.action.equals("Rage")){
+					damage = (int) (damage * rageCount);
+					if(rageCount > 1){
+						playermove.currentpp++;
+					}
+					rageCount += .5;
+					//System.out.println(damage);
 				}
 				if(damage < 1 && multiplier != 0){
 					damage = 1;
+					//System.out.println(damage);
 				}
 				opponent.currenthp = opponent.currenthp - damage;
 				if(opponent.currenthp <= 0){
@@ -493,21 +529,35 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 			}else{
 				if(oppMove.accuracy >= ((int) (Math.random() * 100))){
 					if(oppMove.which == 1){
-						damage = ((42 * oppMove.power * (opponent.currentattack / ours.currentdefense)) / 50) +2;
+						damage = (int) (((42 * oppMove.power * (opponent.currentattack / ours.currentdefense)) / 50) +2);
+						//System.out.println(damage);
 					}else if(oppMove.which == 2){
-						damage = ((42 * oppMove.power * (opponent.currentspecial / ours.currentspecial)) / 50) +2;
+						damage = (int) (((42 * oppMove.power * (opponent.currentspecial / ours.currentspecial)) / 50) +2);
+						//System.out.println(damage);
 					}
-					if(isStabOpp()){
-						damage = (int) (damage * 1.5);
-					}
-					isEffective(oppMove.type, ours.type);
-					damage = (int) (damage * multiplier);
 					if(oppMove.action.equals("Crit") && Math.random() < .25){
 						damage = damage *2;
 						isCrit = true;
+						//System.out.println(damage);
+					}
+					if(isStabOpp()){
+						damage = (int) (damage * 1.5);
+						//System.out.println(damage);
+					}
+					isEffective(oppMove.type, ours.type);
+					damage = (int) (damage * multiplier);
+					//System.out.println(damage);
+					if(oppMove.action.equals("Rage")){
+						damage = (int) (damage * rageCount);
+						if(rageCount > 1){
+							oppMove.currentpp++;
+						}
+						rageCount += .5;
+						//System.out.println(damage);
 					}
 					if(damage < 1 && multiplier != 0){
 						damage = 1;
+						//System.out.println(damage);
 					}
 					ours.currenthp = ours.currenthp - damage;
 					if(ours.currenthp <= 0){
@@ -569,6 +619,8 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 		}
 		if(unusable == 4){
 			oppMove = new Moves("Struggle");
+		}else if(rageCount > 1){
+			return;
 		}else{
 			while(finding){
 				oppMove = opponent.moves[(int) (Math.random() * 4)];

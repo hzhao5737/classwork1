@@ -78,6 +78,42 @@ public class Moves {
 			currentpp = pp;
 			action = "";
 			break;
+		case "Rage":
+			power = 20;
+			accuracy = 100;
+			type = 0;
+			which = 1;
+			pp = 20;
+			currentpp = pp;
+			action = "Rage";
+			break;
+		case "Slash":
+			power = 70;
+			accuracy = 100;
+			type = 0;
+			which = 1;
+			pp = 20;
+			currentpp = pp;
+			action = "";
+			break;
+		case "Flamethrower":
+			power = 95;
+			accuracy = 100;
+			type = 8;
+			which = 2;
+			pp = 15;
+			currentpp = pp;
+			action = "";
+			break;
+		case "Fire Spin":
+			power = 15;
+			accuracy = 70;
+			type = 8;
+			which = 2;
+			pp = 15;
+			currentpp = pp;
+			action = "";
+			break;
 		}
 	}
 }

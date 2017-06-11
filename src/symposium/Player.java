@@ -77,7 +77,21 @@ public class Player extends MovingComponent {
 		if(isGrass()){
 			if(Math.random() < .1){
 				BattleMain.startBattle();
-				BattleMain.opponent = new Pok("Venusaur");
+				int pokemon = (int) (Math.random() * 4);
+				switch(pokemon){
+				case 0:
+					BattleMain.opponent = new Pok("Venusaur");
+					break;
+				case 1:
+					BattleMain.opponent = new Pok("Charizard");
+					break;
+				case 2:
+					BattleMain.opponent = new Pok("Blastoise");
+					break;
+				case 3:
+					BattleMain.opponent = new Pok("Butterfree");
+					break;
+				}
 				BattleMain.oppPok.setText(BattleMain.opponent.name
 						+ "   " + BattleMain.opponent.currenthp
 						+ "/" + BattleMain.opponent.hp);

@@ -11,10 +11,10 @@ public class Pok {
 	public int[] type;
 	public Moves[] moves;
 	public int currenthp;
-	public int currentattack;
-	public int currentdefense;
-	public int currentspeed;
-	public int currentspecial;
+	public double currentattack;
+	public double currentdefense;
+	public double currentspeed;
+	public double currentspecial;
 	
 	/* 0 normal
 	 * 1 fight
@@ -60,10 +60,10 @@ public class Pok {
 			special = 85;
 			type[0] = 2;
 			type[1] = 8;
-			moves[0] = new Moves("Tackle");
-			moves[1] = new Moves("Tackle");
-			moves[2] = new Moves("Tackle");
-			moves[3] = new Moves("Tackle");
+			moves[0] = new Moves("Rage");
+			moves[1] = new Moves("Slash");
+			moves[2] = new Moves("Flamethrower");
+			moves[3] = new Moves("Fire Spin");
 			break;
 		case "Blastoise":
 			type = new int[1];
@@ -78,7 +78,22 @@ public class Pok {
 			moves[2] = new Moves("Tackle");
 			moves[3] = new Moves("Tackle");
 			break;
+		case "Butterfree":
+			type = new int[2];
+			hp = 80;
+			attack = 82;
+			defense = 83;
+			speed = 80;
+			special = 100;
+			type[0] = 3;
+			type[1] = 10;
+			moves[0] = new Moves("Solar Beam");
+			moves[1] = new Moves("Razor Leaf");
+			moves[2] = new Moves("Vine Whip");
+			moves[3] = new Moves("Tackle");
+			break;
 		}
+		
 		currenthp = hp;
 		currentattack = attack;
 		currentdefense = defense;
