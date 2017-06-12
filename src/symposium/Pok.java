@@ -15,6 +15,10 @@ public class Pok {
 	public double currentdefense;
 	public double currentspeed;
 	public double currentspecial;
+	public String status;
+	public boolean isBurned;
+	public boolean wrapped;
+	public int turnsSkipped;
 	
 	/* 0 normal
 	 * 1 fight
@@ -39,7 +43,7 @@ public class Pok {
 		switch(name){
 		case "Venusaur":
 			type = new int[2];
-			hp = 80;
+			hp = 160;
 			attack = 82;
 			defense = 83;
 			speed = 80;
@@ -53,7 +57,7 @@ public class Pok {
 			break;
 		case "Charizard":
 			type = new int[2];
-			hp = 78;
+			hp = 156;
 			attack = 84;
 			defense = 78;
 			speed = 100;
@@ -67,7 +71,7 @@ public class Pok {
 			break;
 		case "Blastoise":
 			type = new int[1];
-			hp = 79;
+			hp = 158;
 			attack = 83;
 			defense = 100;
 			speed = 78;
@@ -93,11 +97,28 @@ public class Pok {
 			moves[3] = new Moves("Tackle");
 			break;
 		}
-		
+		turnsSkipped = 0;
+		status = "";
 		currenthp = hp;
 		currentattack = attack;
 		currentdefense = defense;
 		currentspeed = speed;
 		currentspecial = special;
+	}
+	
+	public void clearStatus(){
+		status = "";
+		isBurned = false;
+		wrapped = false;
+	}
+	
+	public void burned(){
+		status = "Brn";
+		isBurned = true;
+	}
+	
+	public void skipTurn(){
+		turnsSkipped = 0;
+		wrapped = true;
 	}
 }

@@ -34,6 +34,8 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 	private boolean isCrit;
 	private static double rageCount;
 	private static double oppRageCount;
+	private int firespindmg;
+	private int oppfirespindmg;
 
 	public BattleMain(int width, int height) {
 		super(width, height);
@@ -186,7 +188,6 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 		effective[13][10] = 2;
 		effective[13][14] = 2;
 		effective[14][14] = 2;
-		rageCount = 1;
 	}
 
 	public KeyListener getKeyListener() {
@@ -258,6 +259,13 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 				}
 			}
 			if(key == KeyEvent.VK_4){
+				if(ours.wrapped){
+					inMenu = false;
+					inAction = true;
+					ours.turnsSkipped++;
+					hideMenu();
+					opponentAttack();
+				}
 				if(ours.currentspeed >= opponent.currentspeed){
 					switch(Player.screen){
 					case 0:
@@ -352,7 +360,7 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 				message = 4;
 			}
 		}else if(message == 3){
-			if(ours.currenthp == 0 && Player.current() == null){
+			if((ours.currenthp == 0 && Player.current() == null) || opponent.currenthp == 0){
 				hideAction();
 				updateHealth();
 				showMenu();
@@ -440,6 +448,21 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 	}
 
 	private void youAttack() {
+		if(ours.turnsSkipped == 3){
+			ours.turnsSkipped = 0;
+			ours.wrapped = false;
+		}
+		if(ours.wrapped && ours.turnsSkipped < 3){
+			ours.turnsSkipped++;
+			ours.currenthp = ours.currenthp = oppfirespindmg;
+			if(ours.currenthp <= 0){
+				ours.currenthp = 0;
+			}
+			showAction();
+			updateHealth();
+			action.setText("You can't move");
+			return;
+		}
 		if(opponent.currenthp == 0){
 			showAction();
 			action.setText("No target");
@@ -447,17 +470,26 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 			showAction();
 			chargeTurn++;
 			action.setText("You are charging");
+		}else if(opponent.wrapped && playermove.action.equals("Fire Wrap")){
+			showAction();
+			action.setText("Your move failed");
 		}else{
 			playermove.currentpp --;
 			if(playermove.accuracy >= ((int) (Math.random() * 100))){
-				if(playermove.which == 1){
+				if(playermove.physical){
 					damage = (int) (((42 * playermove.power * (ours.currentattack / opponent.currentdefense)) / 50) +2);
 					//System.out.println(damage);
-				}else if(playermove.which == 2){
+				}else{
 					damage = (int) (((42 * playermove.power * (ours.currentspecial / opponent.currentspecial)) / 50) +2);
 					//System.out.println(damage);
 				}
-				if(playermove.action.equals("Crit") && Math.random() < .25){
+				if(playermove.action.equals("Fire Wrap")){
+					opponent.skipTurn();
+				}
+				if(playermove.action.equals("Burn") && Math.random() < .1){
+					opponent.burned();
+				}
+				if(playermove.action.equals("Crit") && Math.random() < .5){
 					damage = damage *2;
 					isCrit = true;
 					//System.out.println(damage);
@@ -477,9 +509,18 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 					rageCount += .5;
 					//System.out.println(damage);
 				}
+				System.out.println(damage);
+				if(ours.isBurned && playermove.physical){
+					damage /= 2;
+					System.out.println(damage);
+				}
 				if(damage < 1 && multiplier != 0){
 					damage = 1;
 					//System.out.println(damage);
+				}
+				if(playermove.action.equals("Fire Wrap")){
+					opponent.skipTurn();
+					firespindmg = damage;
 				}
 				opponent.currenthp = opponent.currenthp - damage;
 				if(opponent.currenthp <= 0){
@@ -520,22 +561,43 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 
 	private void opponentAttack() {
 		if(ours.currenthp != 0){
+			if(opponent.turnsSkipped == 3){
+				opponent.turnsSkipped = 0;
+				opponent.wrapped = false;
+			}
+			if(opponent.wrapped && opponent.turnsSkipped < 3){
+				opponent.turnsSkipped++;
+				opponent.currenthp = opponent.currenthp - firespindmg;
+				if(opponent.currenthp <= 0){
+					opponent.currenthp = 0;
+				}
+				showAction();
+				updateHealth();
+				action.setText("Opponent can't move");
+				return;
+			}
 			if(oppChargeTurn == 0){
 				chooseMove();
 			}if(oppMove.action.equals("Skip First Turn") && oppChargeTurn == 0){
 				showAction();
 				oppChargeTurn++;
 				action.setText("Opponent is charging");
+			}else if(ours.wrapped && oppMove.action.equals("Fire Wrap")){
+				showAction();
+				action.setText("Opponent move failed");
 			}else{
-				if(oppMove.accuracy >= ((int) (Math.random() * 100))){
-					if(oppMove.which == 1){
+				if(oppMove.accuracy >= ((int) (Math.random() * 100)) + 1){
+					if(oppMove.physical){
 						damage = (int) (((42 * oppMove.power * (opponent.currentattack / ours.currentdefense)) / 50) +2);
 						//System.out.println(damage);
-					}else if(oppMove.which == 2){
+					}else{
 						damage = (int) (((42 * oppMove.power * (opponent.currentspecial / ours.currentspecial)) / 50) +2);
 						//System.out.println(damage);
 					}
-					if(oppMove.action.equals("Crit") && Math.random() < .25){
+					if(oppMove.action.equals("Burn") && Math.random() < .1){
+						ours.burned();
+					}
+					if(oppMove.action.equals("Crit") && Math.random() < .5){
 						damage = damage *2;
 						isCrit = true;
 						//System.out.println(damage);
@@ -548,16 +610,25 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 					damage = (int) (damage * multiplier);
 					//System.out.println(damage);
 					if(oppMove.action.equals("Rage")){
-						damage = (int) (damage * rageCount);
-						if(rageCount > 1){
+						damage = (int) (damage * oppRageCount);
+						if(oppRageCount > 1){
 							oppMove.currentpp++;
 						}
-						rageCount += .5;
+						oppRageCount += .5;
 						//System.out.println(damage);
+					}
+					System.out.println(damage);
+					if(opponent.isBurned && oppMove.physical){
+						damage /= 2;
+						System.out.println(damage);
 					}
 					if(damage < 1 && multiplier != 0){
 						damage = 1;
 						//System.out.println(damage);
+					}
+					if(oppMove.action.equals("Fire Wrap")){
+						ours.skipTurn();
+						oppfirespindmg = damage;
 					}
 					ours.currenthp = ours.currenthp - damage;
 					if(ours.currenthp <= 0){
@@ -619,7 +690,7 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 		}
 		if(unusable == 4){
 			oppMove = new Moves("Struggle");
-		}else if(rageCount > 1){
+		}else if(oppRageCount > 1){
 			return;
 		}else{
 			while(finding){
@@ -653,10 +724,12 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 	private void updateHealth() {
 		oppPok.setText(BattleMain.opponent.name
 				+ "   " + BattleMain.opponent.currenthp
-				+ "/" + BattleMain.opponent.hp);
+				+ "/" + BattleMain.opponent.hp
+				+ "   " + BattleMain.opponent.status);
 		ownPok.setText(ours.name
 				+ "   " + ours.currenthp
-				+ "/" + ours.hp);
+				+ "/" + ours.hp
+				+ "   " + ours.status);
 	}
 
 	@Override

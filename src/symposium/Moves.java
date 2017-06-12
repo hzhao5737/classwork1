@@ -6,7 +6,7 @@ public class Moves {
 	public int power;
 	public int accuracy;
 	public int type;
-	public int which;
+	public boolean physical;
 	public int pp;
 	public int currentpp;
 	public String action;
@@ -35,7 +35,7 @@ public class Moves {
 			power = 50;
 			accuracy = 100;
 			type = 0;
-			which = 1;
+			physical = true;
 			pp = 10;
 			currentpp = pp;
 			action = "Recoil 1/2";
@@ -44,7 +44,7 @@ public class Moves {
 			power = 35;
 			accuracy = 95;
 			type = 0;
-			which = 1;
+			physical = true;
 			pp = 35;
 			currentpp = pp;
 			action = "";
@@ -53,7 +53,7 @@ public class Moves {
 			power = 120;
 			accuracy = 100;
 			type = 10;
-			which = 2;
+			physical = false;
 			pp = 10;
 			currentpp = pp;
 			action = "Skip First Turn";
@@ -63,7 +63,7 @@ public class Moves {
 			power = 55;
 			accuracy = 95;
 			type = 10;
-			which = 2;
+			physical = false;
 			pp = 25;
 			currentpp = pp;
 			action = "Crit";
@@ -73,7 +73,7 @@ public class Moves {
 			power = 35;
 			accuracy = 100;
 			type = 10;
-			which = 2;
+			physical = false;
 			pp = 10;
 			currentpp = pp;
 			action = "";
@@ -82,7 +82,7 @@ public class Moves {
 			power = 20;
 			accuracy = 100;
 			type = 0;
-			which = 1;
+			physical = true;
 			pp = 20;
 			currentpp = pp;
 			action = "Rage";
@@ -91,28 +91,28 @@ public class Moves {
 			power = 70;
 			accuracy = 100;
 			type = 0;
-			which = 1;
+			physical = true;
 			pp = 20;
 			currentpp = pp;
-			action = "";
+			action = "Crit";
 			break;
 		case "Flamethrower":
 			power = 95;
 			accuracy = 100;
 			type = 8;
-			which = 2;
+			physical = false;
 			pp = 15;
 			currentpp = pp;
-			action = "";
+			action = "Burn";
 			break;
 		case "Fire Spin":
 			power = 15;
 			accuracy = 70;
 			type = 8;
-			which = 2;
+			physical = false;
 			pp = 15;
 			currentpp = pp;
-			action = "";
+			action = "Fire Wrap";
 			break;
 		}
 	}
