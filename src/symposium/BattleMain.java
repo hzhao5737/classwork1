@@ -444,10 +444,16 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 		isFirst = ours.currentspeed >= opponent.currentspeed;
 		if(isFirst){
 			youAttack();
-			message = 1;
+			if(playermove.action.equals("Flinch") && Math.random() < .1){
+				action.setText("You used " + playermove.move + " and opponent flinched");
+				message = 0;
+			}else message = 1;
 		}else{
 			opponentAttack();
-			message = 2;
+			if(oppMove.action.equals("Flinch") && Math.random() < .1){
+				action.setText("Opponent used " + oppMove.move + " and you flinched");
+				message = 0;
+			}else message = 2;
 		}
 	}
 
