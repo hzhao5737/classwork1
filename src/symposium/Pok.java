@@ -77,10 +77,10 @@ public class Pok {
 			speed = 78;
 			special = 85;
 			type[0] = 9;
-			moves[0] = new Moves("Tackle");
-			moves[1] = new Moves("Tackle");
-			moves[2] = new Moves("Tackle");
-			moves[3] = new Moves("Tackle");
+			moves[0] = new Moves("Hydro Pump");
+			moves[1] = new Moves("Skull Bash");
+			moves[2] = new Moves("Bite");
+			moves[3] = new Moves("Water Gun");
 			break;
 		case "Butterfree":
 			type = new int[2];

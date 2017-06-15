@@ -316,7 +316,7 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 
 	private void nextAttack() {
 		if(message == 0){
-			if(ours.currenthp == 0 && Player.current() == null){
+			if(ours.currenthp == 0 && Player.current() == null || (opponent.currenthp == 0)){
 				hideAction();
 				updateHealth();
 				showMenu();
@@ -378,6 +378,15 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 			}
 		}else if(message == 3){
 			if((ours.currenthp == 0 && Player.current() == null) || opponent.currenthp == 0){
+				hideAction();
+				updateHealth();
+				showMenu();
+				inAttack = false;
+				inMenu = true;
+				inAction = false;
+				message = 0;
+				endBattle();
+			}if(opponent.currenthp == 0){
 				hideAction();
 				updateHealth();
 				showMenu();
@@ -549,6 +558,12 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 				if(playermove.action.equals("Recoil 1/2")){
 					ours.currenthp = ours.currenthp - (damage /2);
 				}
+				if(ours.isBurned){
+					ours.currenthp -= (ours.hp /16);
+				}
+				if(ours.currenthp <= 0){
+					ours.currenthp = 0;
+				}
 				chargeTurn = 0;
 				showAction();
 				if(multiplier < 1){
@@ -656,6 +671,12 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 					}
 					if(oppMove.action.equals("Recoil 1/2")){
 						opponent.currenthp = opponent.currenthp - (damage /2);
+					}
+					if(opponent.isBurned){
+						opponent.currenthp -= (opponent.hp /16);
+					}
+					if(opponent.currenthp <= 0){
+						opponent.currenthp = 0;
 					}
 					oppChargeTurn = 0;
 					showAction();

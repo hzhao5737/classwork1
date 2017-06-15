@@ -69,6 +69,24 @@ public class PcMain extends Screen implements KeyListener, Runnable {
 		if (key == KeyEvent.VK_ESCAPE) {
 			Symposium.game.setScreen(Symposium.worldScreen);
 		}
+		if (key == KeyEvent.VK_1) {
+			
+		}
+		if (key == KeyEvent.VK_2) {
+			
+		}
+		if (key == KeyEvent.VK_3) {
+			
+		}
+		if (key == KeyEvent.VK_4) {
+			
+		}
+		if (key == KeyEvent.VK_5) {
+			
+		}
+		if (key == KeyEvent.VK_6) {
+			
+		}
 	}
 
 	@Override

@@ -114,6 +114,42 @@ public class Moves {
 			currentpp = pp;
 			action = "Fire Wrap";
 			break;
+		case "Hydro Pump":
+			power = 120;
+			accuracy = 80;
+			type = 9;
+			physical = false;
+			pp = 5;
+			currentpp = pp;
+			action = "";
+			break;
+		case "Skull Bash":
+			power = 100;
+			accuracy = 100;
+			type = 0;
+			physical = true;
+			pp = 15;
+			currentpp = pp;
+			action = "Skip First Turn";
+			break;
+		case "Bite":
+			power = 60;
+			accuracy = 100;
+			type = 0;
+			physical = true;
+			pp = 25;
+			currentpp = pp;
+			action = "Flinch";
+			break;
+		case "Water Gun":
+			power = 40;
+			accuracy = 100;
+			type = 9;
+			physical = false;
+			pp = 25;
+			currentpp = pp;
+			action = "";
+			break;
 		}
 	}
 }
