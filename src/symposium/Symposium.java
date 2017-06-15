@@ -6,6 +6,8 @@ import gui.Screen;
 public class Symposium extends GUIApplication {
 	
 	public static Screen infoScreen;
+	public static Screen itemScreen;
+	public static Screen pcScreen;
 	public static Screen mainMenu;
 	public static Screen worldScreen;
 	public static Screen labScreen;
@@ -25,12 +27,14 @@ public class Symposium extends GUIApplication {
 
 	@Override
 	public void initScreen() {
+		pcScreen = new PcMain(getWidth(),getHeight());
 		battleScreen = new BattleMain(getWidth(),getHeight());
 		infoScreen = new MenuMain(getWidth(),getHeight());
 		worldScreen = new WorldMain(getWidth(),getHeight());
 		labScreen = new LabMain(getWidth(),getHeight());
 		mainMenu = new Main(getWidth(),getHeight());
 		routeScreen1 = new RouteMain1(getWidth(),getHeight());
+		itemScreen = new ItemMain(getWidth(),getHeight());
 		setScreen(mainMenu);
 	}
 

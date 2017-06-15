@@ -95,8 +95,8 @@ public class LabMain extends Screen implements Runnable, KeyListener{
 				Symposium.game.setScreen(Symposium.infoScreen);
 			}
 			if (key == KeyEvent.VK_2){
-				MenuMain.partyUpdate();
-				Symposium.game.setScreen(Symposium.infoScreen);
+				ItemMain.itemUpdate();
+				Symposium.game.setScreen(Symposium.itemScreen);
 			}
 			if (key == KeyEvent.VK_3){
 				WorldMain.player.endText();

@@ -89,6 +89,7 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 		door.add(new Door(396,20,36,40,2));
 		act.add(new Interact(180,220,36,40,0));
 		act.add(new Interact(468,220,36,40,0));
+		act.add(new Interact(396,220,36,40,2));
 		v.addAll(back);
 		v.addAll(grass);
 		v.addAll(fore);
@@ -138,8 +139,8 @@ public class WorldMain extends Screen implements Runnable, KeyListener{
 				Symposium.game.setScreen(Symposium.infoScreen);
 			}
 			if (key == KeyEvent.VK_2){
-				MenuMain.partyUpdate();
-				Symposium.game.setScreen(Symposium.infoScreen);
+				ItemMain.itemUpdate();
+				Symposium.game.setScreen(Symposium.itemScreen);
 			}
 			if (key == KeyEvent.VK_3){
 				player.endText();

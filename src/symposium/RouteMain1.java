@@ -18,6 +18,7 @@ public class RouteMain1 extends Screen implements Runnable, KeyListener{
 	private static ArrayList<Background> back;
 	public static ArrayList<Front> fore;
 	public static ArrayList<Door> door;
+	public static ArrayList<Grass> grass;
 	public static TextLabel text;
 	public static ArrayList<TextLabel> menuText;
 	public static Button box;
@@ -33,8 +34,58 @@ public class RouteMain1 extends Screen implements Runnable, KeyListener{
 		back = new ArrayList<Background>();
 		fore = new ArrayList<Front>();
 		door = new ArrayList<Door>();
+		grass = new ArrayList<Grass>();
 		menuText = new ArrayList<TextLabel>();
 		back.add(new Background(0, 20, 576, 600, 4));
+		grass.add(new Grass(288, 540, 36, 40));
+		grass.add(new Grass(324, 500, 36, 40));
+		grass.add(new Grass(360, 500, 36, 40));
+		grass.add(new Grass(396, 500, 36, 40));
+		grass.add(new Grass(432, 500, 36, 40));
+		grass.add(new Grass(144, 500, 36, 40));
+		grass.add(new Grass(108, 500, 36, 40));
+		grass.add(new Grass(72, 500, 36, 40));
+		grass.add(new Grass(36, 500, 36, 40));
+		grass.add(new Grass(324, 460, 36, 40));
+		grass.add(new Grass(360, 460, 36, 40));
+		grass.add(new Grass(396, 460, 36, 40));
+		grass.add(new Grass(432, 460, 36, 40));
+		grass.add(new Grass(144, 460, 36, 40));
+		grass.add(new Grass(108, 460, 36, 40));
+		grass.add(new Grass(72, 460, 36, 40));
+		grass.add(new Grass(36, 460, 36, 40));
+		grass.add(new Grass(468, 420, 36, 40));
+		grass.add(new Grass(504, 420, 36, 40));
+		grass.add(new Grass(396, 420, 36, 40));
+		grass.add(new Grass(432, 420, 36, 40));
+		grass.add(new Grass(144, 420, 36, 40));
+		grass.add(new Grass(108, 420, 36, 40));
+		grass.add(new Grass(216, 420, 36, 40));
+		grass.add(new Grass(180, 420, 36, 40));
+		grass.add(new Grass(468, 380, 36, 40));
+		grass.add(new Grass(504, 380, 36, 40));
+		grass.add(new Grass(396, 380, 36, 40));
+		grass.add(new Grass(432, 380, 36, 40));
+		grass.add(new Grass(144, 380, 36, 40));
+		grass.add(new Grass(108, 380, 36, 40));
+		grass.add(new Grass(216, 380, 36, 40));
+		grass.add(new Grass(180, 380, 36, 40));
+		grass.add(new Grass(324, 260, 36, 40));
+		grass.add(new Grass(324, 220, 36, 40));
+		grass.add(new Grass(324, 180, 36, 40));
+		grass.add(new Grass(324, 140, 36, 40));
+		grass.add(new Grass(360, 260, 36, 40));
+		grass.add(new Grass(360, 220, 36, 40));
+		grass.add(new Grass(360, 180, 36, 40));
+		grass.add(new Grass(360, 140, 36, 40));
+		grass.add(new Grass(396, 260, 36, 40));
+		grass.add(new Grass(396, 220, 36, 40));
+		grass.add(new Grass(396, 180, 36, 40));
+		grass.add(new Grass(396, 140, 36, 40));
+		grass.add(new Grass(432, 260, 36, 40));
+		grass.add(new Grass(432, 220, 36, 40));
+		grass.add(new Grass(432, 180, 36, 40));
+		grass.add(new Grass(432, 140, 36, 40));
 		fore.add(new Front(36,540,36,40,0));
 		fore.add(new Front(72,540,36,40,0));
 		fore.add(new Front(108,540,36,40,0));
@@ -73,8 +124,10 @@ public class RouteMain1 extends Screen implements Runnable, KeyListener{
 		fore.add(new Front(468,180,36,40,0));
 		fore.add(new Front(504,180,36,40,0));
 		fore.add(new Front(72,20,36,40,0));
+		fore.add(new Front(216,20,36,40,0));
 		door.add(new Door(288, 580, 36, 40, 3));
 		v.addAll(back);
+		v.addAll(grass);
 		v.addAll(fore);
 		v.addAll(door);
 		v.add(WorldMain.player);
@@ -108,8 +161,8 @@ public class RouteMain1 extends Screen implements Runnable, KeyListener{
 				Symposium.game.setScreen(Symposium.infoScreen);
 			}
 			if (key == KeyEvent.VK_2){
-				MenuMain.partyUpdate();
-				Symposium.game.setScreen(Symposium.infoScreen);
+				ItemMain.itemUpdate();
+				Symposium.game.setScreen(Symposium.itemScreen);
 			}
 			if (key == KeyEvent.VK_3){
 				WorldMain.player.endText();

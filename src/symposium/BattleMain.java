@@ -17,25 +17,26 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 	public static TextLabel ownPok;
 	public static TextLabel oppPok;
 	public static TextLabel action;
-	public boolean inMenu;
-	public boolean inAttack;
-	public boolean inAction;
-	public boolean isFirst;
+	public static boolean inMenu;
+	public static boolean inAttack;
+	public static boolean inAction;
+	public static boolean isFirst;
 	public static Pok opponent;
 	public static Moves playermove;
 	public static Pok ours;
 	public static Moves oppMove;
-	public int message;
-	public int damage;
-	public double multiplier;
-	private double[][] effective;
+	public static int message;
+	public static int damage;
+	public static double multiplier;
+	private static double[][] effective;
 	private static int chargeTurn;
 	private static int oppChargeTurn;
-	private boolean isCrit;
+	private static boolean isCrit;
 	private static double rageCount;
 	private static double oppRageCount;
-	private int firespindmg;
-	private int oppfirespindmg;
+	private static int firespindmg;
+	private static int oppfirespindmg;
+	public static boolean inBattle;
 
 	public BattleMain(int width, int height) {
 		super(width, height);
@@ -258,6 +259,14 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 					inAttack = true;
 				}
 			}
+			if (key == KeyEvent.VK_2){
+				MenuMain.partyUpdate();
+				Symposium.game.setScreen(Symposium.infoScreen);
+			}
+			if (key == KeyEvent.VK_3){
+				ItemMain.itemUpdate();
+				Symposium.game.setScreen(Symposium.itemScreen);
+			}
 			if(key == KeyEvent.VK_4){
 				if(ours.wrapped){
 					inMenu = false;
@@ -356,6 +365,14 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 				chargeTurn = 0;
 				rageCount = 1;
 				ours = Player.current();
+				hideAction();
+				updateHealth();
+				showMenu();
+				inAttack = false;
+				inMenu = true;
+				inAction = false;
+				message = 0;
+			}else {
 				youAttack();
 				message = 4;
 			}
@@ -408,9 +425,10 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 		rageCount = 1;
 		oppChargeTurn = 0;
 		oppRageCount = 1;
+		inBattle = true;
 	}
 
-	private void startTurn() {
+	public static void startTurn() {
 		inAttack = false;
 		message = 0;
 		inAction = true;
@@ -424,7 +442,9 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 		}
 	}
 
-	private void endBattle() {
+	private static void endBattle() {
+		hideAction();
+		inBattle = false;
 		if(Player.current() == null){
 			Player.healAll();
 			WorldMain.player.setX(180);
@@ -447,7 +467,7 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 		}
 	}
 
-	private void youAttack() {
+	private static void youAttack() {
 		if(ours.turnsSkipped == 3){
 			ours.turnsSkipped = 0;
 			ours.wrapped = false;
@@ -509,10 +529,10 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 					rageCount += .5;
 					//System.out.println(damage);
 				}
-				System.out.println(damage);
+				//System.out.println(damage);
 				if(ours.isBurned && playermove.physical){
 					damage /= 2;
-					System.out.println(damage);
+					//System.out.println(damage);
 				}
 				if(damage < 1 && multiplier != 0){
 					damage = 1;
@@ -559,7 +579,7 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 		}
 	}
 
-	private void opponentAttack() {
+	public static void opponentAttack() {
 		if(ours.currenthp != 0){
 			if(opponent.turnsSkipped == 3){
 				opponent.turnsSkipped = 0;
@@ -617,10 +637,10 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 						oppRageCount += .5;
 						//System.out.println(damage);
 					}
-					System.out.println(damage);
+					//System.out.println(damage);
 					if(opponent.isBurned && oppMove.physical){
 						damage /= 2;
-						System.out.println(damage);
+						//System.out.println(damage);
 					}
 					if(damage < 1 && multiplier != 0){
 						damage = 1;
@@ -671,14 +691,14 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 		}
 	}
 
-	private void isEffective(int type, int[] type2) {
+	private static void isEffective(int type, int[] type2) {
 		multiplier = 1;
 		for(int t: type2){
 			multiplier = multiplier * effective[type][t];
 		}
 	}
 
-	private void chooseMove() {
+	private static void chooseMove() {
 		int[] moves = new int[4];
 		int unusable = 0;
 		boolean finding = true;
@@ -703,7 +723,7 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 		}
 	}
 
-	private boolean isStabUs() {
+	private static boolean isStabUs() {
 		for(int t: ours.type){
 			if(t == playermove.type){
 				return true;
@@ -712,7 +732,7 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 		return false;
 	}
 
-	private boolean isStabOpp() {
+	private static boolean isStabOpp() {
 		for(int t: opponent.type){
 			if(t == oppMove.type){
 				return true;
@@ -721,7 +741,7 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 		return false;
 	}
 
-	private void updateHealth() {
+	public static void updateHealth() {
 		oppPok.setText(BattleMain.opponent.name
 				+ "   " + BattleMain.opponent.currenthp
 				+ "/" + BattleMain.opponent.hp
@@ -750,6 +770,24 @@ public class BattleMain extends Screen implements Runnable, KeyListener{
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+		}
+	}
+
+	public static void catchPok() {
+		if(opponent.currenthp < (opponent.hp / 4)){
+			opponent.wrapped = false;
+			Player.party.add(opponent);
+			if(Player.party.size() > 6){
+				Player.pc.add(Player.party.get(6));
+				Player.party.remove(6);
+			}
+			MenuMain.partyUpdate();
+			endBattle();
+		}else{
+			inMenu = false;
+			inAction = true;
+			hideMenu();
+			opponentAttack();
 		}
 	}
 }

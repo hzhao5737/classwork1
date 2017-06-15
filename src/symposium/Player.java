@@ -111,6 +111,14 @@ public class Player extends MovingComponent {
 					return true;
 				}
 			}
+			break;
+		case 2:
+			for(Grass g : RouteMain1.grass){
+				if(getX() == g.getX() && getY() == g.getY()){
+					return true;
+				}
+			}
+			break;
 		}
 		return false;
 	}
@@ -213,6 +221,12 @@ public class Player extends MovingComponent {
 			for(Front f : WorldMain.fore){
 				if((newX >= f.getX() && newX < f.getX() + f.getWidth())
 						&& (newY >= f.getY() && newY < f.getY() + f.getHeight())){
+					return true;
+				}
+			}
+			for(Interact a : WorldMain.act){
+				if((newX >= a.getX() && newX < a.getX() + a.getWidth())
+						&& (newY >= a.getY() && newY < a.getY() + a.getHeight())){
 					return true;
 				}
 			}
@@ -494,6 +508,7 @@ public class Player extends MovingComponent {
 			for(Moves m : p.moves){
 				m.currentpp = m.pp;
 			}
+			p.clearStatus();
 		}
 	}
 }

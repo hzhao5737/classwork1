@@ -21,7 +21,8 @@ public class Interact extends Component {
 	@Override
 	public void update(Graphics2D g) {
 		String[] action = {"resources/sampleImages/Door.png",
-				"resources/sampleImages/Prof.png"};
+				"resources/sampleImages/Prof.png",
+				"resources/sampleImages/Pc.png"};
 		g = clear();
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		g.fillRect(0, 0, getWidth(), getHeight());
@@ -39,8 +40,14 @@ public class Interact extends Component {
 		if(file == 1){
 			LabMain.box.setVisible(true);
 			isText = true;
-			LabMain.text.setText("Defeat the gym leaders to win");
+			LabMain.text.setText("Catch Pokemon");
 			Player.moveable = false;
+		}
+		if(file == 2){
+			PcMain.updateList();
+			Player.healAll();
+			PcMain.amount = Player.pc.size();
+			Symposium.game.setScreen(Symposium.pcScreen);
 		}
 	}
 }
