@@ -150,6 +150,60 @@ public class Moves {
 			currentpp = pp;
 			action = "";
 			break;
+		case "Rock Throw":
+			power = 50;
+			accuracy = 65;
+			type = 5;
+			physical = true;
+			pp = 15;
+			currentpp = pp;
+			action = "";
+			break;
+		case "Selfdestruct":
+			power = 130;
+			accuracy = 100;
+			type = 0;
+			physical = true;
+			pp = 5;
+			currentpp = pp;
+			action = "";
+			break;
+		case "Earthquake":
+			power = 100;
+			accuracy = 100;
+			type = 4;
+			physical = true;
+			pp = 10;
+			currentpp = pp;
+			action = "";
+			break;
+		case "Bind":
+			power = 15;
+			accuracy = 75;
+			type = 0;
+			physical = true;
+			pp = 20;
+			currentpp = pp;
+			action = "Fire Wrap";
+			break;
+		case "Swift":
+			power = 60;
+			accuracy = 999;
+			type = 0;
+			physical = true;
+			pp = 20;
+			currentpp = pp;
+			action = "";
+			break;
+		case "Explosion":
+			power = 170;
+			accuracy = 100;
+			type = 0;
+			physical = true;
+			pp = 5;
+			currentpp = pp;
+			action = "";
+			break;
 		}
 	}
 }

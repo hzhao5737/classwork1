@@ -92,9 +92,9 @@ public class Pok {
 			type[0] = 5;
 			type[1] = 4;
 			moves[0] = new Moves("Tackle");
-			moves[1] = new Moves("Tackle");
-			moves[2] = new Moves("Tackle");
-			moves[3] = new Moves("Tackle");
+			moves[1] = new Moves("Rock Throw");
+			moves[2] = new Moves("Selfdestruct");
+			moves[3] = new Moves("Earthquake");
 			break;
 		case "Onix":
 			type = new int[2];
@@ -106,9 +106,36 @@ public class Pok {
 			type[0] = 5;
 			type[1] = 4;
 			moves[0] = new Moves("Tackle");
-			moves[1] = new Moves("Tackle");
-			moves[2] = new Moves("Tackle");
-			moves[3] = new Moves("Tackle");
+			moves[1] = new Moves("Bind");
+			moves[2] = new Moves("Rock Throw");
+			moves[3] = new Moves("Rage");
+			break;
+		case "Starmie":
+			type = new int[2];
+			hp = 120;
+			attack = 75;
+			defense = 85;
+			speed = 115;
+			special = 100;
+			type[0] = 9;
+			type[1] = 12;
+			moves[0] = new Moves("Tackle");
+			moves[1] = new Moves("Water Gun");
+			moves[2] = new Moves("Swift");
+			moves[3] = new Moves("Hydro Pump");
+			break;
+		case "Electrode":
+			type = new int[1];
+			hp = 120;
+			attack = 50;
+			defense = 70;
+			speed = 140;
+			special = 80;
+			type[0] = 11;
+			moves[0] = new Moves("Tackle");
+			moves[1] = new Moves("Selfdestruct");
+			moves[2] = new Moves("Swift");
+			moves[3] = new Moves("Explosion");
 			break;
 		}
 		turnsSkipped = 0;
