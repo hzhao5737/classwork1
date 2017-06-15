@@ -82,18 +82,32 @@ public class Pok {
 			moves[2] = new Moves("Bite");
 			moves[3] = new Moves("Water Gun");
 			break;
-		case "Butterfree":
+		case "Golem":
 			type = new int[2];
-			hp = 80;
-			attack = 82;
-			defense = 83;
-			speed = 80;
-			special = 100;
-			type[0] = 3;
-			type[1] = 10;
-			moves[0] = new Moves("Solar Beam");
-			moves[1] = new Moves("Razor Leaf");
-			moves[2] = new Moves("Vine Whip");
+			hp = 160;
+			attack = 110;
+			defense = 130;
+			speed = 45;
+			special = 55;
+			type[0] = 5;
+			type[1] = 4;
+			moves[0] = new Moves("Tackle");
+			moves[1] = new Moves("Tackle");
+			moves[2] = new Moves("Tackle");
+			moves[3] = new Moves("Tackle");
+			break;
+		case "Onix":
+			type = new int[2];
+			hp = 75;
+			attack = 45;
+			defense = 160;
+			speed = 70;
+			special = 30;
+			type[0] = 5;
+			type[1] = 4;
+			moves[0] = new Moves("Tackle");
+			moves[1] = new Moves("Tackle");
+			moves[2] = new Moves("Tackle");
 			moves[3] = new Moves("Tackle");
 			break;
 		}
